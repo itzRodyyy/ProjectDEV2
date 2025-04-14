@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4fd2046f680964dba78406b8925bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 2
+  HP: 10
   model: {fileID: 21329414}
 --- !u!136 &21329413
 CapsuleCollider:
@@ -1732,7 +1732,7 @@ Transform:
   m_GameObject: {fileID: 1643867788}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.75}
+  m_LocalPosition: {x: 0, y: 0, z: 1.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1785,7 +1785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4fd2046f680964dba78406b8925bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 2
+  HP: 5
   model: {fileID: 1800975210}
 --- !u!136 &1800975209
 CapsuleCollider:
@@ -2097,7 +2097,7 @@ MonoBehaviour:
   jumpSpeed: 12
   jumpMax: 2
   gravity: 35
-  shootRate: 0.5
+  shootRate: 0.1
   shootDmg: 1
   shootDist: 25
   shootPos: {fileID: 1643867789}
