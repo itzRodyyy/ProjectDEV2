@@ -237,7 +237,7 @@ MonoBehaviour:
   destroyTime: 2
   self:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
 --- !u!54 &389119712821021684
 Rigidbody:
   m_ObjectHideFlags: 0
