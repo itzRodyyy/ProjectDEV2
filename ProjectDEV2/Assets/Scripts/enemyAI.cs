@@ -13,6 +13,7 @@ public class enemyAI : MonoBehaviour, IDamage
     void Start()
     {
         modelOrig = model.material.color;
+        GameManager.instance.updateGameGoal(1);
     }
 
     // Update is called once per frame
@@ -27,6 +28,7 @@ public class enemyAI : MonoBehaviour, IDamage
         StartCoroutine(flashRed());
         if (HP <= 0)
         {
+            GameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
     }
