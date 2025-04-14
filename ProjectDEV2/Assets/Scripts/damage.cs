@@ -30,7 +30,7 @@ public class damage : MonoBehaviour
         {
             Debug.DrawRay(transform.position, transform.forward * speed * Time.deltaTime);
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, speed * Time.deltaTime, ~self) || Physics.Raycast(transform.position, -transform.forward, out hit, speed * Time.deltaTime, ~self))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, speed * Time.deltaTime, ~self) || Physics.Raycast(transform.position, -transform.forward, out hit, (speed * Time.deltaTime) / 2, ~self))
             {
 
                 IDamage dmg = hit.collider.gameObject.GetComponent<IDamage>();
