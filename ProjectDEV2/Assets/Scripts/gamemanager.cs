@@ -1,23 +1,23 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
-public class gamemanager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static gamemanager instance;
-
+    public static GameManager instance;
+    public GameObject player;
+    
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuYouDied;
 
-    public GameObject player;
     public playerController playerScript;
 
     public bool isPaused;
 
     float timeScaleOrig;
 
-    int gameGoalCount;
-
+    int gameGoal;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -31,7 +31,7 @@ public class gamemanager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel"))
         {
             if (menuActive == null)
             {
@@ -39,13 +39,13 @@ public class gamemanager : MonoBehaviour
                 menuActive = menuPause;
                 menuActive.SetActive(true);
             }
-            else if(menuActive == menuPause)
+            else if (menuActive == menuPause)
             {
                 stateUnpause();
             }
         }
-    }
 
+    }
     public void statePause()
     {
         isPaused = !isPaused;
@@ -66,9 +66,9 @@ public class gamemanager : MonoBehaviour
 
     public void updateGameGoal(int amount)
     {
-        gameGoalCount += amount;
+        gameGoal += amount;
 
-        if(gameGoalCount <= 0)
+        if (gameGoal <= 0)
         {
             // You won!
             statePause();
@@ -77,3 +77,4 @@ public class gamemanager : MonoBehaviour
         }
     }
 }
+
