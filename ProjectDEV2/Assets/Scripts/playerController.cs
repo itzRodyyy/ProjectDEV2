@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class playerController : MonoBehaviour
+public class playerController : MonoBehaviour, IDamage
 {
     // Essentials
     [SerializeField] LayerMask ignoreLayer;
@@ -20,6 +20,10 @@ public class playerController : MonoBehaviour
     [SerializeField] Transform shootPos;
     [SerializeField] GameObject projectile;
 
+    // Stats
+    [SerializeField] int HP;
+
+    int HPOrig;
     int jumpCount;
     float shootTimer;
 
@@ -28,7 +32,7 @@ public class playerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        HPOrig = HP;
     }
 
     // Update is called once per frame
@@ -77,5 +81,14 @@ public class playerController : MonoBehaviour
         }
     }
 
+    public void TakeDamage(int amount)
+    {
+        HP -= amount;
 
+        if(HP <= 0)
+        {
+            // You died
+            GameManager.instance.youDied();
+        }
+    }
 }
