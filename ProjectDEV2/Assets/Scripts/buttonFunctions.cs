@@ -22,4 +22,17 @@ public class buttonFunctions : MonoBehaviour
             Application.Quit();
     #endif
     }
+
+    public void options()
+    {
+
+        GameManager.instance.options();
+    }
+
+    public void cancelOptions()
+    {
+        GameManager.instance.cancelOptions();
+    }
+
+
 }
