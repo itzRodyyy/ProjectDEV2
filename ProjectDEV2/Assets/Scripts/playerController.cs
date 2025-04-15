@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -29,6 +31,12 @@ public class playerController : MonoBehaviour, IDamage
 
     Vector3 moveDir;
     Vector3 playerVel;
+
+    // HP Bar UI
+    public Slider hpBarSlider;
+    public TextMeshProUGUI hpBarValueText;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,6 +50,13 @@ public class playerController : MonoBehaviour, IDamage
         Movement();
         shootTimer += Time.deltaTime;
         Shoot();
+
+        // HP Bar UI
+        hpBarValueText.text = HP.ToString() + "/" + HPOrig.ToString();
+
+        hpBarSlider.value = HP;
+        hpBarSlider.maxValue = HPOrig;
+
     }
 
     void Movement()
