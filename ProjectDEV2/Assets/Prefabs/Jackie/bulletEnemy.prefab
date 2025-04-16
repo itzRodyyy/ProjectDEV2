@@ -178,11 +178,12 @@ MonoBehaviour:
   damageType: 0
   rb: {fileID: 389119712821021684}
   damageAmount: 1
+  damageRate: 0
   speed: 250
   destroyTime: 2
   self:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
 --- !u!54 &389119712821021684
 Rigidbody:
   m_ObjectHideFlags: 0
