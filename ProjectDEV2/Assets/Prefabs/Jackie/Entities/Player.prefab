@@ -65,7 +65,7 @@ MonoBehaviour:
   shootDmg: 1
   shootDist: 25
   shootPos: {fileID: 4340793946769780928}
-  projectile: {fileID: 4641655184626065091, guid: c42992fc1341751489148ed2288c6d9c, type: 3}
+  projectile: {fileID: 4641655184626065091, guid: 3195781444fdb2648b750284d31de9e1, type: 3}
   HP: 10
   hpBarSlider: {fileID: 0}
   hpBarValueText: {fileID: 0}

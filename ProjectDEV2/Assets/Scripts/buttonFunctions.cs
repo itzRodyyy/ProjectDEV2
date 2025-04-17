@@ -39,6 +39,7 @@ public class buttonFunctions : MonoBehaviour
         if (GameManager.instance.currency >= GameManager.instance.price)
         {
             GameManager.instance.playerScript.HP += 1;
+            GameManager.instance.playerScript.UpdateHPUI();
             GameManager.instance.currency -= GameManager.instance.price;
         }
     }
