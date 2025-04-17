@@ -37,13 +37,16 @@ public class damage : MonoBehaviour
             if (Physics.Raycast(transform.position, transform.forward, out hit, speed * Time.deltaTime, ~self) || Physics.Raycast(transform.position, -transform.forward, out hit, (speed * Time.deltaTime) / 4, ~self))
             {
 
-                IDamage dmg = hit.collider.gameObject.GetComponent<IDamage>();
-                if (dmg != null)
+                if (!hit.collider.isTrigger) 
                 {
-                    dmg.TakeDamage(damageAmount);
+                    IDamage dmg = hit.collider.gameObject.GetComponent<IDamage>();
+                    if (dmg != null)
+                    {
+                        dmg.TakeDamage(damageAmount);
+                    }
+                    Debug.Log(hit.collider);
+                    Destroy(gameObject);
                 }
-                Debug.Log(hit.collider);
-                Destroy(gameObject);
 
             }
             if (damageType == type.homing)
@@ -56,7 +59,7 @@ public class damage : MonoBehaviour
     private void OnTriggerEnter(Collider victim)
     {
         Debug.Log(victim);
-        if (damageType != type.DOT)
+        if (damageType != type.DOT && !victim.isTrigger)
         {
             if (damageType == type.moving || damageType == type.homing)
             {

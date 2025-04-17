@@ -175,11 +175,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc2cc3da95a1194b8981e508b43d8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageType: 1
+  damageType: 0
   rb: {fileID: 389119712821021684}
   damageAmount: 5
   damageRate: 0
-  speed: 250
+  speed: 50
   destroyTime: 2
   self:
     serializedVersion: 2
