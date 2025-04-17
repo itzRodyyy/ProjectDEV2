@@ -44,7 +44,7 @@ public class playerController : MonoBehaviour, IDamage
     void Start()
     {
         HPOrig = HP;
-        InitHPUI();
+        UpdateHPUI();
     }
 
     // Update is called once per frame
@@ -57,27 +57,9 @@ public class playerController : MonoBehaviour, IDamage
 
     }
 
-    void InitHPUI()
-    {
-        if (hpBarSlider != null)
-        {
-            hpBarSlider.maxValue = HPOrig;
-            hpBarSlider.value = HP;
-        }
-
-        if (hpBarValueText != null)
-        {
-            hpBarValueText.text = HP + "/" + HPOrig;
-        }
-    }
-
     void UpdateHPUI()
     {
-        if (hpBarSlider != null)
-            hpBarSlider.value = HP;
-
-        if (hpBarValueText != null)
-            hpBarValueText.text = HP + "/" + HPOrig;
+        GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
     }
 
     void Movement()
@@ -122,8 +104,8 @@ public class playerController : MonoBehaviour, IDamage
     public void TakeDamage(int amount)
     {
         HP -= amount;
-        HP = Mathf.Clamp(HP, 0, HPOrig);
         UpdateHPUI();
+        StartCoroutine(flashDamage());
         if (HP <= 0)
         {
             // You died

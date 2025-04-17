@@ -439,7 +439,9 @@ MonoBehaviour:
   model: {fileID: 3654187861456773271}
   agent: {fileID: 3928033202690234608}
   hp: 3
+  headShot: 0
   faceTargetSpeed: 8
+  XP: 5
   shootPosition: {fileID: 149261291621154695}
   bullet: {fileID: 4641655184626065091, guid: 6b675dc3075fd804eb29566bdbbda411, type: 3}
   shootRate: 0.5
