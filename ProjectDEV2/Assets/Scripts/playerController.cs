@@ -14,6 +14,8 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
+    [SerializeField] float crouchHeightMod;
+    [SerializeField] float crouchSpeedMod;
 
     // Shooting
     [SerializeField] float shootRate;
@@ -89,6 +91,8 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(moveDir * moveSpeed * Time.deltaTime);
 
         Jump();
+        Sprint();
+        Crouch();
 
         playerVel.y -= gravity * Time.deltaTime;
         controller.Move(playerVel * Time.deltaTime);
@@ -123,6 +127,31 @@ public class playerController : MonoBehaviour, IDamage
         {
             // You died
             GameManager.instance.youDied();
+        }
+    }
+
+    void Crouch()
+    {
+        if (Input.GetButtonDown("Crouch"))
+        {
+            controller.height = Mathf.RoundToInt(controller.height * crouchHeightMod);
+            moveSpeed = Mathf.RoundToInt(moveSpeed * crouchSpeedMod);
+        }
+        if (Input.GetButtonUp("Crouch"))
+        {
+            controller.height = Mathf.RoundToInt(controller.height / crouchHeightMod);
+            moveSpeed = Mathf.RoundToInt(moveSpeed / crouchSpeedMod);
+        }
+    }
+    void Sprint()
+    {
+        if (Input.GetButtonDown("Sprint"))
+        {
+            moveSpeed *= sprintMod;
+        }
+        if (Input.GetButtonUp("Sprint"))
+        {
+            moveSpeed /= sprintMod; 
         }
     }
 }
