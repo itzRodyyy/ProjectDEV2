@@ -8,9 +8,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameObject player;
-    //public TMP_Dropdown resolutionDropdown;
-    //public Toggle fullscreenToggle;
-    //public Slider volumeSlider;
+    public TMP_Dropdown resolutionDropdown;
+    public Toggle fullscreenToggle;
+    public Slider volumeSlider;
 
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
@@ -30,8 +30,8 @@ public class GameManager : MonoBehaviour
 
     int gameGoal;
 
-    //Resolution[] resolutions;
-    //int currentResolutionIndex = 0;
+    Resolution[] resolutions;
+    int currentResolutionIndex = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -41,13 +41,13 @@ public class GameManager : MonoBehaviour
 
         timeScaleOrig = Time.timeScale;
 
-        //SetupResolutionDropdown();
+        SetupResolutionDropdown();
 
-        //fullscreenToggle.isOn = Screen.fullScreen;
-        //fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
+        fullscreenToggle.isOn = Screen.fullScreen;
+        fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
 
-        //volumeSlider.value = AudioListener.volume;
-        //volumeSlider.onValueChanged.AddListener(SetVolume);
+        volumeSlider.value = AudioListener.volume;
+        volumeSlider.onValueChanged.AddListener(SetVolume);
     }
 
     // Update is called once per frame
@@ -106,85 +106,85 @@ public class GameManager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
-    //public void options()
-    //{
-    //    if (menuActive == menuOptions)
-    //    {
-    //        menuOptions.SetActive(false);
-    //        if(previousMenu != null)
-    //            previousMenu.SetActive(true);
+    public void options()
+    {
+        if (menuActive == menuOptions)
+        {
+            menuOptions.SetActive(false);
+            if(previousMenu != null)
+                previousMenu.SetActive(true);
 
-    //        menuActive = previousMenu;
-    //    }
-    //    else
-    //    {      
-    //        if (menuActive != null)
-    //            menuActive.SetActive(false);
+            menuActive = previousMenu;
+        }
+        else
+        {      
+            if (menuActive != null)
+                menuActive.SetActive(false);
 
-    //        previousMenu = menuActive;
-    //        menuOptions.SetActive(true);
-    //        menuActive = menuOptions;
-    //    }
-    //}
+            previousMenu = menuActive;
+            menuOptions.SetActive(true);
+            menuActive = menuOptions;
+        }
+    }
 
-    //public void cancelOptions()
-    //{
-    //    if (menuActive == menuOptions)
-    //    {
-    //        menuOptions.SetActive(false);
-    //        menuActive = previousMenu;
-    //        if (previousMenu != null)
-    //            previousMenu.SetActive(true);
+    public void cancelOptions()
+    {
+        if (menuActive == menuOptions)
+        {
+            menuOptions.SetActive(false);
+            menuActive = previousMenu;
+            if (previousMenu != null)
+                previousMenu.SetActive(true);
 
-    //        menuActive = previousMenu;
-    //    }
-    //}
-    //void SetupResolutionDropdown()
-    //{
-    //    if (resolutionDropdown == null)
-    //        return;
+            menuActive = previousMenu;
+        }
+    }
+    void SetupResolutionDropdown()
+    {
+        if (resolutionDropdown == null)
+            return;
 
-    //    resolutions = Screen.resolutions;
-    //    resolutionDropdown.ClearOptions();
+        resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
 
-    //    List<string> options = new List<string>();
+        List<string> options = new List<string>();
 
-    //    for (int i = 0; i < resolutions.Length; i++)
-    //    {
-    //        string option = resolutions[i].width + " x " + resolutions[i].height;
-    //        options.Add(option);
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(option);
 
-    //        if (resolutions[i].width == Screen.currentResolution.width &&
-    //            resolutions[i].height == Screen.currentResolution.height)
-    //        {
-    //            currentResolutionIndex = i;
-    //        }
-    //    }
+            if (resolutions[i].width == Screen.currentResolution.width &&
+                resolutions[i].height == Screen.currentResolution.height)
+            {
+                currentResolutionIndex = i;
+            }
+        }
 
-    //    resolutionDropdown.AddOptions(options);
-    //    resolutionDropdown.value = currentResolutionIndex;
-    //    resolutionDropdown.RefreshShownValue();
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
 
-    //    resolutionDropdown.onValueChanged.AddListener(SetResolution);
-    //}
+        resolutionDropdown.onValueChanged.AddListener(SetResolution);
+    }
 
-    //public void SetResolution(int resolutionIndex)
-    //{
-    //    Resolution resolution = resolutions[resolutionIndex];
-    //    Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-    //}
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
 
-    //public void SetFullscreen(bool isFullscreen)
-    //{
-    //    Screen.fullScreen = isFullscreen;
-    //    Debug.Log("Fullscreen: " + isFullscreen);
-    //}
+    public void SetFullscreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
+        Debug.Log("Fullscreen: " + isFullscreen);
+    }
 
-    //public void SetVolume(float volume)
-    //{
-    //    AudioListener.volume = volume;
-    //    Debug.Log("Volume set to: " + volume);
-    //}
+    public void SetVolume(float volume)
+    {
+        AudioListener.volume = volume;
+        Debug.Log("Volume set to: " + volume);
+    }
 }
 
 
