@@ -5648,7 +5648,7 @@ MonoBehaviour:
   menuYouDied: {fileID: 1221716870}
   menuOptions: {fileID: 713680241}
   menuShop: {fileID: 572713168}
-  price: 0
+  price: 5
   gameGoalCountText: {fileID: 0}
   playerDamageScreen: {fileID: 1682728422}
   playerScript: {fileID: 0}
