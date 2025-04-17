@@ -6386,6 +6386,70 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771738296}
   m_CullTransparentMesh: 1
+--- !u!1 &1773238032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1773238034}
+  - component: {fileID: 1773238033}
+  m_Layer: 0
+  m_Name: NavMesh Surface
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1773238033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773238032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: d6ab0ae790ad9f947a97801be78c49ae, type: 2}
+  m_BuildHeightMesh: 0
+--- !u!4 &1773238034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773238032}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 145.78781, y: 12.347386, z: 158.88736}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1800913024
 GameObject:
   m_ObjectHideFlags: 0
@@ -7603,6 +7667,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6824676906649311298, guid: b821b784b18b12741bfd02bcf5980fa1, type: 3}
+      propertyPath: shootRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824676906649311298, guid: b821b784b18b12741bfd02bcf5980fa1, type: 3}
       propertyPath: projectile
       value: 
       objectReference: {fileID: 4641655184626065091, guid: 3195781444fdb2648b750284d31de9e1, type: 3}
@@ -8606,6 +8674,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 840232928247915319, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 35.544876
+      objectReference: {fileID: 0}
+    - target: {fileID: 1087739871577789985, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 35.544876
+      objectReference: {fileID: 0}
+    - target: {fileID: 1392118720097354723, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 35.544876
+      objectReference: {fileID: 0}
     - target: {fileID: 1739064046070885525, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -34.57455
@@ -8646,12 +8726,99 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1797410483519097441, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 38.544876
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328063942800058398, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 35.544876
+      objectReference: {fileID: 0}
+    - target: {fileID: 3203121295715801364, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 34.044876
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315952262118736407, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 34.044876
+      objectReference: {fileID: 0}
+    - target: {fileID: 3759782067817564064, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 38.044876
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642096817936169049, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 34.054874
+      objectReference: {fileID: 0}
+    - target: {fileID: 5116178288250302726, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: shootRate
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5209601726206625158, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
       propertyPath: m_Name
       value: Tower Level
       objectReference: {fileID: 0}
+    - target: {fileID: 5745574069267383044, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: shootRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5918968389566387283, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 34.02487
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994552360733968832, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_Radius
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211018963821391203, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 34.044876
+      objectReference: {fileID: 0}
+    - target: {fileID: 6257143027359254184, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 34.094658
+      objectReference: {fileID: 0}
+    - target: {fileID: 6596891352688917442, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_Radius
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6660624221175935651, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 34.054874
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803221914087519402, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 33.594658
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920659410973256955, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 35.544876
+      objectReference: {fileID: 0}
+    - target: {fileID: 7892893247651945864, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: shootRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8144122376862848844, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_Radius
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469917330981364942, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 34.074875
+      objectReference: {fileID: 0}
+    - target: {fileID: 8782127649571600572, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 38.044876
+      objectReference: {fileID: 0}
+    - target: {fileID: 8961239611731454502, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 33.594658
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 9139663226117270941, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+    - {fileID: 7192888863827672752, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
+    - {fileID: 1241720154084222216, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3dfded879dd4af4e9e8c81cfa01d81a, type: 3}
@@ -8662,3 +8829,4 @@ SceneRoots:
   - {fileID: 1490298003}
   - {fileID: 2024006886}
   - {fileID: 8660133699557901998}
+  - {fileID: 1773238034}
