@@ -23,16 +23,16 @@ public class buttonFunctions : MonoBehaviour
     #endif
     }
 
-    public void options()
-    {
+    //public void options()
+    //{
 
-        GameManager.instance.options();
-    }
+    //    GameManager.instance.options();
+    //}
 
-    public void cancelOptions()
-    {
-        GameManager.instance.cancelOptions();
-    }
+    //public void cancelOptions()
+    //{
+    //    GameManager.instance.cancelOptions();
+    //}
 
 
 }
