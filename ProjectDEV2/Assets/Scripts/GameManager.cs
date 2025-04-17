@@ -20,8 +20,6 @@ public class GameManager : MonoBehaviour
 
     GameObject previousMenu;
 
-    public Image playerHPBar;
-
     public playerController playerScript;
 
     public bool isPaused;

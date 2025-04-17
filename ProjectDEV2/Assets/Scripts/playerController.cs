@@ -42,7 +42,6 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        UpdatePlayerHP();
         HPOrig = HP;
         InitHPUI();
     }
@@ -122,7 +121,8 @@ public class playerController : MonoBehaviour, IDamage
     public void TakeDamage(int amount)
     {
         HP -= amount;
-        UpdatePlayerHP();
+        HP = Mathf.Clamp(HP, 0, HPOrig);
+        UpdateHPUI();
         if (HP <= 0)
         {
             // You died
@@ -153,10 +153,5 @@ public class playerController : MonoBehaviour, IDamage
         {
             moveSpeed /= sprintMod; 
         }
-    }
-
-    void UpdatePlayerHP()
-    {
-        GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
     }
 }
