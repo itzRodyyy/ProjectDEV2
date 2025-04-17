@@ -149,19 +149,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100052, guid: f4209d51d1ad0434299f2d498ee076ba, type: 3}
       propertyPath: m_Name
-      value: Enemy Soldier
+      value: Enemy 1
       objectReference: {fileID: 0}
     - target: {fileID: 400052, guid: f4209d51d1ad0434299f2d498ee076ba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.1
+      value: 10.287712
       objectReference: {fileID: 0}
     - target: {fileID: 400052, guid: f4209d51d1ad0434299f2d498ee076ba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.0000038146973
       objectReference: {fileID: 0}
     - target: {fileID: 400052, guid: f4209d51d1ad0434299f2d498ee076ba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19
+      value: -14.8196335
       objectReference: {fileID: 0}
     - target: {fileID: 400052, guid: f4209d51d1ad0434299f2d498ee076ba, type: 3}
       propertyPath: m_LocalRotation.w
@@ -194,7 +194,7 @@ PrefabInstance:
     - target: {fileID: 9500000, guid: f4209d51d1ad0434299f2d498ee076ba, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 98d72bfcd1ceb3344aa3826ebb87a178, type: 2}
+      objectReference: {fileID: 9100000, guid: a3256efdceb6f144dbdfa1d0b6a644d5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -247,16 +247,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 5705662013708896728}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fa768e841d6ff84da640d5a839e439d, type: 3}
+  m_Script: {fileID: 11500000, guid: ea4fd2046f680964dba78406b8925bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 5705662013705782444}
   agent: {fileID: 3579282130786923301}
   hp: 3
-  faceTargetSpeed: 15
+  headShot: 0
+  faceTargetSpeed: 8
+  XP: 5
   shootPosition: {fileID: 8315210927642349909}
-  bullet: {fileID: 1851974070068306820, guid: b57f8a2ca7462424b8da8bbeb5e0ce49, type: 3}
-  shootRate: 0.5
+  bullet: {fileID: 4641655184626065091, guid: 3195781444fdb2648b750284d31de9e1, type: 3}
+  shootRate: 15
 --- !u!195 &3579282130786923301
 NavMeshAgent:
   m_ObjectHideFlags: 0

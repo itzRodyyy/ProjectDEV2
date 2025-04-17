@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7282184258933347366}
+  - component: {fileID: 6824676906649311298}
   - component: {fileID: 6174663893845363583}
   - component: {fileID: 6423251244597579551}
   - component: {fileID: 8264170449816307879}
-  - component: {fileID: 6824676906649311298}
   - component: {fileID: 1458742248594300296}
   m_Layer: 6
   m_Name: Player
@@ -38,6 +38,37 @@ Transform:
   - {fileID: 4340793946769780928}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6824676906649311298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476864651067859312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a00c07092d58444385b1b89a11e90c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  controller: {fileID: 1458742248594300296}
+  moveSpeed: 5
+  sprintMod: 3
+  jumpSpeed: 12
+  jumpMax: 2
+  gravity: 35
+  crouchHeightMod: 0
+  crouchSpeedMod: 0
+  shootRate: 0.1
+  shootDmg: 1
+  shootDist: 25
+  shootPos: {fileID: 4340793946769780928}
+  projectile: {fileID: 4641655184626065091, guid: c42992fc1341751489148ed2288c6d9c, type: 3}
+  HP: 10
+  hpBarSlider: {fileID: 0}
+  hpBarValueText: {fileID: 0}
 --- !u!33 &6174663893845363583
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -114,35 +145,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6824676906649311298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1476864651067859312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a00c07092d58444385b1b89a11e90c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ignoreLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  controller: {fileID: 1458742248594300296}
-  moveSpeed: 5
-  sprintMod: 0
-  jumpSpeed: 12
-  jumpMax: 2
-  gravity: 35
-  shootRate: 0.1
-  shootDmg: 1
-  shootDist: 25
-  shootPos: {fileID: 4340793946769780928}
-  projectile: {fileID: 4641655184626065091, guid: c42992fc1341751489148ed2288c6d9c, type: 3}
-  HP: 10
-  hpBarSlider: {fileID: 0}
-  hpBarValueText: {fileID: 0}
 --- !u!143 &1458742248594300296
 CharacterController:
   m_ObjectHideFlags: 0

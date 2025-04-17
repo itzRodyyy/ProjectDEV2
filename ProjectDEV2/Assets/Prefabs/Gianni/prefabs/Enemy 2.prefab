@@ -305,16 +305,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2879267503148536726}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fa768e841d6ff84da640d5a839e439d, type: 3}
+  m_Script: {fileID: 11500000, guid: ea4fd2046f680964dba78406b8925bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 7753536450342398530}
-  agent: {fileID: 8484584990042737716}
-  hp: 5
-  faceTargetSpeed: 15
-  shootPosition: {fileID: 2647719509894111530}
-  bullet: {fileID: 1851974070068306820, guid: b57f8a2ca7462424b8da8bbeb5e0ce49, type: 3}
-  shootRate: 0.2
+  model: {fileID: 0}
+  agent: {fileID: 0}
+  hp: 0
+  headShot: 0
+  faceTargetSpeed: 0
+  XP: 0
+  shootPosition: {fileID: 0}
+  bullet: {fileID: 0}
+  shootRate: 0
 --- !u!195 &8484584990042737716
 NavMeshAgent:
   m_ObjectHideFlags: 0

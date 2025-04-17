@@ -34,5 +34,12 @@ public class buttonFunctions : MonoBehaviour
         GameManager.instance.cancelOptions();
     }
 
-
+    public void increaseHP(int cost)
+    {
+        if (GameManager.instance.currency >= GameManager.instance.price)
+        {
+            GameManager.instance.playerScript.HP += 1;
+            GameManager.instance.currency -= GameManager.instance.price;
+        }
+    }
 }

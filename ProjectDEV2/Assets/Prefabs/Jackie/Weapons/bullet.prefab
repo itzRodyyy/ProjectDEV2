@@ -179,7 +179,7 @@ MonoBehaviour:
   rb: {fileID: 389119712821021684}
   damageAmount: 1
   damageRate: 0
-  speed: 250
+  speed: 15
   destroyTime: 2
   self:
     serializedVersion: 2

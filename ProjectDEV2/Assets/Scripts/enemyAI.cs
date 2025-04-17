@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
+using Unity.VisualScripting;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
@@ -8,8 +9,9 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] NavMeshAgent agent;
 
     [SerializeField] int hp;
+    [SerializeField] public int headShot;
     [SerializeField] int faceTargetSpeed;
-    //[SerializeField] int XP;
+    [SerializeField] int XP;
 
 
     [SerializeField] Transform shootPosition;
@@ -29,7 +31,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     void Start()
     {
         colorOriginal = model.material.color;
-        GameManager.instance.updateGameGoal(1);
+        GameManager.instance.updateGameGoal(1, 0);
     }
 
     // Update is called once per frame
@@ -81,7 +83,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         if (hp <= 0)
         {
-            GameManager.instance.updateGameGoal(-1);
+            GameManager.instance.updateGameGoal(-1, XP);
             Destroy(gameObject);
         }
     }

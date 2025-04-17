@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -25,7 +26,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] GameObject projectile;
 
     // Stats
-    [SerializeField] int HP;
+    [SerializeField] public int HP;
 
     int HPOrig;
     int jumpCount;
@@ -153,5 +154,12 @@ public class playerController : MonoBehaviour, IDamage
         {
             moveSpeed /= sprintMod; 
         }
+    }
+
+    IEnumerator flashDamage()
+    {
+        GameManager.instance.playerDamageScreen.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        GameManager.instance.playerDamageScreen.SetActive(false);
     }
 }

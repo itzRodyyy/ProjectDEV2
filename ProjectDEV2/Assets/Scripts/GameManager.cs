@@ -17,9 +17,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuYouDied;
     [SerializeField] GameObject menuOptions;
+    [SerializeField] GameObject menuShop;
+    [SerializeField] public int price;
+    [SerializeField] TMP_Text gameGoalCountText;
 
     GameObject previousMenu;
 
+    public GameObject playerDamageScreen;
     public playerController playerScript;
 
     public bool isPaused;
@@ -27,6 +31,7 @@ public class GameManager : MonoBehaviour
     float timeScaleOrig;
 
     int gameGoal;
+    public int currency;
 
     Resolution[] resolutions;
     int currentResolutionIndex = 0;
@@ -84,9 +89,11 @@ public class GameManager : MonoBehaviour
         menuActive = null;
     }
 
-    public void updateGameGoal(int amount)
+    public void updateGameGoal(int amount, int cur)
     {
         gameGoal += amount;
+
+        currency += cur;
 
         if (gameGoal <= 0)
         {
@@ -182,6 +189,13 @@ public class GameManager : MonoBehaviour
     {
         AudioListener.volume = volume;
         Debug.Log("Volume set to: " + volume);
+    }
+
+    public void shopOpen()
+    {
+        statePause();
+        menuActive = menuShop;
+        menuActive.SetActive(true);
     }
 }
 
