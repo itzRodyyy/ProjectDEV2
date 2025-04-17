@@ -17,7 +17,7 @@ public class damage : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (damageType == type.moving)
+        if (damageType == type.moving || damageType == type.homing)
         {
             Destroy(gameObject, destroyTime);
             if (damageType == type.moving)
@@ -30,7 +30,7 @@ public class damage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (damageType == type.moving)
+        if (damageType == type.moving || damageType == type.homing)
         {
             Debug.DrawRay(transform.position, transform.forward * speed * Time.deltaTime);
             RaycastHit hit;
@@ -45,6 +45,10 @@ public class damage : MonoBehaviour
                 Debug.Log(hit.collider);
                 Destroy(gameObject);
 
+            }
+            if (damageType == type.homing)
+            {
+                rb.linearVelocity = (GameManager.instance.player.transform.position - transform.position).normalized * speed * Time.deltaTime;
             }
         }
     }
