@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5760,11 +5760,11 @@ RectTransform:
   - {fileID: 1860223986}
   - {fileID: 1942678345}
   - {fileID: 833352432}
+  - {fileID: 1061727876}
   - {fileID: 1133868296}
   - {fileID: 919782117}
   - {fileID: 1244158850}
   - {fileID: 1894223068}
-  - {fileID: 1061727876}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7023,8 +7023,8 @@ MonoBehaviour:
   shootPos: {fileID: 1643867789}
   projectile: {fileID: 4641655184626065091, guid: c42992fc1341751489148ed2288c6d9c, type: 3}
   HP: 10
-  hpBarSlider: {fileID: 0}
-  hpBarValueText: {fileID: 0}
+  hpBarSlider: {fileID: 1061727877}
+  hpBarValueText: {fileID: 1964527491}
 --- !u!136 &1842663970
 CapsuleCollider:
   m_ObjectHideFlags: 0
