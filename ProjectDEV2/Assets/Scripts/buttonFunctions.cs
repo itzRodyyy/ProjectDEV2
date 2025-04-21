@@ -43,4 +43,9 @@ public class buttonFunctions : MonoBehaviour
             GameManager.instance.currency -= GameManager.instance.price;
         }
     }
+
+    public void inventory()
+    {
+        inventorymanager.instance.inventory();
+    }
 }

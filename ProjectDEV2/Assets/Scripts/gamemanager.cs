@@ -70,7 +70,6 @@ public class GameManager : MonoBehaviour
                 stateUnpause();
             }
         }
-
     }
     public void statePause()
     {
@@ -198,6 +197,8 @@ public class GameManager : MonoBehaviour
         menuActive = menuShop;
         menuActive.SetActive(true);
     }
+
+ 
 }
 
 
