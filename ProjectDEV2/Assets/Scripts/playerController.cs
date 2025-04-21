@@ -19,21 +19,20 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float crouchSpeedMod;
 
     // Shooting
-    [SerializeField] float shootRate;
-    [SerializeField] int shootDmg;
-    [SerializeField] int shootDist;
-    [SerializeField] Transform shootPos;
-    [SerializeField] GameObject projectile;
+    [SerializeField] GameObject weapon;
+    [SerializeField] int debugDist;
 
     // Stats
     [SerializeField] public int HP;
 
     int HPOrig;
     int jumpCount;
-    float shootTimer;
 
     Vector3 moveDir;
     Vector3 playerVel;
+
+    iWeapon _weap;
+
 
     // HP Bar UI
     public Slider hpBarSlider;
@@ -43,6 +42,10 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        GameObject _weapon = Instantiate(weapon, Camera.main.transform);
+        _weapon.transform.localPosition = new Vector3(0.5f, -0.25f, 0.5f);
+        weapon = _weapon;
+        _weap = weapon.GetComponent<iWeapon>();
         HPOrig = HP;
         UpdateHPUI();
     }
@@ -50,10 +53,9 @@ public class playerController : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist);
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * debugDist);
         Movement();
-        shootTimer += Time.deltaTime;
-        Shoot();
+        _weap.Attack();
 
     }
 
@@ -91,15 +93,6 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    void Shoot()
-    {
-        if (Input.GetButtonDown("Fire1") && shootTimer >= shootRate)
-        {
-            shootTimer = 0;
-
-            Instantiate(projectile, shootPos.position, Camera.main.transform.rotation);
-        }
-    }
 
     public void TakeDamage(int amount)
     {

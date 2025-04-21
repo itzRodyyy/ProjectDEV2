@@ -112,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 2025632713407695116}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.006, y: -0.028, z: -0.41}
+  m_LocalPosition: {x: -0.0014, y: -0.0187, z: -0.3795}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 7013428832371801112}
   - component: {fileID: 8140076791523278800}
   - component: {fileID: 511103261138424179}
+  - component: {fileID: 351236215145940785}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -144,7 +145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2064333227514199204}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 2.0276, y: 0.855, z: -14.471}
   m_LocalScale: {x: 3.0801, y: 3.0801, z: 3.0801}
   m_ConstrainProportionsScale: 0
@@ -153,7 +154,7 @@ Transform:
   - {fileID: 315013469538588240}
   - {fileID: 6225138610625419838}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &8140076791523278800
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -207,6 +208,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &351236215145940785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064333227514199204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99b20a20a6690ff4f9976ec8567c76de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  magSize: 15
+  fireRate: 0.15
+  reloadSpeed: 3
+  distance: 50
+  automatic: 1
+  colour: {r: 0.72955966, g: 0.72955966, b: 0.72955966, a: 0.78431374}
+  shootPos: {fileID: 2109368446824141493}
+  trailThickness: 0.05
+  trailDuration: 0.1
+  ammo: 0
 --- !u!1 &5930260598631902260
 GameObject:
   m_ObjectHideFlags: 0
