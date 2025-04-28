@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1083845508781981558}
   - component: {fileID: 1578901515176392057}
   - component: {fileID: 5766556701316143165}
+  - component: {fileID: 5598059228581105462}
   m_Layer: 0
   m_Name: Pistol Pickup
   m_TagString: Untagged
@@ -108,3 +109,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.6603188
   m_Center: {x: 0.000073034316, y: 0.038511768, z: 0.21504962}
+--- !u!114 &5598059228581105462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4358533320430061600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85d7acfe0e499a14e8bc197d9a84b0e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 11400000, guid: 2c58bf3a25fcfdb42abfc21173ffafef, type: 2}
+  itemName: Pistol
+  itemIcon: {fileID: -1063795108, guid: 1f456ee6dd36ff544b1a795761561fec, type: 3}

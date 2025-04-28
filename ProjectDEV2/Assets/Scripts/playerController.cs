@@ -45,11 +45,6 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     Vector3 playerVel;
 
 
-    // HP Bar UI
-    public Slider hpBarSlider;
-    public TextMeshProUGUI hpBarValueText;
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

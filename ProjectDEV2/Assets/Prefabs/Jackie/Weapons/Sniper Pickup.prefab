@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8675218467974621278}
   - component: {fileID: 5446013492536428173}
   - component: {fileID: 878194146887727855}
+  - component: {fileID: 5444562079902331951}
   m_Layer: 0
   m_Name: Sniper Pickup
   m_TagString: Untagged
@@ -108,3 +109,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.0567068
   m_Center: {x: 0.000005997717, y: 0.04414373, z: 0.52987516}
+--- !u!114 &5444562079902331951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5909996574608863222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85d7acfe0e499a14e8bc197d9a84b0e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 11400000, guid: 13da1c58279d68b47b2d5d89f39fc931, type: 2}
+  itemName: Sniper
+  itemIcon: {fileID: 185210354, guid: 8410551cac1347b48abee3ec3a17852a, type: 3}

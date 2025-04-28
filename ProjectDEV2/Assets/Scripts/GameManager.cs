@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public Toggle fullscreenToggle;
     public Slider volumeSlider;
 
-    [SerializeField] GameObject menuActive;
+    [SerializeField] public GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuYouDied;

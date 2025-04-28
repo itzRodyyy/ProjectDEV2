@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8053235911926901104}
   - component: {fileID: 1001586413295980264}
   - component: {fileID: 3593249564813537234}
+  - component: {fileID: 7827442506604032803}
   m_Layer: 0
   m_Name: Shotgun Pickup
   m_TagString: Untagged
@@ -102,9 +103,24 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 1
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.70090914
   m_Center: {x: 0.0000036060806, y: 0.039227318, z: 0.2328575}
+--- !u!114 &7827442506604032803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054676129483780718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85d7acfe0e499a14e8bc197d9a84b0e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 11400000, guid: 416a44dae6f0b634fb7a38e25e21e715, type: 2}
+  itemName: Shotgun
+  itemIcon: {fileID: -1109876883, guid: 43603cd94295e4343ac1264f7d7e134d, type: 3}

@@ -5,6 +5,7 @@ public class inventorymanager : MonoBehaviour
     public static inventorymanager instance;
 
     [SerializeField] GameObject menuInventory;
+    [SerializeField] GameObject hotBar;
     bool isInventoryOpen = false;
     public itemSlot[] itemslot;
 
@@ -33,6 +34,8 @@ public class inventorymanager : MonoBehaviour
         if (isInventoryOpen)
         {
             GameManager.instance.statePause();
+            GameManager.instance.menuActive = menuInventory;
+            GameManager.instance.menuActive.SetActive(true);
         }
         else
         {
@@ -40,13 +43,13 @@ public class inventorymanager : MonoBehaviour
         }
     }
 
-    public void AddItem(string itemName, int quantity, Sprite itemIcon)
+    public void AddItem(string itemName, Sprite itemIcon)
     {
         for (int i = 0; i < itemslot.Length; i++)
         {
             if (itemslot[i].isFull == false)
             {
-                itemslot[i].AddItem(itemName, quantity, itemIcon);
+                itemslot[i].AddItem(itemName, itemIcon);
                 return;
             }
         }
