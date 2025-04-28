@@ -11,7 +11,7 @@ public class weaponStats : ScriptableObject
     [Header("--- Weapon Stats ---")]
     // Universal
     [Range(1, 10)] public int weaponDamage;
-    [Range(0.1f, 3)] public float attackRate;
+    [Range(0.15f, 3)] public float attackRate;
     [Range(5, 1000)] public int range;
 
     // Ranged Only

@@ -60,6 +60,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     // Update is called once per frame
     void Update()
     {
+        attackTimer += Time.deltaTime;
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * range);
         Movement();
         Attack();
@@ -181,6 +182,8 @@ public class playerController : MonoBehaviour, IDamage, iPickup
 
     public void GetWeaponStats(weaponStats weapon)
     {
+        weaponModel.GetComponent<MeshFilter>().sharedMesh = weapon.weaponModel.GetComponent<MeshFilter>().sharedMesh;
+        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weapon.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
         isMelee = weapon.isMelee;
         isAutomatic = weapon.isAutomatic;
         weaponDamage = weapon.weaponDamage;
@@ -189,5 +192,13 @@ public class playerController : MonoBehaviour, IDamage, iPickup
         currentAmmo = weapon.currentAmmo;
         magSize = weapon.magSize;
         shootPos = weapon.shootPos;
+    }
+
+    void reload()
+    {
+        if (Input.GetButtonDown("Reload"))
+        {
+            currentAmmo = magSize;
+        }
     }
 }
