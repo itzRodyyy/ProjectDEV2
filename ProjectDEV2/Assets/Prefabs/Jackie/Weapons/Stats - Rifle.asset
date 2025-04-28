@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Stats - Rifle
   m_EditorClassIdentifier: 
   isMelee: 0
-  isAutomatic: 0
-  weaponModel: {fileID: 0}
+  isAutomatic: 1
+  weaponModel: {fileID: 9123239264082400571, guid: 76981cf011c7822449fa3ba1e074b917, type: 3}
   weaponDamage: 1
   attackRate: 0.15
-  range: 5
-  currentAmmo: 0
-  magSize: 1
+  range: 50
+  currentAmmo: 15
+  magSize: 15
   shootPos: {fileID: 0}

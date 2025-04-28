@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMelee: 0
   isAutomatic: 0
-  weaponModel: {fileID: 0}
+  weaponModel: {fileID: 3368331593303936535, guid: 7aac2d89d5917204584d58bd46604c2e, type: 3}
   weaponDamage: 1
   attackRate: 0.5
   range: 25
-  currentAmmo: 0
+  currentAmmo: 10
   magSize: 10
   shootPos: {fileID: 0}
