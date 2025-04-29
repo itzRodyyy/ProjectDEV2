@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuShop;
     [SerializeField] public int price;
     [SerializeField] TMP_Text gameGoalCountText;
+    public TMP_Text ammoCurr;
+    public TMP_Text ammoMax;
 
     GameObject previousMenu;
 

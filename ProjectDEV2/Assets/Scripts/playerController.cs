@@ -30,7 +30,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     int range;
     int currentAmmo;
     int magSize;
-    Transform shootPos;
+    Vector3 shootPosOffset;
 
 
     // Stats
@@ -44,10 +44,15 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     Vector3 moveDir;
     Vector3 playerVel;
 
+    float trailDuration;
+    LineRenderer lineRenderer;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         HPOrig = HP;
         UpdateHPUI();
     }
@@ -65,6 +70,8 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     public void UpdateHPUI()
     {
         GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+        GameManager.instance.ammoCurr.text = currentAmmo.ToString("F0");
+        GameManager.instance.ammoMax.text = magSize.ToString("F0");
     }
 
     void Movement()
@@ -136,21 +143,31 @@ public class playerController : MonoBehaviour, IDamage, iPickup
 
     void Attack()
     {
-        if (isAutomatic)
+        if (!GameManager.instance.isPaused) 
         {
-            if (Input.GetButton("Fire1") && attackTimer > attackRate && currentAmmo > 0)
+            if (isAutomatic)
             {
-                attackTimer = 0;
-                checkCollision();
+                if (Input.GetButton("Fire1") && attackTimer > attackRate && currentAmmo > 0)
+                {
+                    attackTimer = 0;
+                    currentAmmo--;
+                    UpdateHPUI();
+                    checkCollision();
+                    StartCoroutine(showTrail()); 
+                }
             }
-        }
-        else
-        {
-            if (Input.GetButtonDown("Fire1") && attackTimer > attackRate && currentAmmo > 0)
+            else
             {
-                attackTimer = 0;
-                checkCollision();
+                if (Input.GetButtonDown("Fire1") && attackTimer > attackRate && currentAmmo > 0)
+                {
+                    attackTimer = 0;
+                    currentAmmo--;
+                    UpdateHPUI();
+                    checkCollision();
+                    StartCoroutine(showTrail());
+                }
             }
+            reload(); 
         }
     }
 
@@ -172,7 +189,10 @@ public class playerController : MonoBehaviour, IDamage, iPickup
                 dmg.TakeDamage(weaponDamage);
             }
             Debug.Log(hit.collider);
+            SetTrailPoints(Camera.main.transform.position + Camera.main.transform.forward * hit.distance);
         }
+        else
+            SetTrailPoints(Camera.main.transform.position + Camera.main.transform.forward * range);
     }
 
     public void GetWeaponStats(weaponStats weapon)
@@ -189,7 +209,9 @@ public class playerController : MonoBehaviour, IDamage, iPickup
         range = weapon.range;
         currentAmmo = weapon.currentAmmo;
         magSize = weapon.magSize;
-        shootPos = weapon.shootPos;
+        shootPosOffset = weapon.shootPosOffset;
+        UpdateTrail(weapon.trailColour, weapon.trailThickness, weapon.trailDuration);
+        GameManager.instance.playerScript.UpdateHPUI();
     }
 
     void reload()
@@ -197,6 +219,30 @@ public class playerController : MonoBehaviour, IDamage, iPickup
         if (Input.GetButtonDown("Reload"))
         {
             currentAmmo = magSize;
+            UpdateHPUI();
         }
+    }
+
+    void UpdateTrail(Color trailColour, float thickness, float duration)
+    {
+        lineRenderer.startColor = trailColour;
+        lineRenderer.endColor = trailColour;
+        lineRenderer.startWidth = thickness;
+        lineRenderer.endWidth = thickness;
+        trailDuration = duration;
+    }
+
+    void SetTrailPoints(Vector3 endpt)
+    {
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPosition(0, weaponModel.transform.position + shootPosOffset);
+        lineRenderer.SetPosition(1, endpt);
+    }
+
+    IEnumerator showTrail()
+    {
+        lineRenderer.enabled = true;
+        yield return new WaitForSeconds(trailDuration);
+        lineRenderer.enabled = false;
     }
 }

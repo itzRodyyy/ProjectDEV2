@@ -20,5 +20,7 @@ MonoBehaviour:
   range: 15
   currentAmmo: 5
   magSize: 5
-  shootPos: {fileID: 0}
-  weaponIcon: {fileID: -1109876883, guid: 43603cd94295e4343ac1264f7d7e134d, type: 3}
+  shootPosOffset: {x: -0, y: 0.141, z: 0}
+  trailColour: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0.7882353}
+  trailThickness: 0.05
+  trailDuration: 0.15

@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -17,6 +18,11 @@ public class weaponStats : ScriptableObject
     // Ranged Only
     public int currentAmmo;
     [Range(1, 50)] public int magSize;
-    public Transform shootPos;
+
+    [Header("--- Bullet Trail ---")]
+    public Vector3 shootPosOffset;
+    public Color trailColour;
+    [Range(0.05f, 0.5f)] public float trailThickness;
+    [Range(0.1f, 0.5f)] public float trailDuration;
     
 }
