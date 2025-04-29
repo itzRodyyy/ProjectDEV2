@@ -21,3 +21,4 @@ MonoBehaviour:
   currentAmmo: 3
   magSize: 3
   shootPos: {fileID: 0}
+  weaponIcon: {fileID: 185210354, guid: 8410551cac1347b48abee3ec3a17852a, type: 3}

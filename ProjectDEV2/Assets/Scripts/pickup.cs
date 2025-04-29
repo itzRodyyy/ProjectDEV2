@@ -25,7 +25,7 @@ public class pickup : MonoBehaviour
         iPickup pickupable = other.GetComponent<iPickup>();
         if (pickupable != null && other.CompareTag("Player"))
         {
-            inventoryManager.AddItem(itemName, itemIcon);
+            inventoryManager.AddItem(itemName, itemIcon, weapon);
             pickupable.GetWeaponStats(weapon);
             Destroy(gameObject);
         }

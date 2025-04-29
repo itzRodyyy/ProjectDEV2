@@ -177,6 +177,9 @@ public class playerController : MonoBehaviour, IDamage, iPickup
 
     public void GetWeaponStats(weaponStats weapon)
     {
+        if (weapon == null)
+            return;
+
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weapon.weaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weapon.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
         isMelee = weapon.isMelee;

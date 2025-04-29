@@ -464,7 +464,6 @@ RectTransform:
   - {fileID: 4777603723856992994}
   - {fileID: 6217182302718945589}
   - {fileID: 7262662268315184516}
-  - {fileID: 5899100018670088320}
   - {fileID: 5002493759937442980}
   - {fileID: 3194333883100650314}
   - {fileID: 3039039671088666874}
@@ -472,6 +471,7 @@ RectTransform:
   - {fileID: 1259389810558681021}
   - {fileID: 537516356308146375}
   - {fileID: 2681773485733366437}
+  - {fileID: 5899100018670088320}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6405,6 +6405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuInventory: {fileID: 3627531411196145127}
+  hotBar: {fileID: 0}
   itemslot:
   - {fileID: 3383514351913296608}
   - {fileID: 85452467331362028}
@@ -6426,6 +6427,7 @@ MonoBehaviour:
   - {fileID: 2499732083883571035}
   - {fileID: 4933980016272196102}
   - {fileID: 7648492822274046292}
+  currentWeapon: 0
 --- !u!1 &7142966946577507817
 GameObject:
   m_ObjectHideFlags: 0

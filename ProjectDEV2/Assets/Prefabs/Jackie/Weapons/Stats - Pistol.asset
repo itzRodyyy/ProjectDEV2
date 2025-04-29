@@ -21,3 +21,4 @@ MonoBehaviour:
   currentAmmo: 10
   magSize: 10
   shootPos: {fileID: 0}
+  weaponIcon: {fileID: -1063795108, guid: 1f456ee6dd36ff544b1a795761561fec, type: 3}
