@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuYouDied;
     [SerializeField] GameObject menuOptions;
 
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip buttonClick;
+    [Range(0, 1)][SerializeField] float buttonClickVolume;
+
     GameObject previousMenu;
 
     public playerController playerScript;
@@ -53,6 +57,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Cancel"))
         {
+            PlayButtonSound();
             if (menuActive == null)
             {
                 statePause();
@@ -183,6 +188,21 @@ public class GameManager : MonoBehaviour
         AudioListener.volume = volume;
         Debug.Log("Volume set to: " + volume);
     }
+<<<<<<< Updated upstream
+=======
+
+    public void shopOpen()
+    {
+        statePause();
+        menuActive = menuShop;
+        menuActive.SetActive(true);
+    }
+
+    private void PlayButtonSound()
+    {
+        aud.PlayOneShot(buttonClick, buttonClickVolume);
+    }
+>>>>>>> Stashed changes
 }
 
 
