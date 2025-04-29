@@ -20,7 +20,7 @@ MonoBehaviour:
   range: 1000
   currentAmmo: 3
   magSize: 3
-  shootPosOffset: {x: 0, y: 0.1007, z: 1.5739}
+  shootPosOffset: {x: 0, y: 0.1007, z: 0}
   trailColour: {r: 1, g: 0, b: 0, a: 0.78431374}
   trailThickness: 0.05
   trailDuration: 0.251
