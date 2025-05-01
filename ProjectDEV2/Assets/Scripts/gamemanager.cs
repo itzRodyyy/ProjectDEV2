@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     public playerController playerScript;
     public GameObject checkPointPopUp;
     public Image playerHPBar;
+    public Image playerXPBar;
+    [SerializeField] TMP_Text levelText;
     public GameObject playerSpawnPos;
 
     public bool isPaused;
@@ -86,6 +88,9 @@ public class GameManager : MonoBehaviour
     public void updateXP(int exp)
     {
         xp += exp;
+        playerXPBar.fillAmount = (float)xp / ((level - 1) * (level - 2) * 5);
+        levelText.text = level.ToString("F0"); 
+
         if (xp >= (level - 1) * (level - 2) * 5)
         {
             xp = 0;

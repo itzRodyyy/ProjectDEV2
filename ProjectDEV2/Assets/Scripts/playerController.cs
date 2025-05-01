@@ -74,6 +74,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         HPOrig = HP; MaxHP = HPOrig;
         UpdateHPUI();
+        GameManager.instance.updateXP(0);
         spawnPlayer();
     }
 
