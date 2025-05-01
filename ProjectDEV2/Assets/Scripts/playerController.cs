@@ -69,9 +69,13 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        lineRenderer = gameObject.AddComponent<LineRenderer>();
-        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        //lineRenderer = gameObject.AddComponent<LineRenderer>();
+        //lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         HPOrig = HP;
+<<<<<<< Updated upstream
+=======
+        //UpdateHPUI();
+>>>>>>> Stashed changes
         spawnPlayer();
     }
 
@@ -100,6 +104,11 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     {
         if (controller.isGrounded)
         {
+            if (moveDir.normalized.magnitude > 0.3f && !isPlayingStep)
+            {
+                StartCoroutine(playStep());
+            }
+
             jumpCount = 0;
             playerVel = Vector3.zero;
         }
@@ -120,6 +129,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     {
         if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
         {
+            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
             jumpCount++;
             playerVel.y = jumpSpeed;
         }
@@ -129,6 +139,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     public void TakeDamage(int amount)
     {
         HP -= amount;
+        aud.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
         UpdateHPUI();
         StartCoroutine(flashDamage());
         if (HP <= 0)
@@ -156,10 +167,12 @@ public class playerController : MonoBehaviour, IDamage, iPickup
         if (Input.GetButtonDown("Sprint"))
         {
             moveSpeed *= sprintMod;
+            isSprinting = true;
         }
         if (Input.GetButtonUp("Sprint"))
         {
-            moveSpeed /= sprintMod; 
+            moveSpeed /= sprintMod;
+            isSprinting = false;
         }
     }
 
@@ -285,6 +298,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
         yield return new WaitForSeconds(trailDuration);
         lineRenderer.enabled = false;
     }
+
     public void spawnPlayer()
     {
         controller.transform.position = GameManager.instance.playerSpawnPos.transform.position;
@@ -292,6 +306,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
         HP = HPOrig;
         UpdateHPUI();
     }
+
     IEnumerator playStep()
     {
         isPlayingStep = true;

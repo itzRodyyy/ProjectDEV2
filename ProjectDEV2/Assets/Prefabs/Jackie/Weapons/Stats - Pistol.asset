@@ -19,6 +19,10 @@ MonoBehaviour:
   weaponDamage: 1
   attackRate: 0.5
   range: 25
+  hitEffect: {fileID: 970440554703164915, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
+  shootSound:
+  - {fileID: 8300000, guid: 99b92376d8816664a949db72dd09510c, type: 3}
+  shootSoundVolume: 0.25
   currentAmmo: 10
   magSize: 10
   shootPosOffset: {x: -0, y: 0.1491, z: 0}

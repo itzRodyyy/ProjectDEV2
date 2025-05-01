@@ -139,7 +139,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            agent.stoppingDistance = 0;
+            agent.stoppingDistance = 0; 
         }
     }
 

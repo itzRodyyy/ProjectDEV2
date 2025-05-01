@@ -15,6 +15,9 @@ public class weaponStats : ScriptableObject
     [Range(1, 10)] public int weaponDamage;
     [Range(0.15f, 3)] public float attackRate;
     [Range(5, 1000)] public int range;
+    public ParticleSystem hitEffect;
+    public AudioClip[] shootSound;
+    [Range(0, 1)] public float shootSoundVolume;
 
     // Ranged Only
     public int currentAmmo;

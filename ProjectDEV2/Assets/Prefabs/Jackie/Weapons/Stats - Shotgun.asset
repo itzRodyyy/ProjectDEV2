@@ -15,9 +15,14 @@ MonoBehaviour:
   isMelee: 0
   isAutomatic: 0
   weaponModel: {fileID: 6536510104674936741, guid: 5df9c5ecf8ca93d41bc0f448875f4a0b, type: 3}
+  cost: 0
   weaponDamage: 3
   attackRate: 1
   range: 15
+  hitEffect: {fileID: 1301697207402410478, guid: 39f852c28f9c3fd45a427c24f3564ba7, type: 3}
+  shootSound:
+  - {fileID: 8300000, guid: c8480f00de61e7143ab5c84b6fc60318, type: 3}
+  shootSoundVolume: 0.25
   currentAmmo: 5
   magSize: 5
   shootPosOffset: {x: -0, y: 0.141, z: 0}
