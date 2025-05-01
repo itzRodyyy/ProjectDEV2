@@ -18,8 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuYouDied;
     [SerializeField] GameObject menuOptions;
     [SerializeField] GameObject menuShop;
+    [SerializeField] GameObject menuUpgrade;
     [SerializeField] public int price;
     [SerializeField] TMP_Text gameGoalCountText;
+    [SerializeField] TMP_Text skillText;
     public TMP_Text ammoCurr;
     public TMP_Text ammoMax;
 
@@ -36,6 +38,9 @@ public class GameManager : MonoBehaviour
 
     int gameGoal;
     public int currency;
+    public int level;
+    public int skillPoints;
+    public int xp;
 
     Resolution[] resolutions;
     int currentResolutionIndex = 0;
@@ -75,6 +80,17 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public void updateXP(int exp)
+    {
+        xp += exp;
+        if (xp >= (level - 1) * (level - 2) * 5)
+        {
+            xp = 0;
+            level++;
+            skillPoints++;
+        }
+    }
     public void statePause()
     {
         isPaused = !isPaused;
@@ -93,11 +109,9 @@ public class GameManager : MonoBehaviour
         menuActive = null;
     }
 
-    public void updateGameGoal(int amount, int cur)
+    public void updateGameGoal(int amount)
     {
         gameGoal += amount;
-
-        currency += cur;
 
         if (gameGoal <= 0)
         {
@@ -199,6 +213,14 @@ public class GameManager : MonoBehaviour
     {
         statePause();
         menuActive = menuShop;
+        menuActive.SetActive(true);
+    }
+
+    public void OpenUpgrades()
+    {
+        skillText.text = skillPoints.ToString("F0");
+        menuActive.SetActive(false);
+        menuActive = menuUpgrade;
         menuActive.SetActive(true);
     }
 

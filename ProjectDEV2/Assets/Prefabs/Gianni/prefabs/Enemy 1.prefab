@@ -194,7 +194,7 @@ PrefabInstance:
     - target: {fileID: 9500000, guid: f4209d51d1ad0434299f2d498ee076ba, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: a3256efdceb6f144dbdfa1d0b6a644d5, type: 2}
+      objectReference: {fileID: 9100000, guid: 84381165e7215604f924f8381bd4a1af, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -274,7 +274,7 @@ MonoBehaviour:
   FOV: 80
   shootPosition: {fileID: 8315210927642349909}
   bullet: {fileID: 4641655184626065091, guid: 6b675dc3075fd804eb29566bdbbda411, type: 3}
-  shootRate: 15
+  shootRate: 0.5
   shootFOV: 15
 --- !u!195 &3579282130786923301
 NavMeshAgent:

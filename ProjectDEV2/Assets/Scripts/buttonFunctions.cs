@@ -58,8 +58,13 @@ public class buttonFunctions : MonoBehaviour
         }
     }
 
-    public void inventory()
+    //public void inventory()
+    //{
+    //    inventorymanager.instance.inventory();
+    //}
+
+    public void levelUp()
     {
-        inventorymanager.instance.inventory();
+        GameManager.instance.OpenUpgrades();
     }
 }

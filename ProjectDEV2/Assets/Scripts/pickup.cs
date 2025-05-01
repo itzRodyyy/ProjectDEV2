@@ -6,12 +6,12 @@ public class pickup : MonoBehaviour
     [SerializeField] private string itemName;
     [SerializeField] private Sprite itemIcon;
 
-    private inventorymanager inventoryManager;
+    //private inventorymanager inventoryManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         weapon.currentAmmo = weapon.magSize;
-        inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<inventorymanager>();
+        //inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<inventorymanager>();
     }
 
     // Update is called once per frame
@@ -25,7 +25,7 @@ public class pickup : MonoBehaviour
         iPickup pickupable = other.GetComponent<iPickup>();
         if (pickupable != null && other.CompareTag("Player"))
         {
-            inventoryManager.AddItem(itemName, itemIcon, weapon);
+            //inventoryManager.AddItem(itemName, itemIcon, weapon);
             pickupable.GetWeaponStats(weapon);
             Destroy(gameObject);
         }
