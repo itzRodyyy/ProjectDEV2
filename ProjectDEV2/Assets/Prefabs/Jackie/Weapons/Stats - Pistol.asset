@@ -23,7 +23,7 @@ MonoBehaviour:
   shootSound:
   - {fileID: 8300000, guid: 99b92376d8816664a949db72dd09510c, type: 3}
   shootSoundVolume: 0.25
-  currentAmmo: 10
+  currentAmmo: 9
   magSize: 10
   shootPosOffset: {x: -0, y: 0.1491, z: 0}
   trailColour: {r: 0.8050314, g: 0.8050314, b: 0.8050314, a: 0.78431374}

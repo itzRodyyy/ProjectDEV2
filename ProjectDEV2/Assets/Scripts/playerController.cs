@@ -69,13 +69,10 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //lineRenderer = gameObject.AddComponent<LineRenderer>();
-        //lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         HPOrig = HP;
-<<<<<<< Updated upstream
-=======
-        //UpdateHPUI();
->>>>>>> Stashed changes
+        UpdateHPUI();
         spawnPlayer();
     }
 
@@ -188,7 +185,8 @@ public class playerController : MonoBehaviour, IDamage, iPickup
                     weapons[currentWeapon].currentAmmo--;
                     UpdateHPUI();
                     checkCollision();
-                    StartCoroutine(showTrail()); 
+                    StartCoroutine(showTrail());
+                    aud.PlayOneShot(weapons[currentWeapon].shootSound[Random.Range(0, weapons[currentWeapon].shootSound.Length)], weapons[currentWeapon].shootSoundVolume);
                 }
             }
             else
@@ -200,6 +198,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
                     UpdateHPUI();
                     checkCollision();
                     StartCoroutine(showTrail());
+                    aud.PlayOneShot(weapons[currentWeapon].shootSound[Random.Range(0, weapons[currentWeapon].shootSound.Length)], weapons[currentWeapon].shootSoundVolume);
                 }
             }
             reload(); 
@@ -224,6 +223,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
                 dmg.TakeDamage(weaponDamage);
             }
             Debug.Log(hit.collider);
+            Instantiate(weapons[currentWeapon].hitEffect, hit.point, Quaternion.identity);
             SetTrailPoints(Camera.main.transform.position + Camera.main.transform.forward * hit.distance);
         }
         else
