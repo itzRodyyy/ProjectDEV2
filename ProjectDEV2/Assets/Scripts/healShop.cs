@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Shop : MonoBehaviour
+public class healShop : MonoBehaviour
 {
     bool playerInRange;
 
@@ -15,7 +15,7 @@ public class Shop : MonoBehaviour
     {
         if (playerInRange && Input.GetButtonDown("E"))
         {
-            GameManager.instance.gunShopOpen();
+            GameManager.instance.healShopOpen();
         }
     }
 

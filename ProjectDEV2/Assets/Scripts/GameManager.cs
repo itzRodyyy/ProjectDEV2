@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuYouDied;
     [SerializeField] GameObject menuOptions;
     [SerializeField] GameObject menuShop;
+    [SerializeField] GameObject menuShopHeal;
     [SerializeField] GameObject menuUpgrade;
     [SerializeField] public int price;
     [SerializeField] TMP_Text gameGoalCountText;
@@ -211,10 +212,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("Volume set to: " + volume);
     }
 
-    public void shopOpen()
+    public void gunShopOpen()
     {
         statePause();
         menuActive = menuShop;
+        menuActive.SetActive(true);
+    }
+
+    public void healShopOpen()
+    {
+        statePause();
+        menuActive = menuShopHeal;
         menuActive.SetActive(true);
     }
 
