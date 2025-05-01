@@ -67,4 +67,32 @@ public class buttonFunctions : MonoBehaviour
     {
         GameManager.instance.OpenUpgrades();
     }
+
+    public void upgradeHealth()
+    {
+        if (GameManager.instance.skillPoints > 0)
+        {
+            GameManager.instance.playerScript.MaxHP++;
+            GameManager.instance.skillPoints--;
+            levelUp();
+        }
+    }
+    public void upgradeSpeed()
+    {
+        if (GameManager.instance.skillPoints > 0)
+        {
+            GameManager.instance.playerScript.moveSpeed++;
+            GameManager.instance.skillPoints--;
+            levelUp();
+        }
+    }
+    public void upgradeJump()
+    {
+        if (GameManager.instance.skillPoints > 0)
+        {
+            GameManager.instance.playerScript.jumpSpeed++;
+            GameManager.instance.skillPoints--;
+            levelUp();
+        }
+    }
 }

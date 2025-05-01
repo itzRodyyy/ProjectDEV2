@@ -22,8 +22,8 @@ MonoBehaviour:
   hitEffect: {fileID: 8884371268655795233, guid: 20fda529c996a334da7fd65b48ea40df, type: 3}
   shootSound:
   - {fileID: 8300000, guid: 835a9ff8232904d4db930017605cbeff, type: 3}
-  shootSoundVolume: 0.25
-  currentAmmo: 15
+  shootSoundVolume: 0.59
+  currentAmmo: 0
   magSize: 15
   shootPosOffset: {x: 0, y: 0.1335, z: 0}
   trailColour: {r: 0.78616345, g: 0.78616345, b: 0.78616345, a: 0.78431374}

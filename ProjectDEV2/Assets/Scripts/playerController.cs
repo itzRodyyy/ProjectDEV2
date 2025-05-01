@@ -15,9 +15,9 @@ public class playerController : MonoBehaviour, IDamage, iPickup
 
     // Movement
     [Header("--- Movement ---")]
-    [SerializeField] int moveSpeed;
+    public int moveSpeed;
     [SerializeField] int sprintMod;
-    [SerializeField] int jumpSpeed;
+    public int jumpSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
     [SerializeField] float crouchHeightMod;
@@ -51,6 +51,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     // Stats
     [Header("--- Player Stats ---")]
     public int HP;
+    public int MaxHP;
 
     int HPOrig;
     int jumpCount;
@@ -71,7 +72,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     {
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        HPOrig = HP;
+        HPOrig = HP; MaxHP = HPOrig;
         UpdateHPUI();
         spawnPlayer();
     }
