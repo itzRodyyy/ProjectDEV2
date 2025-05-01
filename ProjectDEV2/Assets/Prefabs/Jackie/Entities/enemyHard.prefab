@@ -489,7 +489,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -16.096508, y: 0.0000019073486, z: -3.3675895}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6385910571376863354}
@@ -532,13 +532,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 7871944830055612385}
   agent: {fileID: 5860563387238066484}
+  anim: {fileID: 2896469607419877114}
+  headPos: {fileID: 5319100996206395614}
   hp: 10
   headShot: 0
   faceTargetSpeed: 4
   XP: 0
+  roamDist: 30
+  roamPauseTime: 0
+  animTransSpeed: 5
+  FOV: 90
   shootPosition: {fileID: 6344887458691373277}
   bullet: {fileID: 4641655184626065091, guid: 3986d5eb644da5b4798a3b57351c1836, type: 3}
-  shootRate: 2
+  shootRate: 1
+  shootFOV: 30
 --- !u!195 &5860563387238066484
 NavMeshAgent:
   m_ObjectHideFlags: 0
