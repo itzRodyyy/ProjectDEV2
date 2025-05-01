@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerDamageScreen;
     public playerController playerScript;
     public Image playerHPBar;
+    public GameObject playerSpawnPos;
 
     public bool isPaused;
 
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
 
         volumeSlider.value = AudioListener.volume;
         volumeSlider.onValueChanged.AddListener(SetVolume);
+        playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
     }
 
     // Update is called once per frame

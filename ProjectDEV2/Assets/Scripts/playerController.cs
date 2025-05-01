@@ -9,6 +9,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     [Header("--- Components ---")]
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
+    [SerializeField] AudioSource aud;
 
     // Movement
     [Header("--- Movement ---")]
@@ -32,6 +33,17 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     int magSize;
     Vector3 shootPosOffset;
 
+    [Header("----- Steps Audio -----")]
+    [SerializeField] AudioClip[] audSteps;
+    [Range(0, 1)][SerializeField] float audStepsVol;
+
+    [Header("----- Jump Audio -----")]
+    [SerializeField] AudioClip[] audJump;
+    [Range(0, 1)][SerializeField] float audJumpVol;
+
+    [Header("----- Hurt Audio -----")]
+    [SerializeField] AudioClip[] audHurt;
+    [Range(0, 1)][SerializeField] float audHurtVol;
 
     // Stats
     [Header("--- Player Stats ---")]
@@ -47,6 +59,9 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     float trailDuration;
     LineRenderer lineRenderer;
 
+    bool isSprinting;
+    bool isPlayingStep;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -55,6 +70,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         HPOrig = HP;
         UpdateHPUI();
+        spawnPlayer();
     }
 
     // Update is called once per frame
@@ -244,5 +260,28 @@ public class playerController : MonoBehaviour, IDamage, iPickup
         lineRenderer.enabled = true;
         yield return new WaitForSeconds(trailDuration);
         lineRenderer.enabled = false;
+    }
+    public void spawnPlayer()
+    {
+        controller.transform.position = GameManager.instance.playerSpawnPos.transform.position;
+
+        HP = HPOrig;
+        UpdateHPUI();
+    }
+    IEnumerator playStep()
+    {
+        isPlayingStep = true;
+        aud.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audStepsVol);
+
+        if (isSprinting)
+        {
+            yield return new WaitForSeconds(0.3f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        isPlayingStep = false;
     }
 }

@@ -33,6 +33,11 @@ public class buttonFunctions : MonoBehaviour
     {
         GameManager.instance.cancelOptions();
     }
+    public void respawn()
+    {
+        GameManager.instance.playerScript.spawnPlayer();
+        GameManager.instance.stateUnpause();
+    }
 
     public void increaseHP(int cost)
     {
@@ -41,6 +46,15 @@ public class buttonFunctions : MonoBehaviour
             GameManager.instance.playerScript.HP += 1;
             GameManager.instance.playerScript.UpdateHPUI();
             GameManager.instance.currency -= GameManager.instance.price;
+        }
+    }
+
+    public void buyGun(weaponStats weapon)
+    {
+        if(GameManager.instance.currency >= weapon.cost)
+        {
+            GameManager.instance.currency -= weapon.cost;
+            GameManager.instance.playerScript.GetWeaponStats(weapon);
         }
     }
 

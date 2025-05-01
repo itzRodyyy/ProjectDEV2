@@ -30,29 +30,9 @@ public class damage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (damageType == type.moving || damageType == type.homing)
+        if (damageType == type.homing)
         {
-            Debug.DrawRay(transform.position, transform.forward * speed * Time.deltaTime);
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, speed * Time.deltaTime, ~self) || Physics.Raycast(transform.position, -transform.forward, out hit, (speed * Time.deltaTime) / 4, ~self))
-            {
-
-                if (!hit.collider.isTrigger) 
-                {
-                    IDamage dmg = hit.collider.gameObject.GetComponent<IDamage>();
-                    if (dmg != null)
-                    {
-                        dmg.TakeDamage(damageAmount);
-                    }
-                    Debug.Log(hit.collider);
-                    Destroy(gameObject);
-                }
-
-            }
-            if (damageType == type.homing)
-            {
-                rb.linearVelocity = (GameManager.instance.player.transform.position - transform.position).normalized * speed * Time.deltaTime;
-            }
+            rb.linearVelocity = (GameManager.instance.player.transform.position - transform.position).normalized * speed * Time.deltaTime;
         }
     }
 

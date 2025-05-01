@@ -8,6 +8,7 @@ public class weaponStats : ScriptableObject
     public bool isMelee;
     public bool isAutomatic;
     public GameObject weaponModel;
+    public int cost;
 
     [Header("--- Weapon Stats ---")]
     // Universal

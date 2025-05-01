@@ -7,54 +7,123 @@ public class EnemyAI : MonoBehaviour, IDamage
 {
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] Animator anim;
+    [SerializeField] Transform headPos;
 
     [SerializeField] int hp;
     [SerializeField] public int headShot;
     [SerializeField] int faceTargetSpeed;
     [SerializeField] int XP;
-
+    [SerializeField] int roamDist;
+    [SerializeField] int roamPauseTime;
+    [SerializeField] int animTransSpeed;
+    [SerializeField] int FOV;
 
     [SerializeField] Transform shootPosition;
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
+    [SerializeField] int shootFOV;
 
-
+    float angleToPlayer;
     bool playerInRange;
 
     float shootTimer;
+    float roamTimer;
+    float stoppingDistanceOrig;
 
     Color colorOriginal;
 
     Vector3 playerDirection;
+    Vector3 startingPosition;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         colorOriginal = model.material.color;
-        GameManager.instance.updateGameGoal(1, 0);
+        startingPosition = transform.position;
+        stoppingDistanceOrig = agent.stoppingDistance;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        if (playerInRange)
+        setAnimLocomotion();
+
+        if (agent.remainingDistance < 0.01f)
         {
-            playerDirection = (GameManager.instance.player.transform.position - transform.position);
+            roamTimer += Time.deltaTime;
+        }
 
-            agent.SetDestination(GameManager.instance.player.transform.position);
+        if (playerInRange && !canSeePlayer())
+        {
+            checkRoam();
+        }
+        else if (!playerInRange)
+        {
+            checkRoam();
+        }
+    }
 
-            if (agent.remainingDistance <= agent.stoppingDistance)
+    void setAnimLocomotion()
+    {
+        float agentSpeedCur = agent.velocity.normalized.magnitude;
+        float animSpeedCur = anim.GetFloat("Speed");
+
+        anim.SetFloat("Speed", Mathf.Lerp(animSpeedCur, agentSpeedCur, Time.deltaTime * animTransSpeed));
+    }
+
+    void checkRoam()
+    {
+        if (roamTimer >= roamPauseTime && agent.remainingDistance < 0.01f)
+        {
+            roam();
+        }
+    }
+
+    void roam()
+    {
+        roamTimer = 0;
+        agent.stoppingDistance = 0;
+
+        Vector3 ranPos = Random.insideUnitSphere * roamDist;
+        ranPos += startingPosition;
+
+        NavMeshHit hit;
+        NavMesh.SamplePosition(ranPos, out hit, roamDist, 1);
+        agent.SetDestination(hit.position);
+
+    }
+
+    bool canSeePlayer()
+    {
+        playerDirection = (GameManager.instance.player.transform.position - headPos.position);
+        angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
+        Debug.DrawRay(headPos.position, playerDirection);//check
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(headPos.position, playerDirection, out hit))
+        {
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
             {
-                faceTarget();
-            }
+                agent.SetDestination(GameManager.instance.player.transform.position);
 
-            shootTimer += Time.deltaTime;
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    faceTarget();
+                }
 
-            if (shootTimer >= shootRate)
-            {
-                shoot();
+                shootTimer += Time.deltaTime;
+
+                if (angleToPlayer <= shootFOV && shootTimer >= shootRate)
+                {
+                    shoot();
+                }
+
+                agent.stoppingDistance = stoppingDistanceOrig;
+                return true;
             }
         }
+        agent.stoppingDistance = 0;
+        return false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -70,6 +139,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            agent.stoppingDistance = 0;
         }
     }
 
@@ -98,6 +168,10 @@ public class EnemyAI : MonoBehaviour, IDamage
     void shoot()
     {
         shootTimer = 0;
+        anim.SetTrigger("Shoot");
+    }
+    public void createBullet()
+    {
         Instantiate(bullet, shootPosition.position, transform.rotation);
     }
 
