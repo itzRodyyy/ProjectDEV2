@@ -23,8 +23,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int price;
     [SerializeField] TMP_Text gameGoalCountText;
     [SerializeField] TMP_Text skillText;
+    
     public TMP_Text ammoCurr;
     public TMP_Text ammoMax;
+    
 
     GameObject previousMenu;
 
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
     public GameObject checkPointPopUp;
     public Image playerHPBar;
     public Image playerXPBar;
+    [SerializeField] public TMP_Text hpValue;
     [SerializeField] TMP_Text levelText;
     public GameObject playerSpawnPos;
 

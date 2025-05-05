@@ -92,6 +92,8 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     public void UpdateHPUI()
     {
         GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+        GameManager.instance.hpValue.text = HP + " / " + HPOrig;
+
         if (weapons.Count > 0)
         {
             GameManager.instance.ammoCurr.text = weapons[currentWeapon].currentAmmo.ToString("F0");
