@@ -16,6 +16,7 @@ MonoBehaviour:
   isAutomatic: 0
   weaponModel: {fileID: 4008194683298584516, guid: f4211f8783cdbf2428a00a62f5c84c54, type: 3}
   cost: 0
+  icon: {fileID: 185210354, guid: 8410551cac1347b48abee3ec3a17852a, type: 3}
   weaponDamage: 10
   attackRate: 1
   range: 1000

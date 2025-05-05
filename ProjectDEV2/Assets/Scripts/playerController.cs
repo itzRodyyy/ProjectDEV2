@@ -53,7 +53,6 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     public int HP;
     public int MaxHP;
 
-    int HPOrig;
     int jumpCount;
     float attackTimer;
 
@@ -72,7 +71,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     {
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        HPOrig = HP; MaxHP = HPOrig;
+        HP = MaxHP;
         UpdateHPUI();
         GameManager.instance.updateXP(0);
         spawnPlayer();
@@ -91,8 +90,10 @@ public class playerController : MonoBehaviour, IDamage, iPickup
 
     public void UpdateHPUI()
     {
-        GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
-        GameManager.instance.hpValue.text = HP + " / " + HPOrig;
+        HP = Mathf.Min(HP, MaxHP);
+
+        GameManager.instance.playerHPBar.fillAmount = (float)HP / MaxHP;
+        GameManager.instance.hpValue.text = HP + " / " + MaxHP;
 
         if (weapons.Count > 0)
         {
@@ -236,31 +237,58 @@ public class playerController : MonoBehaviour, IDamage, iPickup
 
     public void GetWeaponStats(weaponStats weapon)
     {
-        weapons.Add(weapon);
-        currentWeapon = weapons.Count - 1;
-        changeWeapon();
+        if (!weapons.Contains(weapon))
+        {
+            weapons.Add(weapon);
+
+            if (weapons.Count == 1)
+            {
+                currentWeapon = 0;
+                changeWeapon();
+            }
+
+        }
         UpdateHPUI();
     }
 
     void selectWeapon()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentWeapon < weapons.Count - 1)
+        if (weapons.Count == 0)
         {
-            currentWeapon++;
+            return;
+        }
+
+        int prevWeapon = currentWeapon;
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            currentWeapon = (currentWeapon - 1 + weapons.Count) % weapons.Count;
+
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            currentWeapon = (currentWeapon + 1) % weapons.Count;
+
+        }
+
+        if (prevWeapon != currentWeapon)
+        {
             changeWeapon();
             UpdateHPUI();
+            inventoryManager.instance.SelectSlot(currentWeapon);
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentWeapon > 0)
-        {
-            currentWeapon--;
-            changeWeapon();
-            UpdateHPUI();
-        }
+
 
     }
 
     void changeWeapon()
     {
+        Debug.Log("Current Weapon Index: " + currentWeapon);
+        Debug.Log("Weapons Count: " + weapons.Count);
+        Debug.Log("weaponModel: " + weaponModel);
+        Debug.Log("weapons[currentWeapon]: " + weapons[currentWeapon]);
+        Debug.Log("weapons[currentWeapon].weaponModel: " + weapons[currentWeapon].weaponModel);
+
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weapons[currentWeapon].weaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weapons[currentWeapon].weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
         isAutomatic = weapons[currentWeapon].isAutomatic;
@@ -307,7 +335,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     {
         controller.transform.position = GameManager.instance.playerSpawnPos.transform.position;
 
-        HP = HPOrig;
+        HP = MaxHP;
         UpdateHPUI();
     }
 

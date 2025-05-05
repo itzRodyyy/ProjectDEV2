@@ -43,10 +43,13 @@ public class buttonFunctions : MonoBehaviour
     {
         if (GameManager.instance.currency >= GameManager.instance.price)
         {
-            GameManager.instance.playerScript.HP += 1;
-            GameManager.instance.playerScript.UpdateHPUI();
             GameManager.instance.currency -= GameManager.instance.price;
+
+            GameManager.instance.playerScript.MaxHP++;
+
+            GameManager.instance.playerScript.UpdateHPUI();
         }
+        
     }
 
     public void buyGun(weaponStats weapon)
@@ -54,14 +57,15 @@ public class buttonFunctions : MonoBehaviour
         if(GameManager.instance.currency >= weapon.cost)
         {
             GameManager.instance.currency -= weapon.cost;
-            GameManager.instance.playerScript.GetWeaponStats(weapon);
+
+            weaponStats weaponInstance = Instantiate(weapon);
+            weaponInstance.currentAmmo = weaponInstance.magSize;
+
+            inventoryManager.instance.AddItem(weaponInstance);
+
+            GameManager.instance.playerScript.GetWeaponStats(weaponInstance);
         }
     }
-
-    //public void inventory()
-    //{
-    //    inventorymanager.instance.inventory();
-    //}
 
     public void levelUp()
     {

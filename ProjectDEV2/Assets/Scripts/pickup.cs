@@ -2,19 +2,15 @@ using UnityEngine;
 
 public class pickup : MonoBehaviour
 {
-    [SerializeField] weaponStats weapon;
-    [SerializeField] private string itemName;
-    [SerializeField] private Sprite itemIcon;
-
-    //private inventorymanager inventoryManager;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] WeaponDatabase weaponDB;
+    private weaponStats weaponInstance;
     void Start()
     {
-        weapon.currentAmmo = weapon.magSize;
-        //inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<inventorymanager>();
+        weaponStats selectedWeapon = weaponDB.allWeapons[Random.Range(0, weaponDB.allWeapons.Length)];
+        weaponInstance = Instantiate(selectedWeapon);
+        weaponInstance.currentAmmo = weaponInstance.magSize;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -23,10 +19,15 @@ public class pickup : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         iPickup pickupable = other.GetComponent<iPickup>();
+
         if (pickupable != null && other.CompareTag("Player"))
         {
-            //inventoryManager.AddItem(itemName, itemIcon, weapon);
-            pickupable.GetWeaponStats(weapon);
+            if (inventoryManager.instance != null)
+            {
+                inventoryManager.instance.AddItem(weaponInstance);
+            }
+            
+            pickupable.GetWeaponStats(weaponInstance);
             Destroy(gameObject);
         }
     }

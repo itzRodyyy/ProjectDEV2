@@ -9,6 +9,7 @@ public class weaponStats : ScriptableObject
     public bool isAutomatic;
     public GameObject weaponModel;
     public int cost;
+    public Sprite icon;
 
     [Header("--- Weapon Stats ---")]
     // Universal

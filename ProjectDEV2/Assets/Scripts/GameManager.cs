@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(false);
         menuActive = null;
+        GameManager.instance.playerScript.UpdateHPUI();
     }
 
     public void updateGameGoal(int amount)
