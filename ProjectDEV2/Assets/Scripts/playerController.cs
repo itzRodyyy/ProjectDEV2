@@ -71,7 +71,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     {
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        HP = MaxHP;
+        MaxHP = HP;
         UpdateHPUI();
         GameManager.instance.updateXP(0);
         spawnPlayer();
@@ -90,10 +90,9 @@ public class playerController : MonoBehaviour, IDamage, iPickup
 
     public void UpdateHPUI()
     {
-        HP = Mathf.Min(HP, MaxHP);
+        GameManager.instance.hpValue.text = HP.ToString() + "/" + MaxHP.ToString();
 
         GameManager.instance.playerHPBar.fillAmount = (float)HP / MaxHP;
-        GameManager.instance.hpValue.text = HP + " / " + MaxHP;
 
         if (weapons.Count > 0)
         {
