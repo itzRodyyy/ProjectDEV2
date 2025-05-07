@@ -55,4 +55,16 @@ public class inventoryManager : MonoBehaviour
         selectedSlot = index;
         slots[selectedSlot].SetHighlight(true);
     }
+
+    public void RemoveItem(int index)
+    {
+        if (index < 0 || index >= slots.Length)
+        {
+            return;
+        }
+
+        slots[index].ClearSlot();
+    }
+
+
 }
