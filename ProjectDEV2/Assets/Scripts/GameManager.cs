@@ -91,15 +91,21 @@ public class GameManager : MonoBehaviour
     public void updateXP(int exp)
     {
         xp += exp;
-        playerXPBar.fillAmount = (float)xp / ((level - 1) * (level - 2) * 5);
+        playerXPBar.fillAmount = (float)xp / levelXP(level + 1);
         levelText.text = level.ToString("F0"); 
 
-        if (xp >= (level - 1) * (level - 2) * 5)
+        if (xp >= levelXP(level +1))
         {
-            xp = 0;
+            xp -= levelXP(level + 1);
             level++;
             skillPoints++;
         }
+    }
+
+    int levelXP(int level)
+    {
+        if (level == 0) return 0;
+        return levelXP(level - 1) + (level - 1) * 100;
     }
     public void statePause()
     {

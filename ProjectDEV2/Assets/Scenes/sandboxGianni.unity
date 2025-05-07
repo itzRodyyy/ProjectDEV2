@@ -351,7 +351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &451350658
 Transform:
   m_ObjectHideFlags: 0
@@ -501,6 +501,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9180797826076806791, guid: 37668bcff2b4e754e96422c5fe75c5d4, type: 3}
+      propertyPath: weaponDB
+      value: 
+      objectReference: {fileID: 11400000, guid: c31b0f00a3e1b6b4c9b696af2eb64e5f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -557,6 +561,10 @@ PrefabInstance:
     - target: {fileID: 5705662013708896728, guid: ee8f0a596425b6747b6d66216fdc48c4, type: 3}
       propertyPath: m_Name
       value: Enemy 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705662013708896728, guid: ee8f0a596425b6747b6d66216fdc48c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6844084101314421270, guid: ee8f0a596425b6747b6d66216fdc48c4, type: 3}
       propertyPath: bullet
@@ -627,6 +635,10 @@ PrefabInstance:
     - target: {fileID: 1673267113520416648, guid: 157c4259d6529194a9d1e4e0ed129295, type: 3}
       propertyPath: m_Name
       value: Spawner - Far
+      objectReference: {fileID: 0}
+    - target: {fileID: 1673267113520416648, guid: 157c4259d6529194a9d1e4e0ed129295, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5344962766997941459, guid: 157c4259d6529194a9d1e4e0ed129295, type: 3}
       propertyPath: objectToSpawn
@@ -833,6 +845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7140120539363199624, guid: c6d0e85324ceac748983b4b246993c46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1005,6 +1021,14 @@ PrefabInstance:
     - target: {fileID: 7140120539363199624, guid: c6d0e85324ceac748983b4b246993c46, type: 3}
       propertyPath: m_Name
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140120539363199624, guid: c6d0e85324ceac748983b4b246993c46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140120539363199624, guid: c6d0e85324ceac748983b4b246993c46, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1207,6 +1231,10 @@ PrefabInstance:
     - target: {fileID: 2380612662005486923, guid: ee837a19046911f4681a7243878666fe, type: 3}
       propertyPath: m_Name
       value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2380612662005486923, guid: ee837a19046911f4681a7243878666fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1951,6 +1979,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 48784146814557884, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1644809779113691289, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
       propertyPath: m_LocalPosition.z
       value: -32
@@ -1971,9 +2003,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -27
       objectReference: {fileID: 0}
+    - target: {fileID: 4144045540567264203, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
+      propertyPath: weaponDB
+      value: 
+      objectReference: {fileID: 11400000, guid: fcf16151c59a3234ea342c4212001aa0, type: 2}
     - target: {fileID: 4863955583219870541, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
       propertyPath: m_LocalPosition.z
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5999736210511474805, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
+      propertyPath: weaponDB
+      value: 
+      objectReference: {fileID: 11400000, guid: 410800f4d74810f498501dc965041441, type: 2}
+    - target: {fileID: 6459125731512288560, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7026490112132573052, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
       propertyPath: m_Name
@@ -2044,7 +2088,10 @@ PrefabInstance:
       value: Spawner - Far - Easy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4291930589523884285, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
+    - {fileID: 5774745522666107192, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
+    - {fileID: 2308347394006741010, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6703047925946996158, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
       insertIndex: 163
