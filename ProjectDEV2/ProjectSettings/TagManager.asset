@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Player Spawn Pos
+  - Zipline
   layers:
   - Default
   - TransparentFX

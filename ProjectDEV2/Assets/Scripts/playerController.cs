@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-
 public class playerController : MonoBehaviour, IDamage, iPickup
 {
     // Essentials
@@ -23,6 +22,9 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     [SerializeField] int gravity;
     [SerializeField] float crouchHeightMod;
     [SerializeField] float crouchSpeedMod;
+
+    [SerializeField] float checkOffset = 1f;
+    [SerializeField] float checkRadius = 2f;
 
     // Shooting
     [Header("--- Gun ---")]
@@ -74,6 +76,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     {
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.enabled = false;
         MaxHP = HP;
         UpdateHPUI();
         GameManager.instance.updateXP(0);
@@ -93,6 +96,19 @@ public class playerController : MonoBehaviour, IDamage, iPickup
         if (Input.GetKeyDown(KeyCode.G))
         {
             dropWeapon();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position + new Vector3(0, checkOffset, 0), checkRadius, Vector3.up);
+
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.collider.tag == "Zipline")
+                {
+                    hit.collider.GetComponent<zipLine>().StartZipLine(gameObject);
+                }
+            }
         }
 
     }
@@ -236,19 +252,25 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     private void checkCollision()
     {
         RaycastHit hit;
+
         if (Physics.Raycast(transform.position, transform.forward, out hit, range, ~ignoreLayer))
         {
             IDamage dmg = hit.collider.GetComponent<IDamage>();
+
             if (dmg != null)
             {
                 dmg.TakeDamage(weaponDamage);
             }
+
             Debug.Log(hit.collider);
+
             Instantiate(weapons[currentWeapon].hitEffect, hit.point, Quaternion.identity);
             SetTrailPoints(Camera.main.transform.position + Camera.main.transform.forward * hit.distance);
         }
         else
-            SetTrailPoints(Camera.main.transform.position + Camera.main.transform.forward * range);
+        { 
+            SetTrailPoints(Camera.main.transform.position + Camera.main.transform.forward * range); 
+        }
     }
 
     public void GetWeaponStats(weaponStats weapon)
