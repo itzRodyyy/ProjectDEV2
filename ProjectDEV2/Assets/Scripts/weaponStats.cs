@@ -24,10 +24,10 @@ public class weaponStats : ScriptableObject
     public int currentAmmo;
     [Range(1, 50)] public int magSize;
 
-    [Header("--- Bullet Trail ---")]
-    public Vector3 shootPosOffset;
-    public Color trailColour;
-    [Range(0.05f, 0.5f)] public float trailThickness;
-    [Range(0.1f, 0.5f)] public float trailDuration;
+    //[Header("--- Bullet Trail ---")]
+    //public Vector3 shootPosOffset;
+    //public Color trailColour;
+    //[Range(0.05f, 0.5f)] public float trailThickness;
+    //[Range(0.1f, 0.5f)] public float trailDuration;
     
 }

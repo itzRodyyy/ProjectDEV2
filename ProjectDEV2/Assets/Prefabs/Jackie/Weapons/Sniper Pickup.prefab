@@ -122,10 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d7acfe0e499a14e8bc197d9a84b0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: 13da1c58279d68b47b2d5d89f39fc931, type: 2}
-  shootPos: {fileID: 6293278660336342160}
-  itemName: Sniper
-  itemIcon: {fileID: 185210354, guid: 8410551cac1347b48abee3ec3a17852a, type: 3}
+  weaponDB: {fileID: 11400000, guid: fcf16151c59a3234ea342c4212001aa0, type: 2}
 --- !u!1 &6822949645544874129
 GameObject:
   m_ObjectHideFlags: 0

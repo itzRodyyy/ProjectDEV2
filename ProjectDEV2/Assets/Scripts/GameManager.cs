@@ -23,9 +23,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int price;
     [SerializeField] TMP_Text gameGoalCountText;
     [SerializeField] TMP_Text skillText;
-    
+
+    public GameObject ammo;
+    public bool ammoActive;
     public TMP_Text ammoCurr;
-    public TMP_Text ammoMax;
+    public TMP_Text ammoTotal;
     
 
     GameObject previousMenu;
@@ -247,6 +249,18 @@ public class GameManager : MonoBehaviour
         menuActive.SetActive(false);
         menuActive = menuUpgrade;
         menuActive.SetActive(true);
+    }
+
+    public void ToggleAmmoUI()
+    {
+        ammoActive = !ammoActive;
+        ammo.SetActive(ammoActive);
+    }
+
+    public void UpdateAmmoUI()
+    {
+        ammoCurr.text = playerScript.currentWeapon.currentAmmo.ToString();
+        ammoTotal.text = playerScript.currentWeapon.magSize.ToString();
     }
 
  

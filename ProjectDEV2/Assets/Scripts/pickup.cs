@@ -2,17 +2,10 @@ using UnityEngine;
 
 public class pickup : MonoBehaviour
 {
-    [SerializeField] WeaponDatabase weaponDB;
-    private weaponStats weaponInstance;
-    private bool isManuallyAssigned = false;
+    [SerializeField] weaponStats weapon;
     void Start()
     {
-        if (!isManuallyAssigned && weaponDB != null && weaponDB.allWeapons.Length > 0)
-        {
-            weaponStats selectedWeapon = weaponDB.allWeapons[Random.Range(0, weaponDB.allWeapons.Length)];
-            weaponInstance = Instantiate(selectedWeapon);
-            weaponInstance.currentAmmo = weaponInstance.magSize;
-        }
+        weapon.currentAmmo = weapon.magSize;
     }
 
     void Update()
@@ -24,22 +17,10 @@ public class pickup : MonoBehaviour
     {
         iPickup pickupable = other.GetComponent<iPickup>();
 
-        if (pickupable != null && other.CompareTag("Player"))
-        {
-            if (inventoryManager.instance != null)
-            {
-                inventoryManager.instance.AddItem(weaponInstance);
-            }
-            
-            pickupable.GetWeaponStats(weaponInstance);
+        if (pickupable != null)
+        { 
+            pickupable.GetWeaponStats(weapon);
             Destroy(gameObject);
         }
-    }
-
-    public void AssignWeapon(weaponStats weapon)
-    {
-        weaponInstance = Instantiate(weapon);
-        weaponInstance.currentAmmo = weapon.currentAmmo;
-        isManuallyAssigned = true;
-    }    
+    }   
 }

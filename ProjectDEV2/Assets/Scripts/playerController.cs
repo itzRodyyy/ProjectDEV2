@@ -29,17 +29,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     // Shooting
     [Header("--- Gun ---")]
     [SerializeField] GameObject weaponModel;
-    [SerializeField] weaponStats[] weapons = new weaponStats[10];
-    [SerializeField] GameObject weaponPickupPrefab;
-    [SerializeField] Transform dropPoint;
-    bool isAutomatic;
-    int weaponDamage;
-    float attackRate;
-    int range;
-    int currentAmmo;
-    int magSize;
-    Vector3 shootPosOffset;
-    [Range(0, 3)] int currentWeapon;
+    public weaponStats currentWeapon;
 
     [Header("----- Steps Audio -----")]
     [SerializeField] AudioClip[] audSteps;
@@ -64,19 +54,12 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     Vector3 moveDir;
     Vector3 playerVel;
 
-    float trailDuration;
-    LineRenderer lineRenderer;
-
     bool isSprinting;
     bool isPlayingStep;
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        lineRenderer = gameObject.AddComponent<LineRenderer>();
-        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        lineRenderer.enabled = false;
         MaxHP = HP;
         UpdateHPUI();
         GameManager.instance.updateXP(0);
@@ -88,15 +71,13 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     void Update()
     {
         attackTimer += Time.deltaTime;
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * range);
+        if (currentWeapon != null)
+        {
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * currentWeapon.range);
+        }
+
         Movement();
         Attack();
-        selectWeapon();
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            dropWeapon();
-        }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -110,7 +91,6 @@ public class playerController : MonoBehaviour, IDamage, iPickup
                 }
             }
         }
-
     }
 
     public void UpdateHPUI()
@@ -119,15 +99,15 @@ public class playerController : MonoBehaviour, IDamage, iPickup
 
         GameManager.instance.playerHPBar.fillAmount = (float)HP / MaxHP;
 
-        if (currentWeapon >= 0 && currentWeapon < weapons.Length && weapons[currentWeapon] != null)
+        if (currentWeapon != null)
         {
-            GameManager.instance.ammoCurr.text = weapons[currentWeapon].currentAmmo.ToString("F0");
-            GameManager.instance.ammoMax.text = weapons[currentWeapon].magSize.ToString("F0");
+            GameManager.instance.ammoCurr.text = currentWeapon.currentAmmo.ToString("F0");
+            GameManager.instance.ammoTotal.text = currentWeapon.magSize.ToString("F0");
         }
         else
         {
             GameManager.instance.ammoCurr.text = "";
-            GameManager.instance.ammoMax.text = "";
+            GameManager.instance.ammoTotal.text = "";
         }
     }
 
@@ -153,7 +133,6 @@ public class playerController : MonoBehaviour, IDamage, iPickup
 
         playerVel.y -= gravity * Time.deltaTime;
         controller.Move(playerVel * Time.deltaTime);
-
     }
 
     void Jump()
@@ -166,7 +145,6 @@ public class playerController : MonoBehaviour, IDamage, iPickup
         }
     }
 
-
     public void TakeDamage(int amount)
     {
         HP -= amount;
@@ -175,7 +153,6 @@ public class playerController : MonoBehaviour, IDamage, iPickup
         StartCoroutine(flashDamage());
         if (HP <= 0)
         {
-            // You died
             GameManager.instance.youDied();
         }
     }
@@ -209,33 +186,44 @@ public class playerController : MonoBehaviour, IDamage, iPickup
 
     void Attack()
     {
-        if (GameManager.instance.isPaused || currentWeapon < 0 || currentWeapon >= weapons.Length || weapons[currentWeapon] == null)
+        if (GameManager.instance.isPaused || currentWeapon == null)
         {
             return;
         }
 
-        if (isAutomatic)
+        if (currentWeapon.isMelee)
         {
-            if (Input.GetButton("Fire1") && attackTimer > attackRate && weapons[currentWeapon].currentAmmo > 0)
+            if (Input.GetButtonDown("Fire1") && attackTimer > currentWeapon.attackRate)
             {
                 attackTimer = 0;
-                weapons[currentWeapon].currentAmmo--;
-                UpdateHPUI();
                 checkCollision();
-                StartCoroutine(showTrail());
-                aud.PlayOneShot(weapons[currentWeapon].shootSound[Random.Range(0, weapons[currentWeapon].shootSound.Length)], weapons[currentWeapon].shootSoundVolume);
             }
         }
         else
         {
-            if (Input.GetButtonDown("Fire1") && attackTimer > attackRate && weapons[currentWeapon].currentAmmo > 0)
+            if (currentWeapon.isAutomatic)
             {
-                attackTimer = 0;
-                weapons[currentWeapon].currentAmmo--;
-                UpdateHPUI();
-                checkCollision();
-                StartCoroutine(showTrail());
-                aud.PlayOneShot(weapons[currentWeapon].shootSound[Random.Range(0, weapons[currentWeapon].shootSound.Length)], weapons[currentWeapon].shootSoundVolume);
+                if (Input.GetButton("Fire1") && attackTimer > currentWeapon.attackRate && currentWeapon.currentAmmo > 0)
+                {
+                    attackTimer = 0;
+                    currentWeapon.currentAmmo--;
+                    GameManager.instance.UpdateAmmoUI();
+                    UpdateHPUI();
+                    checkCollision();
+                    aud.PlayOneShot(currentWeapon.shootSound[Random.Range(0, currentWeapon.shootSound.Length)], currentWeapon.shootSoundVolume);
+                }
+            }
+            else
+            {
+                if (Input.GetButtonDown("Fire1") && attackTimer > currentWeapon.attackRate && currentWeapon.currentAmmo > 0)
+                {
+                    attackTimer = 0;
+                    currentWeapon.currentAmmo--;
+                    GameManager.instance.UpdateAmmoUI();
+                    UpdateHPUI();
+                    checkCollision();
+                    aud.PlayOneShot(currentWeapon.shootSound[Random.Range(0, currentWeapon.shootSound.Length)], currentWeapon.shootSoundVolume);
+                }
             }
         }
 
@@ -253,132 +241,45 @@ public class playerController : MonoBehaviour, IDamage, iPickup
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, range, ~ignoreLayer))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, currentWeapon.range, ~ignoreLayer))
         {
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
             if (dmg != null)
             {
-                dmg.TakeDamage(weaponDamage);
+                dmg.TakeDamage(currentWeapon.weaponDamage);
             }
 
             Debug.Log(hit.collider);
 
-            Instantiate(weapons[currentWeapon].hitEffect, hit.point, Quaternion.identity);
-            SetTrailPoints(Camera.main.transform.position + Camera.main.transform.forward * hit.distance);
-        }
-        else
-        { 
-            SetTrailPoints(Camera.main.transform.position + Camera.main.transform.forward * range); 
+            Instantiate(currentWeapon.hitEffect, hit.point, Quaternion.identity);
         }
     }
 
     public void GetWeaponStats(weaponStats weapon)
     {
-        for (int i = 0; i < weapons.Length; i++)
+        currentWeapon = weapon;
+        weaponModel.GetComponent<MeshFilter>().sharedMesh = weapon.weaponModel.GetComponent<MeshFilter>().sharedMesh;
+        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weapon.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+        if ((weapon.isMelee && GameManager.instance.ammoActive) || (!weapon.isMelee && !GameManager.instance.ammoActive))
         {
-            if (weapons[i] == null)
+            GameManager.instance.ToggleAmmoUI();
+            if (!weapon.isMelee)
             {
-                weapons[i] = weapon;
-
-                if (weapons.All(w => w == null || w == weapon))
-                {
-                    currentWeapon = i;
-                    changeWeapon();
-                    inventoryManager.instance.SelectSlot(i);
-                }
-
-                break;
+                GameManager.instance.UpdateAmmoUI();
             }
         }
-
         UpdateHPUI();
-    }
-
-    void selectWeapon()
-    {
-        if (weapons.All(w => w == null)) return;
-
-        int prevWeapon = currentWeapon;
-
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
-        {
-            do
-            {
-                currentWeapon = (currentWeapon + 1) % weapons.Length;
-            } while (weapons[currentWeapon] == null);
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
-        {
-            do
-            {
-                currentWeapon = (currentWeapon - 1 + weapons.Length) % weapons.Length;
-            } while (weapons[currentWeapon] == null);
-        }
-
-        if (currentWeapon != prevWeapon && weapons[currentWeapon] != null)
-        {
-            changeWeapon();
-            UpdateHPUI();
-            inventoryManager.instance.SelectSlot(currentWeapon);
-        }
-    }
-
-    void changeWeapon()
-    {
-        if (weapons[currentWeapon] == null)
-        {
-            weaponModel.SetActive(false);
-            return;
-        }
-
-        weaponModel.SetActive(true);
-
-        MeshFilter modelMF = weapons[currentWeapon].weaponModel.GetComponent<MeshFilter>();
-        MeshRenderer modelMR = weapons[currentWeapon].weaponModel.GetComponent<MeshRenderer>();
-
-        weaponModel.GetComponent<MeshFilter>().sharedMesh = modelMF.sharedMesh;
-        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = modelMR.sharedMaterial;
-
-        isAutomatic = weapons[currentWeapon].isAutomatic;
-        weaponDamage = weapons[currentWeapon].weaponDamage;
-        attackRate = weapons[currentWeapon].attackRate;
-        range = weapons[currentWeapon].range;
-        shootPosOffset = weapons[currentWeapon].shootPosOffset;
-
-        UpdateTrail(weapons[currentWeapon].trailColour, weapons[currentWeapon].trailThickness, weapons[currentWeapon].trailDuration);
     }
 
     void reload()
     {
-        if (Input.GetButtonDown("Reload"))
+        if (Input.GetButtonDown("Reload") && currentWeapon != null)
         {
-            weapons[currentWeapon].currentAmmo = weapons[currentWeapon].magSize;
+            currentWeapon.currentAmmo = currentWeapon.magSize;
+            GameManager.instance.UpdateAmmoUI();
             UpdateHPUI();
         }
-    }
-
-    void UpdateTrail(Color trailColour, float thickness, float duration)
-    {
-        lineRenderer.startColor = trailColour;
-        lineRenderer.endColor = trailColour;
-        lineRenderer.startWidth = thickness;
-        lineRenderer.endWidth = thickness;
-        trailDuration = duration;
-    }
-
-    void SetTrailPoints(Vector3 endpt)
-    {
-        lineRenderer.positionCount = 2;
-        lineRenderer.SetPosition(0, weaponModel.transform.position + shootPosOffset);
-        lineRenderer.SetPosition(1, endpt);
-    }
-
-    IEnumerator showTrail()
-    {
-        lineRenderer.enabled = true;
-        yield return new WaitForSeconds(trailDuration);
-        lineRenderer.enabled = false;
     }
 
     public void spawnPlayer()
@@ -404,43 +305,5 @@ public class playerController : MonoBehaviour, IDamage, iPickup
         }
 
         isPlayingStep = false;
-    }
-
-    void dropWeapon()
-    {
-        if (weapons[currentWeapon] == null) return;
-
-        weaponStats weaponToDrop = weapons[currentWeapon];
-
-        GameObject droppedWeapon = Instantiate(weaponPickupPrefab, dropPoint.position, Quaternion.identity);
-
-        MeshFilter dropMF = droppedWeapon.GetComponent<MeshFilter>();
-        MeshRenderer dropMR = droppedWeapon.GetComponent<MeshRenderer>();
-
-        MeshFilter sourceMF = weaponToDrop.weaponModel.GetComponent<MeshFilter>();
-        MeshRenderer sourceMR = weaponToDrop.weaponModel.GetComponent<MeshRenderer>();
-
-        if (dropMF != null && dropMR != null && sourceMF != null && sourceMR != null)
-        {
-            dropMF.sharedMesh = sourceMF.sharedMesh;
-            dropMR.sharedMaterial = sourceMR.sharedMaterial;
-        }
-
-        pickup pickupScript = droppedWeapon.GetComponent<pickup>();
-        if (pickupScript != null)
-        {
-            pickupScript.AssignWeapon(weaponToDrop);
-        }
-
-        weaponModel.SetActive(false);
-        weapons[currentWeapon] = null;
-        inventoryManager.instance.RemoveItem(currentWeapon);
-
-        weaponModel.GetComponent<MeshFilter>().sharedMesh = null;
-        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = null;
-
-        GameManager.instance.ammoCurr.text = "";
-        GameManager.instance.ammoMax.text = "";
-        GameManager.instance.hpValue.text = HP + " / " + MaxHP;
     }
 }
