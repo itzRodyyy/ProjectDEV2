@@ -309,6 +309,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public void updateStats()
     {
         GameManager.instance.strText.text = stats.strength.ToString("F0");
@@ -375,6 +376,8 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
         }
 
 =======
+=======
+>>>>>>> Stashed changes
     public void casting()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -393,6 +396,9 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
                 }
             }
         }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
 }
