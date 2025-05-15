@@ -1,9 +1,10 @@
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Linq;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
 {
@@ -84,18 +85,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
         Movement();
         Attack();
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            RaycastHit[] hits = Physics.SphereCastAll(transform.position + new Vector3(0, checkOffset, 0), checkRadius, Vector3.up);
-
-            foreach (RaycastHit hit in hits)
-            {
-                if (hit.collider.tag == "Zipline")
-                {
-                    hit.collider.GetComponent<zipLine>().StartZipLine(gameObject);
-                }
-            }
-        }
+        casting();
     }
 
     public void UpdateHPUI()
@@ -103,6 +93,20 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
         GameManager.instance.hpValue.text = HP.ToString() + "/" + MaxHP.ToString();
 
         GameManager.instance.playerHPBar.fillAmount = (float)HP / MaxHP;
+<<<<<<< Updated upstream
+=======
+
+        if (currentWeapon != null)
+        {
+            //GameManager.instance.ammoCurr.text = currentWeapon.currentAmmo.ToString("F0");
+            //GameManager.instance.ammoTotal.text = currentWeapon.magSize.ToString("F0");
+        }
+        else
+        {
+            //GameManager.instance.ammoCurr.text = "";
+            //GameManager.instance.ammoTotal.text = "";
+        }
+>>>>>>> Stashed changes
     }
 
     void Movement()
@@ -304,6 +308,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
         isPlayingStep = false;
     }
 
+<<<<<<< Updated upstream
     public void updateStats()
     {
         GameManager.instance.strText.text = stats.strength.ToString("F0");
@@ -369,5 +374,25 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
             default: break;
         }
 
+=======
+    public void casting()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 7))
+            {
+                Iinteract zipline = hit.collider.GetComponent<Iinteract>();
+
+                if (zipline != null)
+                {
+                    zipline.onInteract();
+                }
+            }
+        }
+>>>>>>> Stashed changes
     }
 }
