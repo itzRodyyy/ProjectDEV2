@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
+public class playerController : MonoBehaviour, IDamage, iPickup
 {
     // Essentials
     [Header("--- Components ---")]
@@ -47,11 +47,8 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
     [Header("--- Player Stats ---")]
     public int HP;
     public int MaxHP;
-    public playerStats stats;
 
     int jumpCount;
-    int baseSpeed;
-    int baseHP;
     float attackTimer;
 
     Vector3 moveDir;
@@ -63,9 +60,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        baseHP = HP;
-        baseSpeed = moveSpeed;
-        updateStats(); 
+        MaxHP = HP;
         UpdateHPUI();
         GameManager.instance.updateXP(0);
         spawnPlayer();
@@ -103,6 +98,17 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
         GameManager.instance.hpValue.text = HP.ToString() + "/" + MaxHP.ToString();
 
         GameManager.instance.playerHPBar.fillAmount = (float)HP / MaxHP;
+
+        if (currentWeapon != null)
+        {
+            GameManager.instance.ammoCurr.text = currentWeapon.currentAmmo.ToString("F0");
+            GameManager.instance.ammoTotal.text = currentWeapon.magSize.ToString("F0");
+        }
+        else
+        {
+            GameManager.instance.ammoCurr.text = "";
+            GameManager.instance.ammoTotal.text = "";
+        }
     }
 
     void Movement()
@@ -241,10 +247,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
 
             if (dmg != null)
             {
-                if (currentWeapon.isMelee)
-                    dmg.TakeDamage(currentWeapon.weaponDamage + GameManager.instance.abilityMod(stats.strength));
-                else
-                    dmg.TakeDamage(currentWeapon.weaponDamage);
+                dmg.TakeDamage(currentWeapon.weaponDamage);
             }
 
             Debug.Log(hit.collider);
@@ -302,72 +305,5 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
         }
 
         isPlayingStep = false;
-    }
-
-    public void updateStats()
-    {
-        GameManager.instance.strText.text = stats.strength.ToString("F0");
-        GameManager.instance.dexText.text = stats.dexterity.ToString("F0");
-        GameManager.instance.conText.text = stats.constitution.ToString("F0");
-        GameManager.instance.intText.text = stats.intelligence.ToString("F0");
-        GameManager.instance.chaText.text = stats.charisma.ToString("F0");
-        GameManager.instance.wisText.text = stats.wisdom.ToString("F0");
-        moveSpeed = baseSpeed + GameManager.instance.abilityMod(stats.dexterity);
-        MaxHP = baseHP + GameManager.instance.abilityMod(stats.constitution);
-        UpdateHPUI();
-    }
-
-    public void addAmmo(int amount, GameManager.AmmoType ammoType)
-    {
-        switch ((int)ammoType)
-        {
-            case 0:
-                {
-                    GameManager.instance.playerAmmo.ThrowingStones += amount;
-                    break;
-                }
-            case 1:
-                {
-                    GameManager.instance.playerAmmo.Arrows += amount;
-                    break;
-                }
-            case 2:
-                {
-                    GameManager.instance.playerAmmo.Bolts += amount;
-                    break;
-                }
-            case 3:
-                {
-                    GameManager.instance.playerAmmo._9mm += amount;
-                    break;
-                }
-            case 4:
-                {
-                    GameManager.instance.playerAmmo._556mmNATO += amount;
-                    break;
-                }
-            case 5:
-                {
-                    GameManager.instance.playerAmmo._50calBMG += amount;
-                    break;
-                }
-            case 6:
-                {
-                    GameManager.instance.playerAmmo.PlasmaRounds += amount;
-                    break;
-                }
-            case 7:
-                {
-                    GameManager.instance.playerAmmo.LaserRounds += amount;
-                    break;
-                }
-            case 8:
-                {
-                    GameManager.instance.playerAmmo.PulseRounds += amount;
-                    break;
-                }
-            default: break;
-        }
-
     }
 }
