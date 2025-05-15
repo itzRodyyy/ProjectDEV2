@@ -56,7 +56,7 @@ public class buttonFunctions : MonoBehaviour
     {
         if(GameManager.instance.currency >= weapon.cost)
         {
-            GameManager.instance.currency -= weapon.cost;
+            GameManager.instance.currency -= weapon.cost / GameManager.instance.abilityMult(GameManager.instance.playerScript.stats.charisma);
 
             weaponStats weaponInstance = Instantiate(weapon);
             weaponInstance.currentAmmo = weaponInstance.magSize;
@@ -72,29 +72,45 @@ public class buttonFunctions : MonoBehaviour
         GameManager.instance.OpenUpgrades();
     }
 
-    public void upgradeHealth()
+    public void upgradeAbility(int ability)
     {
         if (GameManager.instance.skillPoints > 0)
         {
-            GameManager.instance.playerScript.MaxHP++;
-            GameManager.instance.skillPoints--;
-            levelUp();
-        }
-    }
-    public void upgradeSpeed()
-    {
-        if (GameManager.instance.skillPoints > 0)
-        {
-            GameManager.instance.playerScript.moveSpeed++;
-            GameManager.instance.skillPoints--;
-            levelUp();
-        }
-    }
-    public void upgradeJump()
-    {
-        if (GameManager.instance.skillPoints > 0)
-        {
-            GameManager.instance.playerScript.jumpSpeed++;
+            switch (ability)
+            {
+                case 1:
+                    {
+                        GameManager.instance.playerScript.stats.strength++;
+                        break;
+                    }
+                case 2:
+                    {
+                        GameManager.instance.playerScript.stats.dexterity++;
+                        break;
+                    }
+                case 3:
+                    {
+                        GameManager.instance.playerScript.stats.constitution++;
+                        break;
+                    }
+                case 4:
+                    {
+                        GameManager.instance.playerScript.stats.intelligence++;
+                        break;
+                    }
+                case 5:
+                    {
+                        GameManager.instance.playerScript.stats.charisma++;
+                        break;
+                    }
+                case 6:
+                    {
+                        GameManager.instance.playerScript.stats.wisdom++;
+                        break;
+                    }
+                default: { break; }
+            }
+            GameManager.instance.playerScript.updateStats();
             GameManager.instance.skillPoints--;
             levelUp();
         }

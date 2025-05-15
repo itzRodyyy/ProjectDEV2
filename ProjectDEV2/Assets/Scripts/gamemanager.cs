@@ -6,6 +6,18 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public enum AmmoType
+    {
+        ThrowingStones,
+        Arrows,
+        Crossbow,
+        _9mm,
+        _556mmNATO,
+        _50calBMG,
+        PlasmaRounds,
+        LaserRounds,
+        PulseRounds
+    }
     public static GameManager instance;
     public GameObject player;
     public TMP_Dropdown resolutionDropdown;
@@ -28,6 +40,15 @@ public class GameManager : MonoBehaviour
     public bool ammoActive;
     public TMP_Text ammoCurr;
     public TMP_Text ammoTotal;
+    public ammoStats playerAmmo;
+
+    // Ability Scores
+    public TMP_Text strText;
+    public TMP_Text dexText;
+    public TMP_Text conText;
+    public TMP_Text intText;
+    public TMP_Text chaText;
+    public TMP_Text wisText; 
     
 
     GameObject previousMenu;
@@ -46,10 +67,10 @@ public class GameManager : MonoBehaviour
     float timeScaleOrig;
 
     int gameGoal;
-    public int currency;
+    public float currency;
     public int level;
     public int skillPoints;
-    public int xp;
+    public float xp;
 
     Resolution[] resolutions;
     int currentResolutionIndex = 0;
@@ -92,22 +113,32 @@ public class GameManager : MonoBehaviour
 
     public void updateXP(int exp)
     {
-        xp += exp;
+        xp += exp * abilityMult(playerScript.stats.intelligence);
         playerXPBar.fillAmount = (float)xp / levelXP(level + 1);
         levelText.text = level.ToString("F0"); 
 
-        if (xp >= levelXP(level +1))
+        if (xp >= levelXP(level + 1))
         {
             xp -= levelXP(level + 1);
             level++;
             skillPoints++;
+            playerXPBar.fillAmount = (float)xp / levelXP(level + 1);
+            levelText.text = level.ToString("F0");
         }
     }
 
     int levelXP(int level)
     {
         if (level == 0) return 0;
-        return levelXP(level - 1) + (level - 1) * 100;
+        return levelXP(level - 1) + (level - 1) * 10;
+    }
+    public int abilityMod(int ability)
+    {
+        return (int)(Mathf.Floor((float)(ability - 10) / 2));
+    }
+    public float abilityMult(int ability)
+    {
+        return (float)ability / 10;
     }
     public void statePause()
     {
@@ -259,8 +290,8 @@ public class GameManager : MonoBehaviour
 
     public void UpdateAmmoUI()
     {
-        ammoCurr.text = playerScript.currentWeapon.currentAmmo.ToString();
-        ammoTotal.text = playerScript.currentWeapon.magSize.ToString();
+        ammoCurr.text = playerScript.currentWeapon.currentAmmo.ToString("F0");
+        ammoTotal.text = playerScript.currentWeapon.magSize.ToString("F0");
     }
 
  

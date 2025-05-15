@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3b6f7bfe77cf3144ada9709d488ff81, type: 3}
+  m_Name: Weapon - Test
+  m_EditorClassIdentifier: 
+  isMelee: 1
+  isAutomatic: 0
+  weaponModel: {fileID: 4675086562006422597, guid: 8edd64622ff6e9d4586a7880d871f6b4, type: 3}
+  cost: 0
+  icon: {fileID: 0}
+  weaponDamage: 1
+  attackRate: 0.15
+  range: 5
+  hitEffect: {fileID: 970440554703164915, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
+  shootSound: []
+  shootSoundVolume: 0
+  currentAmmo: 1
+  magSize: 1
