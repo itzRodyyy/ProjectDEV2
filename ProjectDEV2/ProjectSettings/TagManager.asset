@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Player Spawn Pos
   - Zipline
+  - door
   layers:
   - Default
   - TransparentFX
