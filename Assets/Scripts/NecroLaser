@@ -1,0 +1,57 @@
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+public class NecroLaser : MonoBehaviour
+{
+    public Transform firePoint;
+    public float laserLength = 100f;
+    public LineRenderer lineRenderer;
+    public LayerMask hitLayers;
+    public float laserDuration = 0.2f;
+    public int damageAmount = 10;
+
+    private bool isFiring;
+
+    void Update()
+    {
+        if (Input.GetButtonDown("Fire1") && !isFiring) // Replace with your attack trigger
+        {
+            StartCoroutine(FireLaser());
+        }
+    }
+
+    IEnumerator FireLaser()
+    {
+        isFiring = true;
+
+        lineRenderer.enabled = true;
+
+        Ray ray = new Ray(firePoint.position, firePoint.forward);
+        RaycastHit hit;
+
+        Vector3 endPos = firePoint.position + firePoint.forward * laserLength;
+
+        if (Physics.Raycast(ray, out hit, laserLength, hitLayers))
+        {
+            endPos = hit.point;
+
+            IDamage target = hit.collider.GetComponent<IDamage>();
+            if (target != null)
+            {
+                target.TakeDamage(damageAmount);
+            }
+        }
+
+        lineRenderer.SetPosition(0, firePoint.position);
+        lineRenderer.SetPosition(1, endPos);
+
+        yield return new WaitForSeconds(laserDuration);
+
+        lineRenderer.enabled = false;
+        isFiring = false;
+    }
+}
