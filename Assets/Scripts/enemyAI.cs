@@ -221,6 +221,10 @@ public class EnemyAI : MonoBehaviour, IDamage
     }
 }
 
-internal class EnemyType
+public enum EnemyType
 {
+    Melee,
+    Ranged,
+    Summoner,
+    Drone
 }
