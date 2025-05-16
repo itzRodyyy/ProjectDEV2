@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
 using Unity.VisualScripting;
+using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
@@ -143,7 +144,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            agent.stoppingDistance = 0; 
+            agent.stoppingDistance = 0;
         }
     }
 
@@ -175,7 +176,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         shootTimer = 0;
         anim.SetTrigger("Shoot");
     }
-    public void createBullet()
+    public void CreateBullet()
     {
         Instantiate(bullet, shootPosition.position, transform.rotation);
     }
@@ -218,4 +219,8 @@ public class EnemyAI : MonoBehaviour, IDamage
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDirection.x, transform.position.y, playerDirection.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed); //lerp = smoothening
     }
+}
+
+internal class EnemyType
+{
 }
