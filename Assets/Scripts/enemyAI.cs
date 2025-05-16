@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
 using Unity.VisualScripting;
+using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
@@ -9,6 +10,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
+    [SerializeField] EnemyType enemyType;
 
     [SerializeField] int hp;
     [SerializeField] public int headShot;
@@ -23,6 +25,9 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
     [SerializeField] int shootFOV;
+
+    [SerializeField] GameObject summonPrefab;
+    [SerializeField] Transform[] summonPoints;
 
     float angleToPlayer;
     bool playerInRange;
@@ -139,7 +144,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            agent.stoppingDistance = 0; 
+            agent.stoppingDistance = 0;
         }
     }
 
@@ -171,9 +176,42 @@ public class EnemyAI : MonoBehaviour, IDamage
         shootTimer = 0;
         anim.SetTrigger("Shoot");
     }
-    public void createBullet()
+    public void CreateBullet()
     {
         Instantiate(bullet, shootPosition.position, transform.rotation);
+    }
+
+    void PerformAttack()
+    {
+        shootTimer = 0;
+        switch (enemyType)
+        {
+            case EnemyType.Melee:
+                anim.SetTrigger("Attack");
+                break;
+            case EnemyType.Ranged:
+                anim.SetTrigger("Shoot");
+                createBullet();
+                break;
+            case EnemyType.Summoner:
+                anim.SetTrigger("Summon");
+                if (summonPrefab != null && summonPoints.Length > 0)
+                {
+                    foreach (Transform point in summonPoints)
+                        Instantiate(summonPrefab, point.position, point.rotation);
+                }
+                break;
+            case EnemyType.Drone:
+                anim.SetTrigger("Flashbang");
+                if (bullet != null)
+                    Instantiate(bullet, shootPosition.position, shootPosition.rotation); // e.g. flash/stun effect
+                break;
+        }
+    }
+    public void createBullet()
+    {
+        if (bullet && shootPosition)
+            Instantiate(bullet, shootPosition.position, transform.rotation);
     }
 
     void faceTarget()
@@ -181,4 +219,12 @@ public class EnemyAI : MonoBehaviour, IDamage
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDirection.x, transform.position.y, playerDirection.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed); //lerp = smoothening
     }
+}
+
+public enum EnemyType
+{
+    Melee,
+    Ranged,
+    Summoner,
+    Drone
 }
