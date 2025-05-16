@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
+    [SerializeField] EnemyType enemyType;
 
     [SerializeField] int hp;
     [SerializeField] public int headShot;
@@ -23,6 +24,9 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
     [SerializeField] int shootFOV;
+
+    [SerializeField] GameObject summonPrefab;
+    [SerializeField] Transform[] summonPoints;
 
     float angleToPlayer;
     bool playerInRange;
@@ -174,6 +178,39 @@ public class EnemyAI : MonoBehaviour, IDamage
     public void createBullet()
     {
         Instantiate(bullet, shootPosition.position, transform.rotation);
+    }
+
+    void PerformAttack()
+    {
+        shootTimer = 0;
+        switch (enemyType)
+        {
+            case EnemyType.Melee:
+                anim.SetTrigger("Attack");
+                break;
+            case EnemyType.Ranged:
+                anim.SetTrigger("Shoot");
+                createBullet();
+                break;
+            case EnemyType.Summoner:
+                anim.SetTrigger("Summon");
+                if (summonPrefab != null && summonPoints.Length > 0)
+                {
+                    foreach (Transform point in summonPoints)
+                        Instantiate(summonPrefab, point.position, point.rotation);
+                }
+                break;
+            case EnemyType.Drone:
+                anim.SetTrigger("Flashbang");
+                if (bullet != null)
+                    Instantiate(bullet, shootPosition.position, shootPosition.rotation); // e.g. flash/stun effect
+                break;
+        }
+    }
+    public void createBullet()
+    {
+        if (bullet && shootPosition)
+            Instantiate(bullet, shootPosition.position, transform.rotation);
     }
 
     void faceTarget()
