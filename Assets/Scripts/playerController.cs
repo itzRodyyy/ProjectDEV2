@@ -12,6 +12,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
+    [Range(5, 10)][SerializeField] int interactRange;
 
     // Movement
     [Header("--- Movement ---")]
@@ -83,19 +84,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
 
         Movement();
         Attack();
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            RaycastHit[] hits = Physics.SphereCastAll(transform.position + new Vector3(0, checkOffset, 0), checkRadius, Vector3.up);
-
-            foreach (RaycastHit hit in hits)
-            {
-                if (hit.collider.tag == "Zipline")
-                {
-                    hit.collider.GetComponent<zipLine>().StartZipLine(gameObject);
-                }
-            }
-        }
+        Interact();
     }
 
     public void UpdateHPUI()
@@ -319,49 +308,49 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
 
     public void addAmmo(int amount, GameManager.AmmoType ammoType)
     {
-        switch ((int)ammoType)
+        switch (ammoType)
         {
-            case 0:
+            case GameManager.AmmoType.ThrowingStones:
                 {
                     GameManager.instance.playerAmmo.ThrowingStones += amount;
                     break;
                 }
-            case 1:
+            case GameManager.AmmoType.Arrows:
                 {
                     GameManager.instance.playerAmmo.Arrows += amount;
                     break;
                 }
-            case 2:
+            case GameManager.AmmoType.Bolts:
                 {
                     GameManager.instance.playerAmmo.Bolts += amount;
                     break;
                 }
-            case 3:
+            case GameManager.AmmoType._9mm:
                 {
                     GameManager.instance.playerAmmo._9mm += amount;
                     break;
                 }
-            case 4:
+            case GameManager.AmmoType._556mmNATO:
                 {
                     GameManager.instance.playerAmmo._556mmNATO += amount;
                     break;
                 }
-            case 5:
+            case GameManager.AmmoType._50calBMG:
                 {
                     GameManager.instance.playerAmmo._50calBMG += amount;
                     break;
                 }
-            case 6:
+            case GameManager.AmmoType.PlasmaRounds:
                 {
                     GameManager.instance.playerAmmo.PlasmaRounds += amount;
                     break;
                 }
-            case 7:
+            case GameManager.AmmoType.LaserRounds:
                 {
                     GameManager.instance.playerAmmo.LaserRounds += amount;
                     break;
                 }
-            case 8:
+            case GameManager.AmmoType.PulseRounds:
                 {
                     GameManager.instance.playerAmmo.PulseRounds += amount;
                     break;
@@ -369,5 +358,31 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
             default: break;
         }
 
+    }
+
+    public void Interact()
+    {
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, interactRange))
+        {
+            iInteract interactable = hit.collider.GetComponent<iInteract>();
+            if (interactable != null)
+            {
+                GameManager.instance.ShowInteractText(true);
+                if (Input.GetButtonDown("Interact"))
+                {
+                    interactable.onInteract();
+                }
+            }
+            else
+            {
+                GameManager.instance.ShowInteractText(false);
+            }
+        }
+        else
+        {
+            GameManager.instance.ShowInteractText(false);
+        }
     }
 }

@@ -1,47 +1,23 @@
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, iInteract
 {
-    public float interactionDistance;
-    public GameObject intText;
-    public string doorOpenAnimName, doorCloseAnimName;
+    [SerializeField] Animator doorAnim;
 
-    void Update()
+    public void onInteract()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, interactionDistance))
+        if (doorAnim.GetCurrentAnimatorStateInfo(0).IsName("DoorOpen"))//if (doorAnim.GetCurrentAnimatorStateInfo(0).IsName(doorOpenAnimName))
         {
-            if (hit.collider.gameObject.tag == "door")
-            {
-                GameObject doorParent = hit.collider.transform.root.gameObject;
-                Animator doorAnim = doorParent.GetComponent<Animator>();
-                intText.SetActive(true);
-
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    if(doorAnim.GetCurrentAnimatorStateInfo(0).IsName(doorOpenAnimName))
-                    {
-                        doorAnim.ResetTrigger("open");
-                        doorAnim.SetTrigger("close");
-                    }
-
-                    if (doorAnim.GetCurrentAnimatorStateInfo(0).IsName(doorCloseAnimName))
-                    {
-                        doorAnim.ResetTrigger("close");
-                        doorAnim.SetTrigger("open");
-                    }
-                }
-            }
-            else
-            {
-                intText.SetActive(false);
-            }
+            doorAnim.ResetTrigger("Open");
+            doorAnim.SetTrigger("Close");
         }
-        else
+
+        if (doorAnim.GetCurrentAnimatorStateInfo(0).IsName("DoorClose"))
         {
-            intText.SetActive(false);
-        }
+            doorAnim.ResetTrigger("Close");
+            doorAnim.SetTrigger("Open");
+        };
     }
+
+    
 }

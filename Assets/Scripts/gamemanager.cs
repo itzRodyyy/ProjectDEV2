@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     {
         ThrowingStones,
         Arrows,
-        Crossbow,
+        Bolts,
         _9mm,
         _556mmNATO,
         _50calBMG,
@@ -58,8 +58,9 @@ public class GameManager : MonoBehaviour
     public GameObject checkPointPopUp;
     public Image playerHPBar;
     public Image playerXPBar;
-    [SerializeField] public TMP_Text hpValue;
+    public TMP_Text hpValue;
     [SerializeField] TMP_Text levelText;
+    public GameObject interactText;
     public GameObject playerSpawnPos;
 
     public bool isPaused;
@@ -294,6 +295,10 @@ public class GameManager : MonoBehaviour
         ammoTotal.text = playerScript.currentWeapon.magSize.ToString("F0");
     }
 
+    public void ShowInteractText(bool _val)
+    {
+        interactText.SetActive(_val);
+    }
  
 }
 
