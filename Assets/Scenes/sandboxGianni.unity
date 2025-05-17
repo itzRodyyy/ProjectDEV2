@@ -14305,7 +14305,7 @@ GameObject:
   - component: {fileID: 1045697519}
   m_Layer: 0
   m_Name: Door Paret
-  m_TagString: Untagged
+  m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14716,7 +14716,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1158183052771589951, guid: 33cce3beb5cbfc544a678f45a0281ea7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1462440760}
   m_SourcePrefab: {fileID: 100100000, guid: 33cce3beb5cbfc544a678f45a0281ea7, type: 3}
 --- !u!4 &1057470482 stripped
 Transform:
@@ -19490,22 +19493,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1327706210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327706194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d17609da147f2cf4fb1bf387861d3f9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionDistance: 3
-  intText: {fileID: 882311125}
-  doorOpenAnimName: door open
-  doorCloseAnimName: door close
 --- !u!1 &1331067047
 GameObject:
   m_ObjectHideFlags: 0
@@ -21459,6 +21446,24 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6d0e85324ceac748983b4b246993c46, type: 3}
+--- !u!1 &1462440756 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1158183052771589951, guid: 33cce3beb5cbfc544a678f45a0281ea7, type: 3}
+  m_PrefabInstance: {fileID: 1057470481}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1462440760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462440756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17609da147f2cf4fb1bf387861d3f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorAnim: {fileID: 1045697519}
 --- !u!1001 &1464569893
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34835,6 +34840,10 @@ PrefabInstance:
       propertyPath: currentWeapon
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1032025750200054196, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
+      propertyPath: interactRange
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1644809779113691289, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
       propertyPath: m_LocalPosition.z
       value: -32
@@ -34963,9 +34972,6 @@ PrefabInstance:
       insertIndex: 164
       addedObject: {fileID: 287966625}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4943406597832771718, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 1327706210}
     - targetCorrespondingSourceObject: {fileID: 4943406597832771718, guid: 586e9993ecb7142439af4e0682f4a7b4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1327706202}
@@ -41099,6 +41105,7 @@ MonoBehaviour:
   playerXPBar: {fileID: 2038943160564515046}
   hpValue: {fileID: 1179411500}
   levelText: {fileID: 4245885946176491250}
+  interactText: {fileID: 882311125}
   playerSpawnPos: {fileID: 0}
   isPaused: 0
   currency: 0
