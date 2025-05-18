@@ -462,6 +462,14 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1848489864497464418, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: aoeDamage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848489864497464418, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: aoeRadius
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848489864497464418, guid: ddd41046afb491149a45c3a46e071965, type: 3}
       propertyPath: attackFOV
       value: 120
       objectReference: {fileID: 0}
@@ -478,6 +486,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1322265489}
     - target: {fileID: 1848489864497464418, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: jumpCooldown
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848489864497464418, guid: ddd41046afb491149a45c3a46e071965, type: 3}
       propertyPath: meleeHitboxHand
       value: 
       objectReference: {fileID: 593056248}
@@ -485,6 +497,14 @@ PrefabInstance:
       propertyPath: meleeHitboxHead
       value: 
       objectReference: {fileID: 1322265489}
+    - target: {fileID: 1848489864497464418, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: jumpTriggerRange
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848489864497464418, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: playerLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 5234573855246223181, guid: ddd41046afb491149a45c3a46e071965, type: 3}
       propertyPath: m_Speed
       value: 8
@@ -1193,7 +1213,7 @@ Transform:
   m_GameObject: {fileID: 593056245}
   serializedVersion: 2
   m_LocalRotation: {x: 0.008931657, y: -0.00800951, z: -0.6675877, w: 0.7444345}
-  m_LocalPosition: {x: -0.0379, y: 0.016, z: -0.0725}
+  m_LocalPosition: {x: -0.083, y: 0.011, z: -0.073}
   m_LocalScale: {x: 0.98154, y: 0.9937, z: 1.540833}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1234,7 +1254,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.087
+  m_Radius: 0.09
   m_Height: 0.2
   m_Direction: 1
   m_Center: {x: 0.05, y: 0, z: 0}

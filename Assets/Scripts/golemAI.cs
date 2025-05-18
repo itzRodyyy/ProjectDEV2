@@ -4,6 +4,7 @@ using UnityEngine.AI;
 using Unity.VisualScripting;
 using UnityEngine.InputSystem.Processors;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 public class golemAI : MonoBehaviour, IDamage
 {
@@ -31,14 +32,29 @@ public class golemAI : MonoBehaviour, IDamage
     [SerializeField] MeleeHitbox meleeHitboxHead;
     [SerializeField] MeleeHitbox meleeHitboxHand;
 
+    [SerializeField] float jumpHeight = 5f;
+    [SerializeField] float landDelay = 1f;
+    [SerializeField] float aoeRadius = 3f;
+    [SerializeField] float jumpTriggerRange = 7f;
+    [SerializeField] int aoeDamage = 20;
+    [SerializeField] float jumpCooldown = 5f;
+    [SerializeField] float jumpPauseDelay = 0.4f;
+
+
+    [SerializeField] LayerMask playerLayer;
+
+    Vector3 jumpTarget;
+
     float angleToPlayer;
     bool playerInRange;
     bool isAttacking = false;
+    bool isJumping = false;
 
     float attackCDTimer = 0f;
     float attackTimer;
     float roamTimer;
     float stoppingDistanceOrig;
+    float jumpCooldownTimer = 0f;
 
     Color colorOriginal;
 
@@ -73,6 +89,11 @@ public class golemAI : MonoBehaviour, IDamage
         if (attackCDTimer > 0f)
         {
             attackCDTimer -= Time.deltaTime;
+        }
+
+        if (jumpCooldownTimer > 0f)
+        {
+            jumpCooldownTimer -= Time.deltaTime;
         }
 
     }
@@ -128,6 +149,14 @@ public class golemAI : MonoBehaviour, IDamage
 
         return angle <= attackFOV;
     }
+
+    bool inJumpRange()
+    {
+        Transform player = GameManager.instance.player.transform;
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        return distance <= jumpTriggerRange && distance > attackRange;
+    }
     bool canSeePlayer()
     {
         if (isAttacking)
@@ -158,6 +187,12 @@ public class golemAI : MonoBehaviour, IDamage
                 if (inMeleeRange() && attackTimer >= attackRate && attackCDTimer <= 0f)
                 {
                     attack();
+                }
+
+                if (!isJumping && !isAttacking && inJumpRange() && jumpCooldownTimer <= 0f)
+                {
+                    PerformJump();
+                    jumpCooldownTimer = jumpCooldown;
                 }
 
                 agent.stoppingDistance = stoppingDistanceOrig;
@@ -249,10 +284,86 @@ public class golemAI : MonoBehaviour, IDamage
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, jumpTriggerRange);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, aoeRadius);
     }
 
     public void ResumeMovement()
     {
+        isAttacking = false;
+        agent.isStopped = false;
+    }
+
+    void PerformJump()
+    {
+        if (isJumping || isAttacking) return;
+
+        isJumping = true;
+        isAttacking = true;
+        agent.isStopped = true;
+
+        jumpTarget = GameManager.instance.player.transform.position;
+        transform.LookAt(new Vector3(GameManager.instance.player.transform.position.x, transform.position.y, GameManager.instance.player.transform.position.z));
+        anim.SetTrigger("Jump");
+        StartCoroutine(DoJump());
+    }
+
+    IEnumerator DoJump()
+    {
+        yield return new WaitForSeconds(jumpPauseDelay);
+
+        Vector3 start = transform.position;
+        Vector3 end = new Vector3(jumpTarget.x, start.y, jumpTarget.z);
+        float peakHeight = jumpHeight;
+        float duration = 0.6f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+
+            Vector3 horizontal = Vector3.Lerp(start, end, t);
+
+            float height = 4 * peakHeight * (t - t * t);
+            Vector3 arcPos = new Vector3(horizontal.x, start.y + height, horizontal.z);
+
+            transform.position = arcPos;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = end;
+        Land();
+    }
+
+    void Land()
+    {
+        anim.SetTrigger("Land");
+
+        Collider[] hits = Physics.OverlapSphere(transform.position, aoeRadius, playerLayer);
+        foreach (Collider hit in hits)
+        {
+            if (hit.CompareTag("Player"))
+            {
+                IDamage dmg = hit.GetComponent<IDamage>();
+                if (dmg != null)
+                {
+                    dmg.TakeDamage(aoeDamage);
+                }
+            }
+        }
+
+        StartCoroutine(RecoverFromJump());
+    }
+
+    IEnumerator RecoverFromJump()
+    {
+        yield return new WaitForSeconds(landDelay);
+        isJumping = false;
         isAttacking = false;
         agent.isStopped = false;
     }
