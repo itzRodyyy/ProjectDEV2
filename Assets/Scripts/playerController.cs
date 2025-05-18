@@ -260,17 +260,8 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
     public void GetWeaponStats(weaponStats weapon)
     {
         currentWeapon = weapon;
-        weaponModel.GetComponent<MeshFilter>().sharedMesh = weapon.weaponModel.GetComponent<MeshFilter>().sharedMesh;
-        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weapon.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
-        if ((weapon.isMelee && GameManager.instance.ammoActive) || (!weapon.isMelee && !GameManager.instance.ammoActive))
-        {
-            GameManager.instance.ToggleAmmoUI();
-            if (!weapon.isMelee)
-            {
-                GameManager.instance.UpdateAmmoUI();
-            }
-        }
-        UpdateHPUI();
+        weaponModel.GetComponent<MeshFilter>().sharedMesh = currentWeapon.weaponModel.GetComponent<MeshFilter>().sharedMesh;
+        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = currentWeapon.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
     void reload()
