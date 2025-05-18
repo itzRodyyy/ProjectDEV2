@@ -2,8 +2,10 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
 using Unity.VisualScripting;
+using UnityEngine.InputSystem.Processors;
+using System.ComponentModel;
 
-public class Boss1AI : MonoBehaviour, IDamage
+public class golemAI : MonoBehaviour, IDamage
 {
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
@@ -21,13 +23,20 @@ public class Boss1AI : MonoBehaviour, IDamage
 
     [SerializeField] Transform shootPosition;
     [SerializeField] GameObject bullet;
-    [SerializeField] float shootRate;
-    [SerializeField] int shootFOV;
+    [SerializeField] float attackRate;
+    [SerializeField] int attackFOV;
+    [SerializeField] float attackRange = 2.5f;
+    [SerializeField] float attackCD = 1.2f;
+
+    [SerializeField] MeleeHitbox meleeHitboxHead;
+    [SerializeField] MeleeHitbox meleeHitboxHand;
 
     float angleToPlayer;
     bool playerInRange;
+    bool isAttacking = false;
 
-    float shootTimer;
+    float attackCDTimer = 0f;
+    float attackTimer;
     float roamTimer;
     float stoppingDistanceOrig;
 
@@ -60,14 +69,25 @@ public class Boss1AI : MonoBehaviour, IDamage
         {
             checkRoam();
         }
+
+        if (attackCDTimer > 0f)
+        {
+            attackCDTimer -= Time.deltaTime;
+        }
+
     }
 
     void setAnimLocomotion()
     {
-        float agentSpeedCur = agent.velocity.normalized.magnitude;
-        float animSpeedCur = anim.GetFloat("Speed");
+        if (isAttacking)
+        {
+            anim.SetBool("isMoving", false);
+            return;
+        }
 
-        anim.SetFloat("Speed", Mathf.Lerp(animSpeedCur, agentSpeedCur, Time.deltaTime * animTransSpeed));
+        bool isWalking = agent.velocity.magnitude > 0.1f;
+
+        anim.SetBool("isMoving", isWalking);
     }
 
     void checkRoam()
@@ -92,36 +112,59 @@ public class Boss1AI : MonoBehaviour, IDamage
 
     }
 
+    bool inMeleeRange()
+    {
+        Transform player = GameManager.instance.player.transform;
+
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        if (distance > attackRange)
+        {
+            return false;
+        }
+
+        Vector3 dirToPlayer = (player.position - transform.position).normalized;
+        float angle = Vector3.Angle(transform.forward, new Vector3(dirToPlayer.x, 0, dirToPlayer.z));
+
+        return angle <= attackFOV;
+    }
     bool canSeePlayer()
     {
+        if (isAttacking)
+        {
+            return true;
+        }
+
+
         playerDirection = (GameManager.instance.player.transform.position - headPos.position);
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
-        Debug.DrawRay(headPos.position, playerDirection);//check
+        Debug.DrawRay(headPos.position, playerDirection);
 
         RaycastHit hit;
-
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
             {
-                agent.SetDestination(GameManager.instance.player.transform.position);
 
+                agent.SetDestination(GameManager.instance.player.transform.position);
+             
                 if (agent.remainingDistance <= agent.stoppingDistance)
                 {
                     faceTarget();
                 }
 
-                shootTimer += Time.deltaTime;
+                attackTimer += Time.deltaTime;
 
-                if (angleToPlayer <= shootFOV && shootTimer >= shootRate)
+                if (inMeleeRange() && attackTimer >= attackRate && attackCDTimer <= 0f)
                 {
-                    shoot();
+                    attack();
                 }
 
                 agent.stoppingDistance = stoppingDistanceOrig;
                 return true;
             }
         }
+
         agent.stoppingDistance = 0;
         return false;
     }
@@ -133,7 +176,7 @@ public class Boss1AI : MonoBehaviour, IDamage
             playerInRange = true;
         }
     }
-
+        
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -153,9 +196,10 @@ public class Boss1AI : MonoBehaviour, IDamage
 
         if (hp <= 0)
         {
-            GameManager.instance.updateGameGoal(-1);
+            anim.SetTrigger("Die");
+            agent.isStopped = true;
+            Destroy(gameObject, 2f);
             GameManager.instance.updateXP(XP);
-            Destroy(gameObject);
         }
     }
 
@@ -166,9 +210,20 @@ public class Boss1AI : MonoBehaviour, IDamage
         model.material.color = colorOriginal;
     }
 
+    void attack()
+    {
+        attackTimer = 0;
+        attackCDTimer = attackCD;
+        isAttacking = true;
+
+        agent.isStopped = true;
+        string[] attackTriggers = { "Hit", "Hit2" };
+        string selectedAttack = attackTriggers[Random.Range(0, attackTriggers.Length)];
+        anim.SetTrigger(selectedAttack);
+
+    }
     void shoot()
     {
-        shootTimer = 0;
         anim.SetTrigger("Shoot");
     }
     public void createBullet()
@@ -179,6 +234,26 @@ public class Boss1AI : MonoBehaviour, IDamage
     void faceTarget()
     {
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDirection.x, transform.position.y, playerDirection.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed); //lerp = smoothening
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
+    }
+
+    public void ActivateHitbox()
+    {
+        meleeHitboxHead.ActivateHitbox();
+        meleeHitboxHand.ActivateHitbox();
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (!Application.isPlaying) return;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    public void ResumeMovement()
+    {
+        isAttacking = false;
+        agent.isStopped = false;
     }
 }

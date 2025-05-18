@@ -50,11 +50,17 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
     public int MaxHP;
     public playerStats stats;
 
+    [Header("----- Knockback -----")]
+    [SerializeField] float knockbackDuration = 0.2f;
+    [SerializeField] float knockbackForce = 8f;
+
     int jumpCount;
     int baseSpeed;
     int baseHP;
     float attackTimer;
+    float knockbackTimer;
 
+    Vector3 knockbackDirection;
     Vector3 moveDir;
     Vector3 playerVel;
 
@@ -115,7 +121,16 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
         Crouch();
 
         playerVel.y -= gravity * Time.deltaTime;
-        controller.Move(playerVel * Time.deltaTime);
+
+        if (knockbackTimer > 0)
+        {
+            controller.Move(knockbackDirection * Time.deltaTime);
+            knockbackTimer -= Time.deltaTime;
+        }
+        else
+        {
+            controller.Move(playerVel * Time.deltaTime);
+        }
     }
 
     void Jump()
@@ -384,5 +399,14 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
         {
             GameManager.instance.ShowInteractText(false);
         }
+    }
+
+    public void ApplyKnockback(Vector3 source, float force)
+    {
+        Vector3 direction = (transform.position - source).normalized;
+        direction.y = 0f;
+
+        knockbackDirection = direction * force;
+        knockbackTimer = knockbackDuration;
     }
 }
