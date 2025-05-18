@@ -1,80 +1,46 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
-public class zipLine : MonoBehaviour
+public class zipLine : MonoBehaviour, iInteract
 {
-    public Transform zipTrans;
-    [SerializeField] zipLine targetZip;
-    [SerializeField] float zipSpeed = 5f;
-    [SerializeField] float zipScale = .2f;
-    [SerializeField] float arrivalThreshold = 0.4f;
-    [SerializeField] LineRenderer cable;
+    [SerializeField] LineRenderer lineRenderer;
+    public Transform startPoint;
+    public Transform endPoint;
+    public float ziplineSpeed = 5f;
 
-    private bool zipping = false;
-    private GameObject localZip;
-    private void Awake()
+    private bool isPlayerOnZipline = false;
+    private void Start()
     {
-        cable.SetPosition(0, zipTrans.position);
-        cable.SetPosition(1, targetZip.zipTrans.position);
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPosition(0, startPoint.position);
+        lineRenderer.SetPosition(1, endPoint.position);
     }
-
-    private void Update()
+    public void onInteract()
     {
-        if (!zipping || localZip == null)
+        if (!isPlayerOnZipline)
         {
-            return;
-        }
-
-        localZip.GetComponent<Rigidbody>().AddForce((targetZip.zipTrans.position - zipTrans.position).normalized * Time.deltaTime, ForceMode.Acceleration);
-
-        if (Vector3.Distance(localZip.transform.position, targetZip.zipTrans.position) <= arrivalThreshold)
-        {
-            ResetZipline();
+            StartCoroutine(ZiplineRide());
         }
     }
 
-    public void StartZipLine(GameObject player)
+    IEnumerator ZiplineRide()
     {
-        if (zipping) 
+        isPlayerOnZipline = true;
+        float journeyLength = Vector3.Distance(startPoint.position, endPoint.position);
+        float journeyTime = journeyLength / ziplineSpeed;
+        float elapsedTime = 0;
+
+        Vector3 startPos = startPoint.position;
+        Vector3 endPos = endPoint.position;
+
+        while (elapsedTime < journeyTime)
         {
-            return;
+            GameManager.instance.player.transform.position = Vector3.Lerp(startPos, endPos, elapsedTime / journeyTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
 
-        localZip = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        localZip.transform.position = zipTrans.position;
-        localZip.transform.localScale = new Vector3(zipScale, zipScale, zipScale);
-        localZip.AddComponent<Rigidbody>().useGravity = false;
-        localZip.GetComponent<Collider>().isTrigger = true;
-
-        GameManager.instance.player.GetComponent<Rigidbody>().useGravity = false;
-        GameManager.instance.player.GetComponent<Rigidbody>().isKinematic = true;
-        GameManager.instance.player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        GameManager.instance.player.transform.parent = localZip.transform;
-        zipping = true;
-    }
-
-    public void ResetZipline()
-    {
-        if (!zipping)
-        {
-            return;
-        }
-
-        GameObject player = localZip.transform.GetChild(0).gameObject;
-
-        GameManager.instance.player.GetComponent<Rigidbody>().useGravity = true;
-        GameManager.instance.player.GetComponent<Rigidbody>().isKinematic = false;
-        GameManager.instance.player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        GameManager.instance.player.transform.parent = null;
-        Destroy(localZip);
-
-        localZip = null;
-        zipping = false;
-        Debug.Log("Zipline reset");
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        
+        GameManager.instance.player.transform.position = endPos;
+        isPlayerOnZipline = false;
     }
 }

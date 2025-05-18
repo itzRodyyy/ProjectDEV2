@@ -142,4 +142,10 @@ public class buttonFunctions : MonoBehaviour
     {
         menuManager.instance.OpenOptions();
     }
+
+    public void PlayAudio(AudioClip clip)
+    {
+        AudioSource aud = gameObject.GetComponent<AudioSource>();
+        aud.PlayOneShot(clip);
+    }
 }

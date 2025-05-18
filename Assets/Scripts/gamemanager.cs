@@ -20,9 +20,6 @@ public class GameManager : MonoBehaviour
     }
     public static GameManager instance;
     public GameObject player;
-    public TMP_Dropdown resolutionDropdown;
-    public Toggle fullscreenToggle;
-    public Slider volumeSlider;
 
     [SerializeField] public GameObject menuActive;
     [SerializeField] GameObject menuPause;
@@ -48,8 +45,8 @@ public class GameManager : MonoBehaviour
     public TMP_Text conText;
     public TMP_Text intText;
     public TMP_Text chaText;
-    public TMP_Text wisText; 
-    
+    public TMP_Text wisText;
+
 
     GameObject previousMenu;
 
@@ -72,15 +69,12 @@ public class GameManager : MonoBehaviour
     public int level;
     public int skillPoints;
     public float xp;
-
-    Resolution[] resolutions;
-    int currentResolutionIndex = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         instance = this;
 
-        if (GameObject.FindWithTag("Player")) 
+        if (GameObject.FindWithTag("Player"))
         {
             player = GameObject.FindWithTag("Player");
             playerScript = player.GetComponent<playerController>();
@@ -88,7 +82,6 @@ public class GameManager : MonoBehaviour
 
         timeScaleOrig = Time.timeScale;
 
-        SetupResolutionDropdown();
 
         //fullscreenToggle.isOn = Screen.fullScreen;
         //fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
@@ -120,7 +113,7 @@ public class GameManager : MonoBehaviour
     {
         xp += exp * abilityMult(playerScript.stats.intelligence);
         playerXPBar.fillAmount = (float)xp / levelXP(level + 1);
-        levelText.text = level.ToString("F0"); 
+        levelText.text = level.ToString("F0");
 
         if (xp >= levelXP(level + 1))
         {
@@ -190,13 +183,13 @@ public class GameManager : MonoBehaviour
         if (menuActive == menuOptions)
         {
             menuOptions.SetActive(false);
-            if(previousMenu != null)
+            if (previousMenu != null)
                 previousMenu.SetActive(true);
 
             menuActive = previousMenu;
         }
         else
-        {      
+        {
             if (menuActive != null)
                 menuActive.SetActive(false);
 
@@ -210,12 +203,12 @@ public class GameManager : MonoBehaviour
     {
         //if (menuActive == menuOptions)
         //{
-        //    menuOptions.SetActive(false);
-        //    menuActive = previousMenu;
-        //    if (previousMenu != null)
-        //        previousMenu.SetActive(true);
+        // menuOptions.SetActive(false);
+        // menuActive = previousMenu;
+        // if (previousMenu != null)
+        // previousMenu.SetActive(true);
 
-        //    menuActive = previousMenu;
+        // menuActive = previousMenu;
         //}
         if (menuActive != null)
         {
@@ -227,52 +220,6 @@ public class GameManager : MonoBehaviour
                 previousMenu = null;
             }
         }
-    }
-    void SetupResolutionDropdown()
-    {
-        if (resolutionDropdown == null)
-            return;
-
-        resolutions = Screen.resolutions;
-        resolutionDropdown.ClearOptions();
-
-        List<string> options = new List<string>();
-
-        for (int i = 0; i < resolutions.Length; i++)
-        {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(option);
-
-            if (resolutions[i].width == Screen.currentResolution.width &&
-                resolutions[i].height == Screen.currentResolution.height)
-            {
-                currentResolutionIndex = i;
-            }
-        }
-
-        resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
-        resolutionDropdown.RefreshShownValue();
-
-        resolutionDropdown.onValueChanged.AddListener(SetResolution);
-    }
-
-    public void SetResolution(int resolutionIndex)
-    {
-        Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-    }
-
-    public void SetFullscreen(bool isFullscreen)
-    {
-        Screen.fullScreen = isFullscreen;
-        Debug.Log("Fullscreen: " + isFullscreen);
-    }
-
-    public void SetVolume(float volume)
-    {
-        AudioListener.volume = volume;
-        Debug.Log("Volume set to: " + volume);
     }
 
     public void gunShopOpen()
@@ -313,7 +260,5 @@ public class GameManager : MonoBehaviour
     {
         interactText.SetActive(_val);
     }
- 
+
 }
-
-
