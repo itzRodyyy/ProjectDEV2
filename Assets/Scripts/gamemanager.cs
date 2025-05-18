@@ -79,19 +79,23 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        player = GameObject.FindWithTag("Player");
-        playerScript = player.GetComponent<playerController>();
+
+        if (GameObject.FindWithTag("Player")) 
+        {
+            player = GameObject.FindWithTag("Player");
+            playerScript = player.GetComponent<playerController>();
+        }
 
         timeScaleOrig = Time.timeScale;
 
         SetupResolutionDropdown();
 
-        fullscreenToggle.isOn = Screen.fullScreen;
-        fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
+        //fullscreenToggle.isOn = Screen.fullScreen;
+        //fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
 
-        volumeSlider.value = AudioListener.volume;
-        volumeSlider.onValueChanged.AddListener(SetVolume);
-        playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
+        //volumeSlider.value = AudioListener.volume;
+        //volumeSlider.onValueChanged.AddListener(SetVolume);
+        //playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
     }
 
     // Update is called once per frame
@@ -204,14 +208,24 @@ public class GameManager : MonoBehaviour
 
     public void cancelOptions()
     {
-        if (menuActive == menuOptions)
-        {
-            menuOptions.SetActive(false);
-            menuActive = previousMenu;
-            if (previousMenu != null)
-                previousMenu.SetActive(true);
+        //if (menuActive == menuOptions)
+        //{
+        //    menuOptions.SetActive(false);
+        //    menuActive = previousMenu;
+        //    if (previousMenu != null)
+        //        previousMenu.SetActive(true);
 
-            menuActive = previousMenu;
+        //    menuActive = previousMenu;
+        //}
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+            if (previousMenu != null)
+            {
+                menuActive = previousMenu;
+                menuActive.SetActive(true);
+                previousMenu = null;
+            }
         }
     }
     void SetupResolutionDropdown()

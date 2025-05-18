@@ -115,4 +115,31 @@ public class buttonFunctions : MonoBehaviour
             levelUp();
         }
     }
+
+    // Main Menu Buttons
+    public void Credits()
+    {
+        menuManager.instance.OpenCredits();
+    }
+    public void MainMenuCancel() {
+        menuManager.instance.Cancel();
+    }
+
+    public void MainMenuQuit()
+    {
+        menuManager.instance.QuitQuery();
+    }
+    public void MainMenuContinue()
+    {
+        menuManager.instance.ContinueQuery();
+    }
+    public void MainMenuNewGame()
+    {
+        menuManager.instance.NewGameQuery();
+    }
+
+    public void MainMenuOptions()
+    {
+        menuManager.instance.OpenOptions();
+    }
 }
