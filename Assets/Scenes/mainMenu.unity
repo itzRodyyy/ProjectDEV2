@@ -2663,6 +2663,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 681401497336045963, guid: b99721623cad7bf4a96a43c322f5e6cd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NewGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 681401497336045963, guid: b99721623cad7bf4a96a43c322f5e6cd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: PlayAudio
       objectReference: {fileID: 0}

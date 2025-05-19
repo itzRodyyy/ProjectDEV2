@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
 
         //volumeSlider.value = AudioListener.volume;
         //volumeSlider.onValueChanged.AddListener(SetVolume);
-        //playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
+        playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
     }
 
     // Update is called once per frame
