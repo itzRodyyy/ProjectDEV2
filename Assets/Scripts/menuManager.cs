@@ -11,7 +11,7 @@ public class menuManager : MonoBehaviour
     [Header("*** Menus ***")]
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject creditsMenu;
-    [SerializeField] GameObject optionsMenu;
+    [SerializeField] public GameObject optionsMenu;
     [SerializeField] GameObject pauseMenu;
 
     [Header("*** Popups ***")]
@@ -30,7 +30,7 @@ public class menuManager : MonoBehaviour
 
 
     [Header("*** Variables ***")]
-    GameObject menuActive;
+    public GameObject menuActive;
     GameObject prevMenu;
     float timeScaleOrig;
     bool isPaused;
@@ -111,5 +111,44 @@ public class menuManager : MonoBehaviour
         prevMenu.SetActive(false);
         menuActive = continuePopup;
         menuActive.SetActive(true);
+    }
+
+    public void OpenOptionsInGame(GameObject currentMenu)
+    {
+        if (menuActive != null)
+            menuActive.SetActive(false);
+
+        if (currentMenu != null && currentMenu.activeSelf)
+            currentMenu.SetActive(false);
+
+        prevMenu = currentMenu;
+        optionsMenu.SetActive(true);
+        menuActive = optionsMenu;
+    }
+
+    public GameObject ExitOptions()
+    {
+        if (optionsMenu.activeSelf)
+            optionsMenu.SetActive(false);
+
+        if (prevMenu != null)
+        {
+            prevMenu.SetActive(true);
+            menuActive = prevMenu;
+            var returnedMenu = prevMenu;
+            prevMenu = null;
+            return returnedMenu;
+        }
+        else if (mainMenu != null)
+        {
+            mainMenu.SetActive(true);
+            menuActive = mainMenu;
+            return mainMenu;
+        }
+        else
+        {
+            menuActive = null;
+            return null;
+        }
     }
 }

@@ -106,6 +106,10 @@ public class GameManager : MonoBehaviour
             {
                 stateUnpause();
             }
+            else if (menuActive == menuManager.instance.optionsMenu)
+            {
+                cancelOptions();
+            }
         }
     }
 
@@ -180,46 +184,21 @@ public class GameManager : MonoBehaviour
 
     public void options()
     {
-        if (menuActive == menuOptions)
+        if (menuManager.instance.optionsMenu.activeSelf)
         {
-            menuOptions.SetActive(false);
-            if (previousMenu != null)
-                previousMenu.SetActive(true);
-
-            menuActive = previousMenu;
+            menuManager.instance.ExitOptions();
+            menuActive = menuManager.instance.menuActive;
         }
         else
         {
-            if (menuActive != null)
-                menuActive.SetActive(false);
-
-            previousMenu = menuActive;
-            menuOptions.SetActive(true);
-            menuActive = menuOptions;
+            menuManager.instance.OpenOptionsInGame(menuActive);
+            menuActive = menuManager.instance.optionsMenu;
         }
     }
 
     public void cancelOptions()
     {
-        //if (menuActive == menuOptions)
-        //{
-        // menuOptions.SetActive(false);
-        // menuActive = previousMenu;
-        // if (previousMenu != null)
-        // previousMenu.SetActive(true);
-
-        // menuActive = previousMenu;
-        //}
-        if (menuActive != null)
-        {
-            menuActive.SetActive(false);
-            if (previousMenu != null)
-            {
-                menuActive = previousMenu;
-                menuActive.SetActive(true);
-                previousMenu = null;
-            }
-        }
+        menuActive = menuManager.instance.ExitOptions();
     }
 
     public void gunShopOpen()
