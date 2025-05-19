@@ -68,6 +68,11 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
     bool isPlayingStep;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
     void Start()
     {
         baseHP = HP;

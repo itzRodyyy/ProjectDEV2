@@ -148,4 +148,9 @@ public class buttonFunctions : MonoBehaviour
         AudioSource aud = gameObject.GetComponent<AudioSource>();
         aud.PlayOneShot(clip);
     }
+
+    public void NewGame()
+    {
+        SceneLoader.LoadScene(1);
+    }
 }
