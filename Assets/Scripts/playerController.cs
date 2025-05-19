@@ -4,6 +4,7 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
 {
@@ -16,21 +17,10 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
 
     // Movement
     [Header("--- Movement ---")]
-    public int moveSpeed;
-    [SerializeField] int sprintMod;
-    public int jumpSpeed;
-    [SerializeField] int jumpMax;
-    [SerializeField] int gravity;
-    [SerializeField] float crouchHeightMod;
-    [SerializeField] float crouchSpeedMod;
+    public player pStats;
 
     [SerializeField] float checkOffset = 1f;
     [SerializeField] float checkRadius = 2f;
-
-    // Shooting
-    [Header("--- Gun ---")]
-    [SerializeField] GameObject weaponModel;
-    public weaponStats currentWeapon;
 
     [Header("----- Steps Audio -----")]
     [SerializeField] AudioClip[] audSteps;
@@ -49,6 +39,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
     public int HP;
     public int MaxHP;
     public playerStats stats;
+    public GameObject weaponModel;
 
     [Header("----- Knockback -----")]
     [SerializeField] float knockbackDuration = 0.2f;
@@ -71,26 +62,25 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
 
     void Awake()
     {
-        DontDestroyOnLoad(this);
+
     }
     void Start()
     {
         baseHP = HP;
-        baseSpeed = moveSpeed;
+        baseSpeed = pStats.moveSpeed;
         updateStats(); 
         UpdateHPUI();
         GameManager.instance.updateXP(0);
         spawnPlayer();
-        weaponModel.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         attackTimer += Time.deltaTime;
-        if (currentWeapon != null)
+        if (pStats.currentWeapon != null)
         {
-            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * currentWeapon.range);
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * pStats.currentWeapon.range);
         }
 
         Movement();
@@ -119,13 +109,13 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
         }
 
         moveDir = (Input.GetAxis("Horizontal") * transform.right) + (Input.GetAxis("Vertical") * transform.forward);
-        controller.Move(moveDir * moveSpeed * Time.deltaTime);
+        controller.Move(moveDir * pStats.moveSpeed * Time.deltaTime);
 
         Jump();
         Sprint();
         Crouch();
 
-        playerVel.y -= gravity * Time.deltaTime;
+        playerVel.y -= pStats.gravity * Time.deltaTime;
 
         if (knockbackTimer > 0)
         {
@@ -140,11 +130,11 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
+        if (Input.GetButtonDown("Jump") && jumpCount < pStats.jumpMax)
         {
             aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
             jumpCount++;
-            playerVel.y = jumpSpeed;
+            playerVel.y = pStats.jumpSpeed;
         }
     }
 
@@ -164,39 +154,39 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
     {
         if (Input.GetButtonDown("Crouch"))
         {
-            controller.height = Mathf.RoundToInt(controller.height * crouchHeightMod);
-            moveSpeed = Mathf.RoundToInt(moveSpeed * crouchSpeedMod);
+            controller.height = Mathf.RoundToInt(controller.height * pStats.crouchHeightMod);
+            pStats.moveSpeed = Mathf.RoundToInt(pStats.moveSpeed * pStats.crouchSpeedMod);
         }
         if (Input.GetButtonUp("Crouch"))
         {
-            controller.height = Mathf.RoundToInt(controller.height / crouchHeightMod);
-            moveSpeed = Mathf.RoundToInt(moveSpeed / crouchSpeedMod);
+            controller.height = Mathf.RoundToInt(controller.height / pStats.crouchHeightMod);
+            pStats.moveSpeed = Mathf.RoundToInt(pStats.moveSpeed / pStats.crouchSpeedMod);
         }
     }
     void Sprint()
     {
         if (Input.GetButtonDown("Sprint"))
         {
-            moveSpeed *= sprintMod;
+            pStats.moveSpeed *= pStats.sprintMod;
             isSprinting = true;
         }
         if (Input.GetButtonUp("Sprint"))
         {
-            moveSpeed /= sprintMod;
+            pStats.moveSpeed /= pStats.sprintMod;
             isSprinting = false;
         }
     }
 
     void Attack()
     {
-        if (GameManager.instance.isPaused || currentWeapon == null)
+        if (GameManager.instance.isPaused || pStats.currentWeapon == null)
         {
             return;
         }
 
-        if (currentWeapon.isMelee)
+        if (pStats.currentWeapon.isMelee)
         {
-            if (Input.GetButtonDown("Fire1") && attackTimer > currentWeapon.attackRate)
+            if (Input.GetButtonDown("Fire1") && attackTimer > pStats.currentWeapon.attackRate)
             {
                 attackTimer = 0;
                 checkCollision();
@@ -204,28 +194,28 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
         }
         else
         {
-            if (currentWeapon.isAutomatic)
+            if (pStats.currentWeapon.isAutomatic)
             {
-                if (Input.GetButton("Fire1") && attackTimer > currentWeapon.attackRate && currentWeapon.currentAmmo > 0)
+                if (Input.GetButton("Fire1") && attackTimer > pStats.currentWeapon.attackRate && pStats.currentWeapon.currentAmmo > 0)
                 {
                     attackTimer = 0;
-                    currentWeapon.currentAmmo--;
+                    pStats.currentWeapon.currentAmmo--;
                     GameManager.instance.UpdateAmmoUI();
                     UpdateHPUI();
                     checkCollision();
-                    aud.PlayOneShot(currentWeapon.shootSound[Random.Range(0, currentWeapon.shootSound.Length)], currentWeapon.shootSoundVolume);
+                    aud.PlayOneShot(pStats.currentWeapon.shootSound[Random.Range(0, pStats.currentWeapon.shootSound.Length)], pStats.currentWeapon.shootSoundVolume);
                 }
             }
             else
             {
-                if (Input.GetButtonDown("Fire1") && attackTimer > currentWeapon.attackRate && currentWeapon.currentAmmo > 0)
+                if (Input.GetButtonDown("Fire1") && attackTimer > pStats.currentWeapon.attackRate && pStats.currentWeapon.currentAmmo > 0)
                 {
                     attackTimer = 0;
-                    currentWeapon.currentAmmo--;
+                    pStats.currentWeapon.currentAmmo--;
                     GameManager.instance.UpdateAmmoUI();
                     UpdateHPUI();
                     checkCollision();
-                    aud.PlayOneShot(currentWeapon.shootSound[Random.Range(0, currentWeapon.shootSound.Length)], currentWeapon.shootSoundVolume);
+                    aud.PlayOneShot(pStats.currentWeapon.shootSound[Random.Range(0, pStats.currentWeapon.shootSound.Length)], pStats.currentWeapon.shootSoundVolume);
                 }
             }
         }
@@ -244,36 +234,36 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, currentWeapon.range, ~ignoreLayer))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, pStats.currentWeapon.range, ~ignoreLayer))
         {
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
             if (dmg != null)
             {
-                if (currentWeapon.isMelee)
-                    dmg.TakeDamage(currentWeapon.weaponDamage + GameManager.instance.abilityMod(stats.strength));
+                if (pStats.currentWeapon.isMelee)
+                    dmg.TakeDamage(pStats.currentWeapon.weaponDamage + GameManager.instance.abilityMod(stats.strength));
                 else
-                    dmg.TakeDamage(currentWeapon.weaponDamage);
+                    dmg.TakeDamage(pStats.currentWeapon.weaponDamage);
             }
 
             Debug.Log(hit.collider);
 
-            Instantiate(currentWeapon.hitEffect, hit.point, Quaternion.identity);
+            Instantiate(pStats.currentWeapon.hitEffect, hit.point, Quaternion.identity);
         }
     }
 
     public void GetWeaponStats(weaponStats weapon)
     {
-        currentWeapon = weapon;
-        weaponModel.GetComponent<MeshFilter>().sharedMesh = currentWeapon.weaponModel.GetComponent<MeshFilter>().sharedMesh;
-        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = currentWeapon.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+        pStats.currentWeapon = weapon;
+        weaponModel.GetComponent<MeshFilter>().sharedMesh = pStats.currentWeapon.weaponModel.GetComponent<MeshFilter>().sharedMesh;
+        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = pStats.currentWeapon.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
     void reload()
     {
-        if (Input.GetButtonDown("Reload") && currentWeapon != null)
+        if (Input.GetButtonDown("Reload") && pStats.currentWeapon != null)
         {
-            currentWeapon.currentAmmo = currentWeapon.magSize;
+            pStats.currentWeapon.currentAmmo = pStats.currentWeapon.magSize;
             GameManager.instance.UpdateAmmoUI();
             UpdateHPUI();
         }
@@ -312,7 +302,7 @@ public class playerController : MonoBehaviour, IDamage, iPickup, iAmmoPickup
         GameManager.instance.intText.text = stats.intelligence.ToString("F0");
         GameManager.instance.chaText.text = stats.charisma.ToString("F0");
         GameManager.instance.wisText.text = stats.wisdom.ToString("F0");
-        moveSpeed = baseSpeed + GameManager.instance.abilityMod(stats.dexterity);
+        pStats.moveSpeed = baseSpeed + GameManager.instance.abilityMod(stats.dexterity);
         MaxHP = baseHP + GameManager.instance.abilityMod(stats.constitution);
         UpdateHPUI();
     }

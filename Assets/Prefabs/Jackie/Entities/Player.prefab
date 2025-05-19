@@ -56,17 +56,9 @@ MonoBehaviour:
   controller: {fileID: 1458742248594300296}
   aud: {fileID: 6963802394313639180}
   interactRange: 7
-  moveSpeed: 5
-  sprintMod: 3
-  jumpSpeed: 12
-  jumpMax: 2
-  gravity: 35
-  crouchHeightMod: 0.5
-  crouchSpeedMod: 0.6
+  pStats: {fileID: 11400000, guid: c16a353a6e1b9f5429ac731a00ca5f06, type: 2}
   checkOffset: 1
   checkRadius: 2
-  weaponModel: {fileID: 6307583570842584051}
-  currentWeapon: {fileID: 0}
   audSteps:
   - {fileID: 8300000, guid: b0d12becece27cc4f8497d4f6ecedc12, type: 3}
   - {fileID: 8300000, guid: b3d30ae539540904d84ca133a62fe097, type: 3}
@@ -94,6 +86,7 @@ MonoBehaviour:
   HP: 10
   MaxHP: 0
   stats: {fileID: 11400000, guid: 849fb7abaddfc9649b9b06f8850433ef, type: 2}
+  weaponModel: {fileID: 6307583570842584051}
   knockbackDuration: 0.2
   knockbackForce: 8
 --- !u!33 &6174663893845363583

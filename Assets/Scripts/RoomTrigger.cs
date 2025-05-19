@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class RoomTrigger : MonoBehaviour
 {
+    [SerializeField] int index;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,7 +19,7 @@ public class RoomTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneLoader.LoadScene(2);
+            SceneLoader.LoadScene(index);
         }
     }
 }

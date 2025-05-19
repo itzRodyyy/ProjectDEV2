@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
         //volumeSlider.value = AudioListener.volume;
         //volumeSlider.onValueChanged.AddListener(SetVolume);
         playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
+        DontDestroyOnLoad(this);
     }
 
     // Update is called once per frame
@@ -231,8 +232,8 @@ public class GameManager : MonoBehaviour
 
     public void UpdateAmmoUI()
     {
-        ammoCurr.text = playerScript.currentWeapon.currentAmmo.ToString("F0");
-        ammoTotal.text = playerScript.currentWeapon.magSize.ToString("F0");
+        ammoCurr.text = playerScript.pStats.currentWeapon.currentAmmo.ToString("F0");
+        ammoTotal.text = playerScript.pStats.currentWeapon.magSize.ToString("F0");
     }
 
     public void ShowInteractText(bool _val)
