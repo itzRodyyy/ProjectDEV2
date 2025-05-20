@@ -40,6 +40,11 @@ public class golemAI : MonoBehaviour, IDamage
     [SerializeField] float jumpCooldown = 5f;
     [SerializeField] float jumpPauseDelay = 0.4f;
 
+    [SerializeField] GameObject fireballPrefab;
+    [SerializeField] Transform fireballSpawnPoint;
+    [SerializeField] float fireballCooldown = 6f;
+    [SerializeField] float fireballSpeed = 15f;
+    [SerializeField] float fireballRange = 10f;
 
     [SerializeField] LayerMask playerLayer;
 
@@ -55,6 +60,7 @@ public class golemAI : MonoBehaviour, IDamage
     float roamTimer;
     float stoppingDistanceOrig;
     float jumpCooldownTimer = 0f;
+    float fireballCooldownTimer = 0f;
 
     Color colorOriginal;
 
@@ -94,6 +100,11 @@ public class golemAI : MonoBehaviour, IDamage
         if (jumpCooldownTimer > 0f)
         {
             jumpCooldownTimer -= Time.deltaTime;
+        }
+
+        if (fireballCooldownTimer > 0f)
+        {
+            fireballCooldownTimer -= Time.deltaTime;
         }
 
     }
@@ -193,6 +204,12 @@ public class golemAI : MonoBehaviour, IDamage
                 {
                     PerformJump();
                     jumpCooldownTimer = jumpCooldown;
+                }
+
+                if (!isJumping && !isAttacking && fireballCooldownTimer <= 0f && Vector3.Distance(transform.position, GameManager.instance.player.transform.position) <= fireballRange)
+                {
+                    SpitFireball();
+                    fireballCooldownTimer = fireballCooldown;
                 }
 
                 agent.stoppingDistance = stoppingDistanceOrig;
@@ -364,6 +381,34 @@ public class golemAI : MonoBehaviour, IDamage
     {
         yield return new WaitForSeconds(landDelay);
         isJumping = false;
+        isAttacking = false;
+        agent.isStopped = false;
+    }
+
+    void SpitFireball()
+    {
+        isAttacking = true;
+        agent.isStopped = true;
+        transform.LookAt(new Vector3(GameManager.instance.player.transform.position.x, transform.position.y, GameManager.instance.player.transform.position.z));
+        anim.SetTrigger("Rage");
+
+        StartCoroutine(FireballAttack());
+    }
+
+    IEnumerator FireballAttack()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        Vector3 dir = (GameManager.instance.player.transform.position - fireballSpawnPoint.position).normalized;
+        GameObject fireball = Instantiate(fireballPrefab, fireballSpawnPoint.position, Quaternion.LookRotation(dir));
+
+        Rigidbody rb = fireball.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = dir * fireballSpeed;
+        }
+
+        yield return new WaitForSeconds(1f);
         isAttacking = false;
         agent.isStopped = false;
     }
