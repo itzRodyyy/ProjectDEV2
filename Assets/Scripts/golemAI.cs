@@ -12,6 +12,27 @@ public class golemAI : MonoBehaviour, IDamage
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
+    [SerializeField] AudioSource aud;
+
+    [Header("----- Steps Audio -----")]
+    [SerializeField] AudioClip[] audSteps;
+    [Range(0, 1)][SerializeField] float audStepsVol;
+
+    [Header("----- Jump Audio -----")]
+    [SerializeField] AudioClip[] audJump;
+    [Range(0, 1)][SerializeField] float audJumpVol;
+
+    [Header("----- Hurt Audio -----")]
+    [SerializeField] AudioClip[] audHurt;
+    [Range(0, 1)][SerializeField] float audHurtVol;
+
+    [Header("----- Attack Audio -----")]
+    [SerializeField] AudioClip[] audAttack;
+    [Range(0, 1)][SerializeField] float audAttackVol;
+
+    [Header("----- Fireball Audio -----")]
+    [SerializeField] AudioClip[] audFireball;
+    [Range(0, 1)][SerializeField] float audFireballVol;
 
     [SerializeField] int hp;
     [SerializeField] public int headShot;
@@ -54,6 +75,8 @@ public class golemAI : MonoBehaviour, IDamage
     bool playerInRange;
     bool isAttacking = false;
     bool isJumping = false;
+    bool isSprinting;
+    bool isPlayingStep;
 
     float attackCDTimer = 0f;
     float attackTimer;
@@ -144,6 +167,13 @@ public class golemAI : MonoBehaviour, IDamage
 
     }
 
+    IEnumerator playStep()
+    {
+        isPlayingStep = true;
+        aud.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audStepsVol);
+        yield return new WaitForSeconds(0.5f);
+
+    }
     bool inMeleeRange()
     {
         Transform player = GameManager.instance.player.transform;
@@ -411,5 +441,15 @@ public class golemAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(1f);
         isAttacking = false;
         agent.isStopped = false;
+    }
+
+    public void StepSound()
+    {
+        aud.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audStepsVol);
+    }
+
+    public void FireballSound()
+    {
+        aud.PlayOneShot(audFireball[Random.Range(0, audFireball.Length)], audFireballVol);
     }
 }
