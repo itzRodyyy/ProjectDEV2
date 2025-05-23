@@ -16,7 +16,7 @@ public class Door : MonoBehaviour, iInteract
         {
             doorAnim.ResetTrigger("Close");
             doorAnim.SetTrigger("Open");
-        };
+        }
     }
 
     
