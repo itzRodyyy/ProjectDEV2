@@ -11,6 +11,7 @@ public class playerMovement : MonoBehaviour
     [Range(0, 1)][SerializeField] float audStepsVol;
     [SerializeField] AudioClip[] audJump;
     [Range(0, 1)][SerializeField] float audJumpVol;
+    public bool onLadder = false;
 
     int jumpCount;
 
@@ -43,14 +44,14 @@ public class playerMovement : MonoBehaviour
             playerVel = Vector3.zero;
         }
 
-        moveDir = (Input.GetAxis("Horizontal") * transform.right) + (Input.GetAxis("Vertical") * transform.forward);
+        moveDir = (Input.GetAxis("Horizontal") * transform.right) + (Input.GetAxis("Vertical") * (onLadder ? transform.up : transform.forward));
         controller.Move(moveDir * moveStats.moveSpeed * Time.deltaTime);
 
         Jump();
         Sprint();
         Crouch();
 
-        playerVel.y -= moveStats.gravity * Time.deltaTime;
+        playerVel.y -= (onLadder ? 0 : moveStats.gravity) * Time.deltaTime;
 
         controller.Move(playerVel * Time.deltaTime);
     }
