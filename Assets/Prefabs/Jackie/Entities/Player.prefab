@@ -342,7 +342,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3054797cf3a728543830ac066e0e8a14, type: 3}
   audHurtVol: 0
   MaxHP: 0
-  stats: {fileID: 0}
+  stats: {fileID: 11400000, guid: 849fb7abaddfc9649b9b06f8850433ef, type: 2}
 --- !u!1 &4932279699101797445
 GameObject:
   m_ObjectHideFlags: 0

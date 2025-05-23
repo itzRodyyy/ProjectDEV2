@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb12765cbb9e71240aee5ebc5291bb07, type: 3}
   m_Name: movementStats
   m_EditorClassIdentifier: 
-  moveSpeed: 0
-  sprintMod: 0
-  jumpSpeed: 0
-  jumpMax: 0
-  gravity: 0
-  crouchHeightMod: 0
-  crouchSpeedMod: 0
-  currentWeapon: {fileID: 0}
+  moveSpeed: 5
+  sprintMod: 3
+  jumpSpeed: 12
+  jumpMax: 2
+  gravity: 35
+  crouchHeightMod: 0.6
+  crouchSpeedMod: 0.6
