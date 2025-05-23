@@ -39,7 +39,7 @@ public class MeleeHitbox : MonoBehaviour
             }
         }
 
-        playerController player = other.GetComponent<playerController>();
+        playerInteraction player = other.GetComponent<playerInteraction>();
         if (player != null)
         {
             player.ApplyKnockback(transform.position, knockbackForce);
