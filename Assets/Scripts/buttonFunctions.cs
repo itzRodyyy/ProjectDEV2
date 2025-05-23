@@ -35,7 +35,7 @@ public class buttonFunctions : MonoBehaviour
     }
     public void respawn()
     {
-        GameManager.instance.playerScript.spawnPlayer();
+        GameManager.instance.core_script.spawnPlayer();
         GameManager.instance.stateUnpause();
     }
 
@@ -45,9 +45,9 @@ public class buttonFunctions : MonoBehaviour
         {
             GameManager.instance.currency -= GameManager.instance.price;
 
-            GameManager.instance.playerScript.MaxHP++;
+            GameManager.instance.hp_stats_script.MaxHP++;
 
-            GameManager.instance.playerScript.UpdateHPUI();
+            GameManager.instance.UpdateHPUI();
         }
         
     }
@@ -56,14 +56,14 @@ public class buttonFunctions : MonoBehaviour
     {
         if(GameManager.instance.currency >= weapon.cost)
         {
-            GameManager.instance.currency -= weapon.cost / GameManager.instance.abilityMult(GameManager.instance.playerScript.stats.charisma);
+            GameManager.instance.currency -= weapon.cost / GameManager.instance.abilityMult(GameManager.instance.hp_stats_script.stats.charisma);
 
             weaponStats weaponInstance = Instantiate(weapon);
             weaponInstance.currentAmmo = weaponInstance.magSize;
 
             inventoryManager.instance.AddItem(weaponInstance);
 
-            GameManager.instance.playerScript.GetWeaponStats(weaponInstance);
+            GameManager.instance.interaction_script.GetWeaponStats(weaponInstance);
         }
     }
 
@@ -80,37 +80,37 @@ public class buttonFunctions : MonoBehaviour
             {
                 case 1:
                     {
-                        GameManager.instance.playerScript.stats.strength++;
-                        break;
-                    }
-                case 2:
-                    {
-                        GameManager.instance.playerScript.stats.dexterity++;
-                        break;
-                    }
-                case 3:
-                    {
-                        GameManager.instance.playerScript.stats.constitution++;
-                        break;
-                    }
-                case 4:
-                    {
-                        GameManager.instance.playerScript.stats.intelligence++;
-                        break;
-                    }
-                case 5:
-                    {
-                        GameManager.instance.playerScript.stats.charisma++;
-                        break;
-                    }
-                case 6:
-                    {
-                        GameManager.instance.playerScript.stats.wisdom++;
+                        GameManager.instance.hp_stats_script.stats.strength++;
+                        break;               
+                    }                        
+                case 2:                      
+                    {                        
+                        GameManager.instance.hp_stats_script.stats.dexterity++;
+                        break;               
+                    }                        
+                case 3:                      
+                    {                        
+                        GameManager.instance.hp_stats_script.stats.constitution++;
+                        break;               
+                    }                        
+                case 4:                      
+                    {                        
+                        GameManager.instance.hp_stats_script.stats.intelligence++;
+                        break;                
+                    }                         
+                case 5:                       
+                    {                         
+                        GameManager.instance.hp_stats_script.stats.charisma++;
+                        break;               
+                    }                        
+                case 6:                      
+                    {                        
+                        GameManager.instance.hp_stats_script.stats.wisdom++;
                         break;
                     }
                 default: { break; }
             }
-            GameManager.instance.playerScript.updateStats();
+            GameManager.instance.hp_stats_script.updateStats();
             GameManager.instance.skillPoints--;
             levelUp();
         }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "player", menuName = "Scriptable Objects/player")]
-public class player : ScriptableObject
+[CreateAssetMenu(fileName = "movementStats", menuName = "Scriptable Objects/movementStats")]
+public class movementStats : ScriptableObject
 {
     public int moveSpeed;
     public int sprintMod;
@@ -10,6 +10,4 @@ public class player : ScriptableObject
     public int gravity;
     public float crouchHeightMod;
     public float crouchSpeedMod;
-
-    public weaponStats currentWeapon;
 }

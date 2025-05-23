@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "playerStats", menuName = "Scriptable Objects/playerStats")]
-public class playerStats : ScriptableObject
+[CreateAssetMenu(fileName = "abilityScores", menuName = "Scriptable Objects/abilityScores")]
+public class abilityScores : ScriptableObject
 {
     [Header("*** Ability Scores ***")]
     public int strength;

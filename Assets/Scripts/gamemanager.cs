@@ -50,8 +50,14 @@ public class GameManager : MonoBehaviour
 
     GameObject previousMenu;
 
+    // Scripts
+    public playerHPStats hp_stats_script;
+    public playerCore core_script;
+    public playerInteraction interaction_script;
+    public playerMovement movement_script;
+    public playerCombat combat_script;
+
     public GameObject playerDamageScreen;
-    public playerController playerScript;
     public GameObject checkPointPopUp;
     public Image playerHPBar;
     public Image playerXPBar;
@@ -77,7 +83,11 @@ public class GameManager : MonoBehaviour
         if (GameObject.FindWithTag("Player"))
         {
             player = GameObject.FindWithTag("Player");
-            playerScript = player.GetComponent<playerController>();
+            hp_stats_script = player.GetComponent<playerHPStats>();
+            core_script = player.GetComponent<playerCore>();
+            interaction_script = player.GetComponent<playerInteraction>();
+            movement_script = player.GetComponent<playerMovement>();
+            combat_script = player.GetComponent<playerCombat>();
         }
 
         timeScaleOrig = Time.timeScale;
@@ -116,7 +126,7 @@ public class GameManager : MonoBehaviour
 
     public void updateXP(int exp)
     {
-        xp += exp * abilityMult(playerScript.stats.intelligence);
+        xp += exp * abilityMult(hp_stats_script.stats.intelligence);
         playerXPBar.fillAmount = (float)xp / levelXP(level + 1);
         levelText.text = level.ToString("F0");
 
@@ -159,7 +169,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(false);
         menuActive = null;
-        GameManager.instance.playerScript.UpdateHPUI();
+        UpdateHPUI();
     }
 
     public void updateGameGoal(int amount)
@@ -232,8 +242,8 @@ public class GameManager : MonoBehaviour
 
     public void UpdateAmmoUI()
     {
-        ammoCurr.text = playerScript.pStats.currentWeapon.currentAmmo.ToString("F0");
-        ammoTotal.text = playerScript.pStats.currentWeapon.magSize.ToString("F0");
+        ammoCurr.text = combat_script.currentWeapon.currentAmmo.ToString("F0");
+        ammoTotal.text = combat_script.currentWeapon.magSize.ToString("F0");
     }
 
     public void ShowInteractText(bool _val)
@@ -241,4 +251,10 @@ public class GameManager : MonoBehaviour
         interactText.SetActive(_val);
     }
 
+    public void UpdateHPUI()
+    {
+        GameManager.instance.hpValue.text = hp_stats_script.HP.ToString() + "/" + hp_stats_script.MaxHP.ToString();
+
+        GameManager.instance.playerHPBar.fillAmount = (float)hp_stats_script.HP / hp_stats_script.MaxHP;
+    }
 }
