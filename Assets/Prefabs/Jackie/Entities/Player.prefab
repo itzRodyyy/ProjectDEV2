@@ -69,12 +69,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0b19364095b0f3047b1cfa951dc6eda6, type: 3}
   - {fileID: 8300000, guid: 5d0c8bb7fed559d4e9de14e5060d5485, type: 3}
   - {fileID: 8300000, guid: 9a9b6d0631fb16c4d8bb0377b82650e1, type: 3}
-  audStepsVol: 1
+  audStepsVol: 0
   audJump:
   - {fileID: 8300000, guid: 9219bba2db736d14f8d320903d818e8b, type: 3}
   - {fileID: 8300000, guid: 48b75f3032befcc4fabf0ac36e9b370e, type: 3}
   - {fileID: 8300000, guid: 4dd623a1af03d3746854c36a57d98a25, type: 3}
-  audJumpVol: 1
+  audJumpVol: 0
   audHurt:
   - {fileID: 8300000, guid: de282ddc355ff8f4c80784b955750108, type: 3}
   - {fileID: 8300000, guid: d75cc3dcb0d2cd94488bf35b48d47c04, type: 3}
@@ -82,7 +82,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3958e14847bd1744cbdf6842466ada53, type: 3}
   - {fileID: 8300000, guid: abe7309259f6b4e468e5813b1dc09395, type: 3}
   - {fileID: 8300000, guid: 3054797cf3a728543830ac066e0e8a14, type: 3}
-  audHurtVol: 1
+  audHurtVol: 0
   HP: 10
   MaxHP: 0
   stats: {fileID: 11400000, guid: 849fb7abaddfc9649b9b06f8850433ef, type: 2}
