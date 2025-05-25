@@ -810,7 +810,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b821b784b18b12741bfd02bcf5980fa1, type: 3}
---- !u!1001 &1763470194
+--- !u!1001 &3906066062558359938
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -818,14 +818,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 398063915704979177, guid: f532f830bcc9b244ab43806cc5f700a8, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 398063915704979177, guid: f532f830bcc9b244ab43806cc5f700a8, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 509087783136649927, guid: f532f830bcc9b244ab43806cc5f700a8, type: 3}
       propertyPath: m_Name
       value: UI
@@ -910,22 +902,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5760036629088364794, guid: f532f830bcc9b244ab43806cc5f700a8, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8059233873642855734, guid: f532f830bcc9b244ab43806cc5f700a8, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8059233873642855734, guid: f532f830bcc9b244ab43806cc5f700a8, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8059233873642855734, guid: f532f830bcc9b244ab43806cc5f700a8, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -936,7 +912,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 931255547}
-  - {fileID: 1763470194}
+  - {fileID: 3906066062558359938}
   - {fileID: 774409011}
   - {fileID: 519638301}
   - {fileID: 1575811566}

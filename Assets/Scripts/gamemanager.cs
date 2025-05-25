@@ -79,27 +79,17 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-
-        if (GameObject.FindWithTag("Player"))
-        {
-            player = GameObject.FindWithTag("Player");
-            hp_stats_script = player.GetComponent<playerHPStats>();
-            core_script = player.GetComponent<playerCore>();
-            interaction_script = player.GetComponent<playerInteraction>();
-            movement_script = player.GetComponent<playerMovement>();
-            combat_script = player.GetComponent<playerCombat>();
-        }
-
-        timeScaleOrig = Time.timeScale;
-
-
+        SceneChange();
         //fullscreenToggle.isOn = Screen.fullScreen;
         //fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
 
         //volumeSlider.value = AudioListener.volume;
         //volumeSlider.onValueChanged.AddListener(SetVolume);
-        playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
-        DontDestroyOnLoad(this);
+
+    }
+    private void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -121,6 +111,11 @@ public class GameManager : MonoBehaviour
             {
                 cancelOptions();
             }
+        }
+
+        if (player == null)
+        {
+            SceneChange();
         }
     }
 
@@ -248,7 +243,9 @@ public class GameManager : MonoBehaviour
 
     public void ShowInteractText(bool _val)
     {
-        interactText.SetActive(_val);
+        if (interactText != null) { 
+            interactText.SetActive(_val); 
+        }
     }
 
     public void UpdateHPUI()
@@ -256,5 +253,21 @@ public class GameManager : MonoBehaviour
         GameManager.instance.hpValue.text = hp_stats_script.HP.ToString() + "/" + hp_stats_script.MaxHP.ToString();
 
         GameManager.instance.playerHPBar.fillAmount = (float)hp_stats_script.HP / hp_stats_script.MaxHP;
+    }
+
+    public void SceneChange()
+    {
+        if (GameObject.FindWithTag("Player"))
+        {
+            player = GameObject.FindWithTag("Player");
+            hp_stats_script = player.GetComponent<playerHPStats>();
+            core_script = player.GetComponent<playerCore>();
+            interaction_script = player.GetComponent<playerInteraction>();
+            movement_script = player.GetComponent<playerMovement>();
+            combat_script = player.GetComponent<playerCombat>();
+        }
+
+        timeScaleOrig = Time.timeScale;
+        playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
     }
 }
