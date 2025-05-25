@@ -443,6 +443,8 @@ GameObject:
   - component: {fileID: 3608635111709541489}
   - component: {fileID: 4000066304317878082}
   - component: {fileID: 2053190367222774862}
+  - component: {fileID: 8090495774783902807}
+  - component: {fileID: 5965091149191681753}
   m_Layer: 0
   m_Name: Ladder
   m_TagString: Untagged
@@ -489,11 +491,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 3.69, z: 1.42}
+  m_Size: {x: 0.75, y: 4, z: 1.42}
   m_Center: {x: 0, y: 0.5, z: 0.03}
 --- !u!54 &2053190367222774862
 Rigidbody:
@@ -522,6 +524,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8090495774783902807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4141008832994890332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21777084130f69042b3372c023cb6717, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5965091149191681753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4141008832994890332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21777084130f69042b3372c023cb6717, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4760179607403220110
 GameObject:
   m_ObjectHideFlags: 0
