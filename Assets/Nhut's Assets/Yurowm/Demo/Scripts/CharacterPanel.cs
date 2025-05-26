@@ -14,7 +14,7 @@ public class CharacterPanel : MonoBehaviour {
 	public Slider motionSpeed;
 
 	Actions actions;
-	PlayerController controller;
+	KillerController controller;
 	Camera[] cameras;
 
 	void Start () {
@@ -23,9 +23,9 @@ public class CharacterPanel : MonoBehaviour {
 
 	void Initialize () {
 		actions = character.GetComponent<Actions> ();
-		controller = character.GetComponent<PlayerController> ();
+		controller = character.GetComponent<KillerController> ();
 
-		foreach (PlayerController.Arsenal a in controller.arsenal)
+		foreach (KillerController.Arsenal a in controller.arsenal)
 			CreateWeaponButton(a.name);
 
 		CreateActionButton("Stay");
@@ -38,7 +38,6 @@ public class CharacterPanel : MonoBehaviour {
 		CreateActionButton("Damage");
 		CreateActionButton("Death Reset", "Death");
 
-		cameras = GameObject.FindObjectsOfType<Camera> ();
 		var sort = from s in cameras orderby s.name select s;
 
 		foreach (Camera c in sort)
