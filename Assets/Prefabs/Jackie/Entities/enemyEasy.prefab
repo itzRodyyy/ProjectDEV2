@@ -440,6 +440,7 @@ MonoBehaviour:
   agent: {fileID: 3928033202690234608}
   anim: {fileID: 6082135991255573267}
   headPos: {fileID: 2626713183491555704}
+  enemyType: 1
   hp: 3
   headShot: 0
   faceTargetSpeed: 8
@@ -452,6 +453,8 @@ MonoBehaviour:
   bullet: {fileID: 4641655184626065091, guid: 6b675dc3075fd804eb29566bdbbda411, type: 3}
   shootRate: 0.5
   shootFOV: 15
+  summonPrefab: {fileID: 0}
+  summonPoints: []
 --- !u!195 &3928033202690234608
 NavMeshAgent:
   m_ObjectHideFlags: 0

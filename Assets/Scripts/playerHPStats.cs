@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class playerHPStats : MonoBehaviour
+public class playerHPStats : MonoBehaviour, IDamage
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] AudioSource aud;

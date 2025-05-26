@@ -534,7 +534,7 @@ MonoBehaviour:
   agent: {fileID: 5860563387238066484}
   anim: {fileID: 2896469607419877114}
   headPos: {fileID: 5319100996206395614}
-  enemyType: 0
+  enemyType: 1
   hp: 10
   headShot: 0
   faceTargetSpeed: 4
