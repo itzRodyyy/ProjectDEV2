@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
     public bool ammoActive;
     public TMP_Text ammoCurr;
     public TMP_Text ammoTotal;
-    public ammoStats playerAmmo;
 
     // Ability Scores
     public TMP_Text strText;

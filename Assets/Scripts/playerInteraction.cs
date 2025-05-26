@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class playerInteraction : MonoBehaviour, iAmmoPickup, iPickup
+public class playerInteraction : MonoBehaviour, iPickup
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] CharacterController controller;
@@ -45,60 +45,6 @@ public class playerInteraction : MonoBehaviour, iAmmoPickup, iPickup
             GameManager.instance.ToggleAmmoUI();
             GameManager.instance.UpdateAmmoUI();
         }
-    }
-
-    public void addAmmo(int amount, GameManager.AmmoType ammoType) // Interaction
-    {
-        switch (ammoType)
-        {
-            case GameManager.AmmoType.ThrowingStones:
-                {
-                    GameManager.instance.playerAmmo.ThrowingStones += amount;
-                    break;
-                }
-            case GameManager.AmmoType.Arrows:
-                {
-                    GameManager.instance.playerAmmo.Arrows += amount;
-                    break;
-                }
-            case GameManager.AmmoType.Bolts:
-                {
-                    GameManager.instance.playerAmmo.Bolts += amount;
-                    break;
-                }
-            case GameManager.AmmoType._9mm:
-                {
-                    GameManager.instance.playerAmmo._9mm += amount;
-                    break;
-                }
-            case GameManager.AmmoType._556mmNATO:
-                {
-                    GameManager.instance.playerAmmo._556mmNATO += amount;
-                    break;
-                }
-            case GameManager.AmmoType._50calBMG:
-                {
-                    GameManager.instance.playerAmmo._50calBMG += amount;
-                    break;
-                }
-            case GameManager.AmmoType.PlasmaRounds:
-                {
-                    GameManager.instance.playerAmmo.PlasmaRounds += amount;
-                    break;
-                }
-            case GameManager.AmmoType.LaserRounds:
-                {
-                    GameManager.instance.playerAmmo.LaserRounds += amount;
-                    break;
-                }
-            case GameManager.AmmoType.PulseRounds:
-                {
-                    GameManager.instance.playerAmmo.PulseRounds += amount;
-                    break;
-                }
-            default: break;
-        }
-
     }
 
     public void Interact() // Interaction
