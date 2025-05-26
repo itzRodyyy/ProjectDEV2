@@ -1,13 +1,14 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -19,21 +20,10 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    public static void LoadScene(int index)
+    public static void LoadScenes()
     {
-        switch(index)
-        {
-            case 1:
-                SceneManager.LoadScene("PresentScene");
-                break;
-            case 2:
-                SceneManager.LoadScene("MedievalScene");
-                break;
-            case 3:
-                SceneManager.LoadScene("FutureScene");
-                break;
-            default:
-                break;
-        }
+        SceneManager.LoadScene("mainScene");
+        SceneManager.LoadScene("sandboxLogan", LoadSceneMode.Additive);
+        SceneManager.LoadScene("sandboxPhil", LoadSceneMode.Additive);
     }
 }

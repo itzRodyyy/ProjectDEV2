@@ -64,7 +64,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text hpValue;
     [SerializeField] TMP_Text levelText;
     public GameObject interactText;
-    public GameObject playerSpawnPos;
+    public GameObject playerSpawnPos1;
+    public GameObject playerSpawnPos2;
+    public GameObject playerSpawnPos3;
 
     public bool isPaused;
 
@@ -268,6 +270,8 @@ public class GameManager : MonoBehaviour
         }
 
         timeScaleOrig = Time.timeScale;
-        playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
+        playerSpawnPos1 = GameObject.FindWithTag("Player Spawn Pos 1");
+        playerSpawnPos2 = GameObject.FindWithTag("Player Spawn Pos 2");
+        playerSpawnPos3 = GameObject.FindWithTag("Player Spawn Pos 3");
     }
 }

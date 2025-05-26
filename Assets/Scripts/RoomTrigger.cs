@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RoomTrigger : MonoBehaviour
 {
-    [SerializeField] int index;
+    [SerializeField] string sceneName;
+    [SerializeField] bool spawnPos2;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,7 +21,7 @@ public class RoomTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneLoader.LoadScene(index);
+            other.transform.position = (spawnPos2) ? GameManager.instance.playerSpawnPos2.transform.position : GameManager.instance.playerSpawnPos3.transform.position;
         }
     }
 }
