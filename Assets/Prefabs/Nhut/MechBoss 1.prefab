@@ -298,14 +298,15 @@ MonoBehaviour:
   laserCooldown: 5
   laserDamagePerSecond: 5
   laserBeamPrefab: {fileID: 5160069564402019197, guid: e747eee6f13bb46479e6080e3ed40a4b, type: 3}
-  deathSFX: {fileID: 0}
-  walkSFX: {fileID: 0}
-  shootSFX: {fileID: 0}
-  laserSFX: {fileID: 0}
-  deathVol: 0.8
-  walkVol: 0.4
-  shootVol: 0.018
-  laserVol: 0.024
+  deathSFX: {fileID: 8300000, guid: 70ee2fcba452f9041adbce43b6b7ca66, type: 3}
+  walkSFX: {fileID: 8300000, guid: 6bbed6e7e0a69564693dce84a59eac52, type: 3}
+  shootSFX: {fileID: 8300000, guid: 8d9e2a069b41570439a5ce022a31443b, type: 3}
+  laserSFX: {fileID: 8300000, guid: 775a5ffd5c74d1647837d6d762bfe440, type: 3}
+  deathVol: 0.19
+  walkVol: 0.301
+  shootVol: 0.184
+  laserVol: 0.16
+  walkStepRate: 0.7
 --- !u!195 &5688829961448617135
 NavMeshAgent:
   m_ObjectHideFlags: 0

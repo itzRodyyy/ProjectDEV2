@@ -49,6 +49,10 @@ public class mechdudeAI : MonoBehaviour, IDamage
     [Range(0, 1)][SerializeField] float shootVol = 0.6f;
     [Range(0, 1)][SerializeField] float laserVol = 0.6f;
 
+
+    [SerializeField] float walkStepRate = 0.5f; 
+
+    float walkStepTimer;
     bool isFiringLaser = false;
     float laserCooldownTimer = 0f;
     float fireCooldown;
@@ -125,15 +129,24 @@ public class mechdudeAI : MonoBehaviour, IDamage
 
     void setAnimLocomotion()
     {
-        bool isWalking = agent.velocity.magnitude > 0.1f;
+        bool isWalking = agent.velocity.magnitude > 0.2f;
         anim.SetBool("isMoving", isWalking);
 
-
-        if (isWalking && !aud.isPlaying && walkSFX)
+        if (isWalking)
         {
-            aud.PlayOneShot(walkSFX, walkVol);
+            walkStepTimer -= Time.deltaTime;
+            if (walkStepTimer <= 0f)
+            {
+                aud.PlayOneShot(walkSFX, walkVol);
+                walkStepTimer = walkStepRate;
+            }
+        }
+        else
+        {
+            walkStepTimer = 0f; // Reset when stopping
         }
     }
+
 
     void checkRoam()
     {

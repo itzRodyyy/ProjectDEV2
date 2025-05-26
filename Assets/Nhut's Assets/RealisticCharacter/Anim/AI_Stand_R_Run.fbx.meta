@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 69d5f099fafd647d381f23ffd2f72f4a
+AssetOrigin:
+  serializedVersion: 1
+  productId: 54774
+  packageName: Sci-Fi Warrior
+  packageVersion: 1.0
+  assetPath: Assets/RealisticCharacter/Anim/AI_Stand_R_Run.fbx
+  uploadId: 103232
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable:
@@ -464,7 +471,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -528,8 +535,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 0
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 0364882f9a8db45dfa89ce8d5bcb95bb,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 0364882f9a8db45dfa89ce8d5bcb95bb, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
@@ -541,10 +547,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 54774
-  packageName: Sci-Fi Warrior
-  packageVersion: 1.0
-  assetPath: Assets/RealisticCharacter/Anim/AI_Stand_R_Run.fbx
-  uploadId: 103232

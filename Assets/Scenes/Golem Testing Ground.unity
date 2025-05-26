@@ -1284,6 +1284,63 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 6963802394313639180, guid: b821b784b18b12741bfd02bcf5980fa1, type: 3}
   m_PrefabInstance: {fileID: 1236204268}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1165283597
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1647003370534831976, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.32724
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647003370534831976, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647003370534831976, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.24672
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647003370534831976, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647003370534831976, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647003370534831976, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647003370534831976, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647003370534831976, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647003370534831976, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647003370534831976, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647003370535131912, guid: ddd41046afb491149a45c3a46e071965, type: 3}
+      propertyPath: m_Name
+      value: GolemBoss
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ddd41046afb491149a45c3a46e071965, type: 3}
 --- !u!1001 &1236204268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1531,6 +1588,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MechBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 7411546472817849214, guid: 811074a93dc41914d8913201a9d79144, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7411546472817946462, guid: 811074a93dc41914d8913201a9d79144, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.59479
@@ -1628,6 +1689,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ContractKiller Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 3906412524574952725, guid: 6e486cbee265f034da8a6acd9c946f75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1645,3 +1710,4 @@ SceneRoots:
   - {fileID: 521884097}
   - {fileID: 7237630468913408504}
   - {fileID: 8697306207012909339}
+  - {fileID: 1165283597}
