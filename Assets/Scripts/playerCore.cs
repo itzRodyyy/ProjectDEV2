@@ -20,7 +20,7 @@ public class playerCore : MonoBehaviour
     }
     void Start()
     {
-        spawnPlayer();
+        spawnPlayer(GameManager.instance.playerSpawnPos1.transform.position);
     }
 
     // Update is called once per frame
@@ -29,9 +29,9 @@ public class playerCore : MonoBehaviour
         
     }
 
-    public void spawnPlayer() // Core
+    public void spawnPlayer(Vector3 position) // Core
     {
-        controller.transform.position = GameManager.instance.playerSpawnPos.transform.position;
+        controller.transform.position = position;
 
         GameManager.instance.hp_stats_script.HP = GameManager.instance.hp_stats_script.MaxHP;
         GameManager.instance.UpdateHPUI();

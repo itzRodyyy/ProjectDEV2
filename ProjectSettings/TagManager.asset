@@ -4,10 +4,12 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Player Spawn Pos
   - Zipline
   - door
   - lever
+  - Player Spawn Pos 1
+  - Player Spawn Pos 2
+  - Player Spawn Pos 3
   layers:
   - Default
   - TransparentFX
