@@ -1646,6 +1646,9 @@ GameObject:
   - component: {fileID: 9500000}
   - component: {fileID: 11400002}
   - component: {fileID: 11400000}
+  - component: {fileID: 1764869229182682621}
+  - component: {fileID: 2678036179262848749}
+  - component: {fileID: 3464518718607607545}
   m_Layer: 0
   m_Name: ContractKiller
   m_TagString: Untagged
@@ -1663,7 +1666,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 400094}
@@ -1681,7 +1684,7 @@ Animator:
   m_GameObject: {fileID: 100096}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b6c33e1d6632025468fb37a04e312606, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dbad280ee68364a458cdd686ee45b5d5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1720,19 +1723,98 @@ MonoBehaviour:
   rightGunBone: {fileID: 400000}
   leftGunBone: {fileID: 400002}
   arsenal:
-  - name: Empty
-    rightGun: {fileID: 0}
-    leftGun: {fileID: 0}
-    controller: {fileID: 9100000, guid: e4d38f097ea35254fb4b833d568bb089, type: 2}
-  - name: One Pistol
-    rightGun: {fileID: 100000, guid: 15dcadfdb3cf54345803306cfcebdf0a, type: 3}
-    leftGun: {fileID: 0}
-    controller: {fileID: 9100000, guid: 8bbca7fa0e7d6cf45b625c38120c55a4, type: 2}
   - name: Two Pistols
     rightGun: {fileID: 100000, guid: 15dcadfdb3cf54345803306cfcebdf0a, type: 3}
     leftGun: {fileID: 100000, guid: 15dcadfdb3cf54345803306cfcebdf0a, type: 3}
     controller: {fileID: 9100000, guid: dbad280ee68364a458cdd686ee45b5d5, type: 2}
-  - name: Sniper Rifle
-    rightGun: {fileID: 100000, guid: 5928b07c18727fe47acb7df646f608ef, type: 3}
-    leftGun: {fileID: 0}
-    controller: {fileID: 9100000, guid: dffbd9326394a8d47a87a1e2aec70a59, type: 2}
+  chaseRange: 30
+  attackRange: 20
+  attackCooldown: 0.5
+  crouchRunChance: 0.2
+  crouchDuration: 3
+  jumpCooldown: 10
+  jumpChance: 0.15
+  rightShootPoint: {fileID: 0}
+  leftShootPoint: {fileID: 0}
+  bulletPrefab: {fileID: 4641655184626065091, guid: 3986d5eb644da5b4798a3b57351c1836, type: 3}
+  bulletSpeed: 20
+  bulletDamage: 2
+  hp: 300
+  XP: 20
+  aud: {fileID: 0}
+  runSFX: {fileID: 0}
+  walkSFX: {fileID: 0}
+  shootSFX: {fileID: 0}
+  deathSFX: {fileID: 0}
+  jumpSFX: {fileID: 0}
+  runVol: 0.5
+  walkVol: 0.5
+  shootVol: 0.6
+  deathVol: 0.7
+  jumpVol: 0.6
+--- !u!195 &1764869229182682621
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100096}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.2
+  m_Speed: 7
+  m_Acceleration: 999
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 0.96
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!136 &2678036179262848749
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100096}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!135 &3464518718607607545
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100096}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 6
+  m_Center: {x: 0, y: 0, z: 0}

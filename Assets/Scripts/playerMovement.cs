@@ -93,6 +93,10 @@ public class playerMovement : MonoBehaviour
             isSprinting = false;
         }
     }
+    public void Teleport(Vector3 pos)
+    {
+        transform.position = pos;
+    }
 
     IEnumerator playStep() // Movement
     {

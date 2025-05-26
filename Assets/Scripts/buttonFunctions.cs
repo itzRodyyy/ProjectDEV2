@@ -33,11 +33,11 @@ public class buttonFunctions : MonoBehaviour
     {
         GameManager.instance.cancelOptions();
     }
-    public void respawn()
-    {
-        GameManager.instance.core_script.spawnPlayer();
-        GameManager.instance.stateUnpause();
-    }
+    //public void respawn()
+    //{
+    //    GameManager.instance.core_script.spawnPlayer();
+    //    GameManager.instance.stateUnpause();
+    //}
 
     public void increaseHP(int cost)
     {
@@ -151,6 +151,6 @@ public class buttonFunctions : MonoBehaviour
 
     public void NewGame()
     {
-        SceneLoader.LoadScene(1);
+        SceneLoader.LoadScenes();
     }
 }

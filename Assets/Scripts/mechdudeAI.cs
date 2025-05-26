@@ -11,14 +11,13 @@ public class mechdudeAI : MonoBehaviour, IDamage
     [SerializeField] Transform headPos;
     [SerializeField] AudioSource aud;
 
-
     [Header("----- Gun -----")]
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform shootPoint;
     [SerializeField] float fireRate = 1.5f;
     [SerializeField] float fireRange = 15f;
-    [SerializeField] AudioClip[] audShoot;
-    [Range(0, 1)][SerializeField] float shootVol;
+    [SerializeField] int burstCount = 3;
+    [SerializeField] float burstDelay = 0.1f;
 
     [Header("----- Stats -----")]
     [SerializeField] int hp;
@@ -33,14 +32,22 @@ public class mechdudeAI : MonoBehaviour, IDamage
 
     [Header("----- Laser Eye -----")]
     [SerializeField] Transform eyeTransform;
-    [SerializeField] LineRenderer laserLine;
     [SerializeField] float laserRange = 20f;
     [SerializeField] float laserDuration = 0.1f;
     [SerializeField] float laserCooldown = 5f;
     [SerializeField] int laserDamagePerSecond = 5;
-    [SerializeField] AudioClip laserSFX;
-    [Range(0, 1)][SerializeField] float laserVol;
+    [SerializeField] GameObject laserBeamPrefab;
 
+    [Header("----- Audio Clips -----")]
+    [SerializeField] AudioClip deathSFX;
+    [SerializeField] AudioClip walkSFX;
+    [SerializeField] AudioClip shootSFX;
+    [SerializeField] AudioClip laserSFX;
+
+    [Range(0, 1)][SerializeField] float deathVol = 0.8f;
+    [Range(0, 1)][SerializeField] float walkVol = 0.4f;
+    [Range(0, 1)][SerializeField] float shootVol = 0.6f;
+    [Range(0, 1)][SerializeField] float laserVol = 0.6f;
 
     bool isFiringLaser = false;
     float laserCooldownTimer = 0f;
@@ -120,6 +127,12 @@ public class mechdudeAI : MonoBehaviour, IDamage
     {
         bool isWalking = agent.velocity.magnitude > 0.1f;
         anim.SetBool("isMoving", isWalking);
+
+
+        if (isWalking && !aud.isPlaying && walkSFX)
+        {
+            aud.PlayOneShot(walkSFX, walkVol);
+        }
     }
 
     void checkRoam()
@@ -201,14 +214,17 @@ public class mechdudeAI : MonoBehaviour, IDamage
 
         anim.SetTrigger("Shoot");
 
-        if (audShoot.Length > 0)
+        for (int i = 0; i < burstCount; i++)
         {
-            aud.PlayOneShot(audShoot[Random.Range(0, audShoot.Length)], shootVol);
-        }
+            Vector3 targetDir = (GameManager.instance.player.transform.position - shootPoint.position).normalized;
+            Quaternion bulletRotation = Quaternion.LookRotation(targetDir);
+            Instantiate(bulletPrefab, shootPoint.position, bulletRotation);
 
-        Vector3 targetDir = (GameManager.instance.player.transform.position - shootPoint.position).normalized;
-        Quaternion bulletRotation = Quaternion.LookRotation(targetDir);
-        Instantiate(bulletPrefab, shootPoint.position, bulletRotation);
+            if (shootSFX)
+                aud.PlayOneShot(shootSFX, shootVol);
+
+            yield return new WaitForSeconds(burstDelay);
+        }
 
         yield return new WaitForSeconds(0.6f);
         isShooting = false;
@@ -235,6 +251,9 @@ public class mechdudeAI : MonoBehaviour, IDamage
 
     void Die()
     {
+        if (deathSFX)
+            aud.PlayOneShot(deathSFX, deathVol);
+
         anim.SetTrigger("Death");
         agent.isStopped = true;
         GameManager.instance.updateXP(XP);
@@ -264,37 +283,20 @@ public class mechdudeAI : MonoBehaviour, IDamage
             }
         }
 
-        laserLine.positionCount = 2;
-        laserLine.SetPosition(0, start);
-        laserLine.SetPosition(1, end);
-        laserLine.enabled = true;
+        GameObject laser = Instantiate(laserBeamPrefab);
+        Vector3 laserDir = end - start;
+        float length = laserDir.magnitude;
+
+        laser.transform.position = start + laserDir / 2f;
+        laser.transform.rotation = Quaternion.LookRotation(laserDir);
+        laser.transform.Rotate(90f, 0f, 0f);
+        laser.transform.localScale = new Vector3(0.05f, length / 2f, 0.05f);
 
         yield return new WaitForSeconds(laserDuration);
 
-        yield return StartCoroutine(ShrinkLaserLine(start, end));
+        Destroy(laser);
 
-        laserLine.enabled = false;
         isFiringLaser = false;
         agent.isStopped = false;
-    }
-
-    IEnumerator ShrinkLaserLine(Vector3 start, Vector3 end)
-    {
-        float shrinkTime = 0.5f;
-        float elapsed = 0f;
-
-        while (elapsed < shrinkTime)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / shrinkTime);
-
-            Vector3 currentEnd = Vector3.Lerp(end, start, t);
-            laserLine.SetPosition(0, start);
-            laserLine.SetPosition(1, currentEnd);
-
-            yield return null;
-        }
-
-        laserLine.SetPosition(1, start);
     }
 }
