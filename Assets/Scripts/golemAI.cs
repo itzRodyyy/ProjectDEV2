@@ -452,4 +452,9 @@ public class golemAI : MonoBehaviour, IDamage
     {
         aud.PlayOneShot(audFireball[Random.Range(0, audFireball.Length)], audFireballVol);
     }
+
+    public void AttackSound()
+    {
+        aud.PlayOneShot(audAttack[Random.Range(0, audAttack.Length)], audAttackVol);
+    }
 }

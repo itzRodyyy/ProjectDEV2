@@ -185,7 +185,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100038, guid: d19f0e375a0203a4ca72964404dbd39e, type: 3}
       propertyPath: m_Name
-      value: Golem
+      value: GolemBoss
       objectReference: {fileID: 0}
     - target: {fileID: 100038, guid: d19f0e375a0203a4ca72964404dbd39e, type: 3}
       propertyPath: m_Layer
@@ -233,15 +233,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400038, guid: d19f0e375a0203a4ca72964404dbd39e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.6317205
+      value: -8.32724
       objectReference: {fileID: 0}
     - target: {fileID: 400038, guid: d19f0e375a0203a4ca72964404dbd39e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000047683716
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400038, guid: d19f0e375a0203a4ca72964404dbd39e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.158036
+      value: 13.24672
       objectReference: {fileID: 0}
     - target: {fileID: 400038, guid: d19f0e375a0203a4ca72964404dbd39e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -363,11 +363,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6eaa981cd0e8a014d91efc8b6b885720, type: 3}
   audStepsVol: 1
   audJump: []
-  audJumpVol: 0
-  audHurt: []
-  audHurtVol: 0
-  audAttack: []
-  audAttackVol: 0
+  audJumpVol: 0.215
+  audHurt:
+  - {fileID: 8300000, guid: 0afc821f12c9a0a46a62f2e4a80caa26, type: 3}
+  audHurtVol: 0.252
+  audAttack:
+  - {fileID: 8300000, guid: e10353c5fcf084c41b372ba386a39e9d, type: 3}
+  audAttackVol: 0.166
   audFireball:
   - {fileID: 8300000, guid: a06da7998234f5c4aafee959577fefa2, type: 3}
   audFireballVol: 0.292
