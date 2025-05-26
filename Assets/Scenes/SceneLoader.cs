@@ -23,7 +23,8 @@ public class SceneLoader : MonoBehaviour
     public static void LoadScenes()
     {
         SceneManager.LoadScene("mainScene");
-        SceneManager.LoadScene("sandboxLogan", LoadSceneMode.Additive);
-        SceneManager.LoadScene("sandboxPhil", LoadSceneMode.Additive);
+        SceneManager.LoadScene("sandboxJackie", LoadSceneMode.Additive);
+        SceneManager.LoadScene("MedievalScene", LoadSceneMode.Additive);
+        SceneManager.LoadScene("FutureScene", LoadSceneMode.Additive);
     }
 }
