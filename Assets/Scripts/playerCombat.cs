@@ -74,9 +74,10 @@ public class playerCombat : MonoBehaviour
 
     private void checkCollision() // Combat
     {
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, currentWeapon.range, ~ignoreLayer))
+        if (Physics.Raycast(ray, out hit, currentWeapon.range, ~ignoreLayer))
         {
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
@@ -90,7 +91,7 @@ public class playerCombat : MonoBehaviour
 
             Debug.Log(hit.collider);
 
-            Instantiate(currentWeapon.hitEffect, hit.point, Quaternion.identity);
+            Instantiate(currentWeapon.hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
         }
     }
 

@@ -35,6 +35,7 @@ public class playerHPStats : MonoBehaviour, IDamage
     public void TakeDamage(int amount) // HP & Stats
     {
         HP -= amount;
+        HP = Mathf.Max(0, HP);
         aud.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
         GameManager.instance.UpdateHPUI();
         StartCoroutine(flashDamage());
