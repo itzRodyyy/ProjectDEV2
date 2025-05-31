@@ -3,6 +3,7 @@ using UnityEngine.Rendering;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -79,6 +80,15 @@ public class GameManager : MonoBehaviour
     public int level;
     public int skillPoints;
     public float xp;
+
+
+    public GameObject room2Trigger;
+    public GameObject room3Trigger;
+
+    public int level1Tracker;
+    public int level2Tracker;
+
+    public int currentLevel;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -93,7 +103,9 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        
+        room2Trigger.SetActive(false);
+        room3Trigger.SetActive(false);
+        currentLevel = 1;
     }
 
     // Update is called once per frame
@@ -121,6 +133,8 @@ public class GameManager : MonoBehaviour
         {
             SceneChange();
         }
+
+        levelCheck();
     }
 
     public void updateXP(int exp)
@@ -171,8 +185,11 @@ public class GameManager : MonoBehaviour
         UpdateHPUI();
     }
 
-    public void updateGameGoal(int amount)
+    public void updateGameGoal(int amount, bool gain = false)
     {
+        if (!gain)
+            levelUpdater(currentLevel);
+
         gameGoal += amount;
         gameGoalCountText.text = gameGoal.ToString("F0");
 
@@ -291,5 +308,28 @@ public class GameManager : MonoBehaviour
         previousMenu.SetActive(false);
         menuActive = popupQuit;
         menuActive.SetActive(true);
+    }
+
+    public void levelUpdater(int level, int amount = 0)
+    {
+        switch (level)
+        {
+            case 1:
+                level1Tracker--;
+                break;
+            case 2:
+                level2Tracker--;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void levelCheck()
+    {
+        if (level1Tracker <= 0)
+            room2Trigger.SetActive(true);
+        if (level2Tracker <= 0)
+            room3Trigger.SetActive(true);
     }
 }

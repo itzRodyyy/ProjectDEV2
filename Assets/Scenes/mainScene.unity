@@ -1022,6 +1022,22 @@ PrefabInstance:
       propertyPath: popupQuit
       value: 
       objectReference: {fileID: 1902468226}
+    - target: {fileID: 870137262336356330, guid: f532f830bcc9b244ab43806cc5f700a8, type: 3}
+      propertyPath: room2Trigger
+      value: 
+      objectReference: {fileID: 2089854655}
+    - target: {fileID: 870137262336356330, guid: f532f830bcc9b244ab43806cc5f700a8, type: 3}
+      propertyPath: room3Trigger
+      value: 
+      objectReference: {fileID: 379796214}
+    - target: {fileID: 870137262336356330, guid: f532f830bcc9b244ab43806cc5f700a8, type: 3}
+      propertyPath: level1Tracker
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 870137262336356330, guid: f532f830bcc9b244ab43806cc5f700a8, type: 3}
+      propertyPath: level2Tracker
+      value: 41
+      objectReference: {fileID: 0}
     - target: {fileID: 6403428920484634359, guid: f532f830bcc9b244ab43806cc5f700a8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: gameQuit
