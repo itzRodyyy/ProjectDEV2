@@ -22,6 +22,7 @@ public class RoomTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.transform.position = (spawnPos2) ? GameManager.instance.playerSpawnPos2.transform.position : GameManager.instance.playerSpawnPos3.transform.position;
+            GameManager.instance.respawnPos = (spawnPos2) ? GameManager.instance.playerSpawnPos2 : GameManager.instance.playerSpawnPos3;
         }
     }
 }

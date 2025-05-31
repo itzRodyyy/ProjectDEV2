@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuShop;
     [SerializeField] GameObject menuShopHeal;
     [SerializeField] GameObject menuUpgrade;
+    [SerializeField] GameObject popupQuit;
     [SerializeField] public int price;
     [SerializeField] TMP_Text gameGoalCountText;
     [SerializeField] TMP_Text skillText;
@@ -66,6 +67,8 @@ public class GameManager : MonoBehaviour
     public GameObject playerSpawnPos1;
     public GameObject playerSpawnPos2;
     public GameObject playerSpawnPos3;
+
+    public GameObject respawnPos;
 
     public bool isPaused;
 
@@ -208,6 +211,14 @@ public class GameManager : MonoBehaviour
         menuActive = menuManager.instance.ExitOptions();
     }
 
+    public void cancel()
+    {
+        menuActive.SetActive(false);
+        menuActive = previousMenu;
+        menuActive.SetActive(true);
+        previousMenu = null;
+    }
+
     public void gunShopOpen()
     {
         statePause();
@@ -272,5 +283,13 @@ public class GameManager : MonoBehaviour
         playerSpawnPos1 = GameObject.FindWithTag("Player Spawn Pos 1");
         playerSpawnPos2 = GameObject.FindWithTag("Player Spawn Pos 2");
         playerSpawnPos3 = GameObject.FindWithTag("Player Spawn Pos 3");
+    }
+
+    public void QuitQuery()
+    {
+        previousMenu = menuActive;
+        previousMenu.SetActive(false);
+        menuActive = popupQuit;
+        menuActive.SetActive(true);
     }
 }
