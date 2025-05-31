@@ -18,14 +18,34 @@ public class VolumeControl : MonoBehaviour
 
     private void HandleSliderValueChanged(float value)
     {
-        mixer.SetFloat(volumeParameter, Mathf.Log10(value) * multiplier);
-        aud.PlayOneShot(clip, volume);
+        if (value <= 0.0001f)
+        {
+            mixer.SetFloat(volumeParameter, -80f);
+        }
+        else
+        {
+            mixer.SetFloat(volumeParameter, Mathf.Log10(value) * multiplier);
+        }
+
+        if (value > 0)
+        {
+            aud.PlayOneShot(clip, volume);
+        }
     }
 
     private void Start()
     {
-        slider.value = PlayerPrefs.GetFloat(volumeParameter, slider.value);
-        mixer.SetFloat(volumeParameter, Mathf.Log10(slider.value) * multiplier);
+        float savedValue = PlayerPrefs.GetFloat(volumeParameter, slider.value);
+        slider.value = savedValue;
+
+        if (savedValue <= 0.0001f)
+        {
+            mixer.SetFloat(volumeParameter, -80f);
+        }
+        else
+        {
+            mixer.SetFloat(volumeParameter, Mathf.Log10(savedValue) * multiplier);
+        }
     }
 
     private void OnDisable()
