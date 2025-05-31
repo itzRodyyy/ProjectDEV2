@@ -718,7 +718,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5938147776968327672, guid: 372a231af99efae4b9cbcda474fc75f0, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3844652959699539110, guid: 372a231af99efae4b9cbcda474fc75f0, type: 3}
@@ -730,9 +731,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5729856729212244592, guid: 372a231af99efae4b9cbcda474fc75f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 118221099}
-    - targetCorrespondingSourceObject: {fileID: 5938147776968327672, guid: 372a231af99efae4b9cbcda474fc75f0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1514388891}
     - targetCorrespondingSourceObject: {fileID: 1163537263390683237, guid: 372a231af99efae4b9cbcda474fc75f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 493504434}
@@ -1594,108 +1592,6 @@ AudioSource:
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.5
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!1 &1514388886 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5938147776968327672, guid: 372a231af99efae4b9cbcda474fc75f0, type: 3}
-  m_PrefabInstance: {fileID: 414535193}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &1514388891
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514388886}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 7645565819872498661, guid: f5701cdfbe459b945ac4e1eaf8a9d564, type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0.502
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2676,6 +2572,47 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 102358472102671479, guid: edbd22ab831a0fc4bbc19088f0bc1aa0, type: 3}
+      propertyPath: m_text
+      value: 'Thank you for playing!
+
+        Developers
+
+        ----------
+
+        Jackie
+        Denton
+
+        Gianni Abouzaki
+
+        Caleb O''Connell
+
+        Nhut Huynh
+
+        Asset
+        Creators
+
+        --------------
+
+        Polygon Blacksmith
+
+        Limitless
+
+        Matthew
+        Guz'
+      objectReference: {fileID: 0}
+    - target: {fileID: 102358472102671479, guid: edbd22ab831a0fc4bbc19088f0bc1aa0, type: 3}
+      propertyPath: m_fontSize
+      value: 18.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 102358472102671479, guid: edbd22ab831a0fc4bbc19088f0bc1aa0, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 18.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462621996837318401, guid: edbd22ab831a0fc4bbc19088f0bc1aa0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2524089924661747669, guid: edbd22ab831a0fc4bbc19088f0bc1aa0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
