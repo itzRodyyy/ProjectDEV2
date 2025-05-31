@@ -4,10 +4,11 @@ using UnityEngine;
 public class movementStats : ScriptableObject
 {
     public int moveSpeed;
-    public int sprintMod;
+    public int walkSpeed;
+    public int sprintSpeed;
     public int jumpSpeed;
     public int jumpMax;
     public int gravity;
     public float crouchHeightMod;
-    public float crouchSpeedMod;
+    public int crouchSpeed;
 }

@@ -111,6 +111,7 @@ public class buttonFunctions : MonoBehaviour
                 default: { break; }
             }
             GameManager.instance.hp_stats_script.updateStats();
+            GameManager.instance.hp_stats_script.HP = GameManager.instance.hp_stats_script.MaxHP;
             GameManager.instance.skillPoints--;
             levelUp();
         }

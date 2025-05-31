@@ -54,14 +54,17 @@ public class playerHPStats : MonoBehaviour, IDamage
 
     public void updateStats() // HP & Stats
     {
-        GameManager.instance.strText.text = stats.strength.ToString("F0");
         GameManager.instance.dexText.text = stats.dexterity.ToString("F0");
         GameManager.instance.conText.text = stats.constitution.ToString("F0");
         GameManager.instance.intText.text = stats.intelligence.ToString("F0");
         GameManager.instance.chaText.text = stats.charisma.ToString("F0");
         GameManager.instance.wisText.text = stats.wisdom.ToString("F0");
-        GameManager.instance.movement_script.moveStats.moveSpeed = baseSpeed + GameManager.instance.abilityMod(stats.dexterity);
+        GameManager.instance.movement_script.moveStats.walkSpeed = baseSpeed + GameManager.instance.abilityMod(stats.dexterity);
+        GameManager.instance.movement_script.moveStats.sprintSpeed = GameManager.instance.movement_script.moveStats.walkSpeed * 3;
+        GameManager.instance.movement_script.moveStats.crouchSpeed = Mathf.RoundToInt(GameManager.instance.movement_script.moveStats.walkSpeed / 2);
         MaxHP = baseHP + GameManager.instance.abilityMod(stats.constitution);
+        GameManager.instance.maxHPText.text = MaxHP.ToString("F0");
+        GameManager.instance.walkSpeedText.text = GameManager.instance.movement_script.moveStats.walkSpeed.ToString("F0");
         GameManager.instance.UpdateHPUI();
     }
 }

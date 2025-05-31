@@ -22,7 +22,7 @@ public class playerMovement : MonoBehaviour
     bool isPlayingStep; // Movement
     void Start()
     {
-        
+        moveStats.moveSpeed = moveStats.walkSpeed;
     }
 
     // Update is called once per frame
@@ -71,12 +71,12 @@ public class playerMovement : MonoBehaviour
         if (Input.GetButtonDown("Crouch"))
         {
             controller.height = Mathf.RoundToInt(controller.height * moveStats.crouchHeightMod);
-            moveStats.moveSpeed = Mathf.RoundToInt(moveStats.moveSpeed * moveStats.crouchSpeedMod);
+            moveStats.moveSpeed = moveStats.crouchSpeed;
         }
         if (Input.GetButtonUp("Crouch"))
         {
             controller.height = Mathf.RoundToInt(controller.height / moveStats.crouchHeightMod);
-            moveStats.moveSpeed = Mathf.RoundToInt(moveStats.moveSpeed / moveStats.crouchSpeedMod);
+            moveStats.moveSpeed = moveStats.walkSpeed;
         }
     }
 
@@ -84,12 +84,12 @@ public class playerMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Sprint"))
         {
-            moveStats.moveSpeed *= moveStats.sprintMod;
+            moveStats.moveSpeed = moveStats.sprintSpeed;
             isSprinting = true;
         }
         if (Input.GetButtonUp("Sprint"))
         {
-            moveStats.moveSpeed /= moveStats.sprintMod;
+            moveStats.moveSpeed = moveStats.walkSpeed;
             isSprinting = false;
         }
     }

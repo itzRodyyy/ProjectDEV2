@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: movementStats
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  sprintMod: 3
+  walkSpeed: 5
+  sprintSpeed: 15
   jumpSpeed: 12
   jumpMax: 2
   gravity: 35
   crouchHeightMod: 0.6
-  crouchSpeedMod: 0.6
+  crouchSpeed: 2

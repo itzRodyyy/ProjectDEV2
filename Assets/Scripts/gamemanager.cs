@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
     public TMP_Text intText;
     public TMP_Text chaText;
     public TMP_Text wisText;
+    public TMP_Text maxHPText;
+    public TMP_Text walkSpeedText;
 
 
     GameObject previousMenu;
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text hpValue;
     [SerializeField] TMP_Text levelText;
     public GameObject interactText;
+    
     public GameObject playerSpawnPos1;
     public GameObject playerSpawnPos2;
     public GameObject playerSpawnPos3;
@@ -211,16 +214,10 @@ public class GameManager : MonoBehaviour
 
     public void options()
     {
-        if (menuManager.instance.optionsMenu.activeSelf)
-        {
-            menuManager.instance.ExitOptions();
-            menuActive = menuManager.instance.menuActive;
-        }
-        else
-        {
-            menuManager.instance.OpenOptionsInGame(menuActive);
-            menuActive = menuManager.instance.optionsMenu;
-        }
+        previousMenu = menuActive;
+        previousMenu.SetActive(false);
+        menuActive = menuOptions;
+        menuActive.SetActive(true);
     }
 
     public void cancelOptions()
@@ -252,6 +249,7 @@ public class GameManager : MonoBehaviour
 
     public void OpenUpgrades()
     {
+        hp_stats_script.updateStats();
         skillText.text = skillPoints.ToString("F0");
         menuActive.SetActive(false);
         menuActive = menuUpgrade;
@@ -279,9 +277,9 @@ public class GameManager : MonoBehaviour
 
     public void UpdateHPUI()
     {
-        GameManager.instance.hpValue.text = hp_stats_script.HP.ToString() + "/" + hp_stats_script.MaxHP.ToString();
+        hpValue.text = hp_stats_script.HP.ToString() + "/" + hp_stats_script.MaxHP.ToString();
 
-        GameManager.instance.playerHPBar.fillAmount = (float)hp_stats_script.HP / hp_stats_script.MaxHP;
+        playerHPBar.fillAmount = (float)hp_stats_script.HP / hp_stats_script.MaxHP;
     }
 
     public void SceneChange()
