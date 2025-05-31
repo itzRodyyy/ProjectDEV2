@@ -10,7 +10,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        NewGame();
         GameManager.instance.stateUnpause();
     }
 
@@ -33,11 +33,11 @@ public class buttonFunctions : MonoBehaviour
     {
         GameManager.instance.cancelOptions();
     }
-    //public void respawn()
-    //{
-    //    GameManager.instance.core_script.spawnPlayer();
-    //    GameManager.instance.stateUnpause();
-    //}
+    public void respawn()
+    {
+        GameManager.instance.core_script.spawnPlayer(GameManager.instance.respawnPos.transform.position);
+        GameManager.instance.stateUnpause();
+    }
 
     public void increaseHP(int cost)
     {
@@ -152,5 +152,20 @@ public class buttonFunctions : MonoBehaviour
     public void NewGame()
     {
         SceneLoader.LoadScenes();
+        GameManager.instance.stateUnpause();
+    }
+
+    public void gameQuit()
+    {
+        GameManager.instance.QuitQuery();
+    }
+
+    public void yes()
+    {
+        SceneManager.LoadScene("mainMenu");
+    }
+    public void no()
+    {
+        GameManager.instance.cancel();
     }
 }

@@ -21,6 +21,7 @@ public class playerCore : MonoBehaviour
     void Start()
     {
         spawnPlayer(GameManager.instance.playerSpawnPos1.transform.position);
+        GameManager.instance.respawnPos = GameManager.instance.playerSpawnPos1;
     }
 
     // Update is called once per frame
