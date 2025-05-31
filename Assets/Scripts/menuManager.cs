@@ -48,17 +48,26 @@ public class menuManager : MonoBehaviour
 
     private void sfxVolumeValueChange(float value)
     {
-        audioMixer.SetFloat(sfxVolumeParameter, Mathf.Log10(value) * 20f);
+        if (value <= 0.0001f)
+            audioMixer.SetFloat(sfxVolumeParameter, -80f);
+        else
+            audioMixer.SetFloat(sfxVolumeParameter, Mathf.Log10(value) * 20f);
     }
 
     private void musicVolumeValueChange(float value)
     {
-        audioMixer.SetFloat(musicVolumeParameter, Mathf.Log10(value) * 20f);
+        if (value <= 0.0001f)
+            audioMixer.SetFloat(musicVolumeParameter, -80f);
+        else
+            audioMixer.SetFloat(musicVolumeParameter, Mathf.Log10(value) * 20f);
     }
 
     private void masterVolumeValueChange(float value)
     {
-        audioMixer.SetFloat(masterVolumeParameter, Mathf.Log10(value) * 20f);
+        if (value <= 0.0001f)
+            audioMixer.SetFloat(masterVolumeParameter, -80f);
+        else
+            audioMixer.SetFloat(masterVolumeParameter, Mathf.Log10(value) * 20f);
     }
 
     // Update is called once per frame
